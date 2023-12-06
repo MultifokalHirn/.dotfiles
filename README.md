@@ -8,37 +8,45 @@ For now, this repository mainly consists of:
   - `zsh`
   - `git`
   - `ruby gem`
-- my favorite `brew` packages (installable via a `Brewfile`)
+- a `Brewfile` with `brew` packages I consider essential
 
-I usually use macOS, so some of the files and instructions may be specific
+I mainly use devices running  macOS, so some of the topics here may be specific
 to that operating system. However, most of the config files are platform
 agnostic and can be used anywhere you would want to use them.
+<!--more-->
 
 ## Using this Repository
 
-I follow the approach of [Drew DeVault](https://drewdevault.com/)'s blog post
-[*Managing my dotfiles as a git repository*](https://drewdevault.com/2019/12/30/dotfiles.html).
+I follow the approach described in [Drew DeVault](https://drewdevault.com/)'s
+blog [post](https://drewdevault.com/2019/12/30/dotfiles.html) "*Managing my
+dotfiles as a git repository*".
 
 ```bash
 cd ~
 git init
 git remote add origin https://github.com/MultifokalHirn/.dotfiles.git
 git fetch --all
-
-# Attention!
-# If you are not on a fresh system, make a backup before proceeding! 
-# Or at least go through the repo's contents, and for all files that you 
-# probably do not want to get overwritten, rename them to <name>.bak or so.
 ```
 
 The next step will be to merge the repository contents with your current
-setup. **Please be very careful here**!
+setup. **Please be very careful here!**
+
+> **Attention!**
+If you are not on a fresh system, make a backup before proceeding!
+Or at least go through the repo's contents, and for all files that you
+probably do not want to get overwritten, rename them to `<name>.bak` or somesuch.
+
+I recommend you first run the following, which will already work, if your home folder does not conflict with the repo
 
 ``` bash
-# this will already work if your home folder doesnt conflict with the repo
-git checkout main 
+git checkout main  # 'main' is this repo's main branch 
+```
 
-# if you have made backups and are **sure** any force-overwrite will be fine
+If that *did* produce an error, you *can* force the `checkout` as per below.
+
+Again, ***please* make backups and make sure that you will not be able to overwrite anything that cannot be restored**.
+
+``` bash
 git checkout --force main
 ```
 
@@ -61,8 +69,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/inst
 ```
 
 In [`Brewfile-MultifokalHirn`](./Brewfile-MultifokalHirn) I have collected a
-set of packages and applications that I would want to have on any new system -
-to learn more, just check out the `Brewfile`.
+set of packages and applications that are essential to how I work and use my computer. I added a short explanation for each, so please have a look at the `Brewfile` to learn more.
 
 You can install the packages contained within like so:
 
@@ -127,7 +134,7 @@ cd $ZSH_CUSTOM/plugins/
 
 #### `python`
 
-I *always* advise to use `pyenv` when developing software with `python`.
+I *always* recommend to use `pyenv` when developing software using `python`.
 It allows you to install and switch between different versions of `python` and
 decouples your development environment from the system `python` which Apple
 will update from time to time, potentially breaking your development setup.
@@ -149,7 +156,8 @@ it uses the `pipx` virtual environment.
 python -V # check whether you are using the intended python version
 pip install --upgrade pipx
 pipx ensurepath
-pipx install pdm ruff pre-commit virtualenvwrapper
+
+pipx install ruff virtualenvwrapper # example packages
 ```
 
 ### `ruby`
