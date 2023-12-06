@@ -1,16 +1,20 @@
 # .dotfiles
 
-MultifokalHirn's `.dotfiles` repository, managed using the
-
 ## Overview
 
-My setup is based on macOS, so some of the files and instructions are specific
-to that operating system. However, most of the files are platform agnostic and
-can be used on any Unix-like system.
+For now, this repository mainly consists of:
 
-## How-To
+- configuration for
+  - `zsh`
+  - `git`
+  - `ruby gem`
+- my favorite `brew` packages (installable via a `Brewfile`)
 
-### Using this Repository
+I usually use macOS, so some of the files and instructions may be specific
+to that operating system. However, most of the config files are platform
+agnostic and can be used anywhere you would want to use them.
+
+## Using this Repository
 
 I follow the approach of [Drew DeVault](https://drewdevault.com/)'s blog post
 [*Managing my dotfiles as a git repository*](https://drewdevault.com/2019/12/30/dotfiles.html).
@@ -21,22 +25,36 @@ git init
 git remote add origin https://github.com/MultifokalHirn/.dotfiles.git
 git fetch --all
 
-#### Attention!
+# Attention!
 # If you are not on a fresh system, make a backup before proceeding! 
 # Or at least go through the repo's contents, and for all files that you 
 # probably do not want to get overwritten, rename them to <name>.bak or so.
+```
 
-# will already work if your home folder doesnt conflict with the repo
+The next step will be to merge the repository contents with your current
+setup. **Please be very careful here**!
+
+``` bash
+# this will already work if your home folder doesnt conflict with the repo
 git checkout main 
 
 # if you have made backups and are **sure** any force-overwrite will be fine
 git checkout --force main
 ```
 
-### brew packages
+## Basic Setup
 
-`brew` is a package manager for macOS similar to `apt-get` and `yum`. You can
-install it like so:
+### iTerm2
+
+I use [iTerm2](https://iterm2.com) as a replacement for *Terminal*, which comes shipped with macOS. Please refer to the iterm2 homepage to learn more about its features and how to install it.
+
+**Note:** Whether you use iTerm2, Terminal, or some other terminal emulator has no effect on the rest described herein.
+
+### `brew` packages
+
+[`brew`](https://brew.sh) is a package manager for macOS similar to `apt-get` and `yum`, meaing it can be used to install a wide range of stuff - anything from fundamental (CLI) tools like `ssh` or `git` to GUI apps like Handbrake or Firefox.
+
+You can install `brew` like so:
 
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -44,7 +62,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/inst
 
 In [`Brewfile-MultifokalHirn`](./Brewfile-MultifokalHirn) I have collected a
 set of packages and applications that I would want to have on any new system -
-to learn more, just check out the Brewfile.
+to learn more, just check out the `Brewfile`.
 
 You can install the packages contained within like so:
 
@@ -52,12 +70,13 @@ You can install the packages contained within like so:
 brew bundle --file=~/Brewfile-MultifokalHirn
 ```
 
-### zsh
+### `zsh`
 
 I use `zsh` in combination with the config framework
 [`ohmyzsh`](https://github.com/ohmyzsh/ohmyzsh) (mostly out of habit, I have
-not looked at other alternatives to plain `bash` so far). `zsh` will be
-installed if you used my Brewfile, otherwise you can install it like so:
+not looked at other alternatives to plain `bash` so far).
+
+`zsh` will be installed if you used my `Brewfile`, otherwise you can install it like so:
 
 ```bash
 brew install zsh  # consider setting it as you default shell
@@ -71,11 +90,11 @@ information):
 `sh -c "$(curl -fsSL https://install.ohmyz.sh/)"`
 ```
 
-#### Configuring zsh
+#### Configuring `zsh`
 
-Please refer to my [.zshrc](.zshrc) to check out the configuration I use.
+Please refer to my [`.zshrc`](.zshrc) to check out the configuration I use. For me, the config results in shell that extremely fun and quick to use, while also being aesthetically pleasing (at least to me).
 
-#### Extending ohmyzsh
+#### Extending `ohmyzsh`
 
 To install custom themes or plugins, you have to be in the respective
 directory in the folder assigned to `$ZSH_CUSTOM` (which is usually
@@ -106,11 +125,11 @@ cd $ZSH_CUSTOM/plugins/
   
 ### Setups for specific languages
 
-#### python
+#### `python`
 
-I *always* advise to use `pyenv` when developing software with Python.
-It allows you to install and switch between different versions of Python and
-decouples your development environment from the system Python which Apple
+I *always* advise to use `pyenv` when developing software with `python`.
+It allows you to install and switch between different versions of `python` and
+decouples your development environment from the system `python` which Apple
 will update from time to time, potentially breaking your development setup.
 
 ```bash
@@ -119,20 +138,21 @@ pyenv install 3.12.0 # example version
 pyenv global 3.12.0
 ```
 
-##### pipx
+##### `pipx`
 
-`pipx` is a tool to install and run Python packages globally.
+`pipx` is a tool to install and use packages 'globally'.
 It installs `pipx` itself into a separate virtual environment from your
-default Python interpreter, and makes sure that when you run `pipx` command,
+default `python` interpreter, and makes sure that when you run `pipx` command,
 it uses the `pipx` virtual environment.
 
 ```bash
-pip install --upgrade pip pipx
+python -V # check whether you are using the intended python version
+pip install --upgrade pipx
 pipx ensurepath
 pipx install pdm ruff pre-commit virtualenvwrapper
 ```
 
-### ruby
+### `ruby`
 
 macOS has a built-in version of `ruby`. However, I highly advise installing
 *separate* `ruby` versions and *only* using those in when developing. On a
@@ -149,15 +169,15 @@ which ruby
 # /Users/my_user/.gem/ruby/2.6.0
 ```
 
-#### Setup
+To install a `ruby` version can run the following:
+
+> `TODO` - rewrite using `rbenv`
 
 ```bash
-brew install rbenv ruby
-
-source ~/.zshrc
+brew install ruby
 ```
 
-Your `ruby` version should now be the one installed by `brew` and behave
+Your `ruby` version should - at least once you reload the shell - be the one installed by `brew` and behave
 similar to the following:
 
 ``` bash
@@ -171,7 +191,7 @@ ruby -e 'puts Gem.user_dir'
 # /Users/my_user/.gem/ruby/3.2.0
 ```
 
-### rust
+### `rust`
 
 You can install `rustup` like so:
 
@@ -179,7 +199,7 @@ You can install `rustup` like so:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-#### sccache
+#### `sccache`
 
 `sccache` is a compiler cache. It speeds up compilation by caching previous compilations and detecting when the same compilation is being done again.
 
