@@ -1,6 +1,6 @@
 # .dotfiles
 
-MultifokalHirn's dotfiles repository, managed using the technique describe by
+MultifokalHirn's `.dotfiles` repository, managed using the technique describe by
 [Drew DeVault](https://drewdevault.com/) in his blog post
 [*Managing my dotfiles as a git repository*](https://drewdevault.com/2019/12/30/dotfiles.html).
 
@@ -15,12 +15,12 @@ can be used on any Unix-like system.
 ## brew
 
 `brew` is a package manager for macOS. It is used to install and update
-software packages. It is similar to apt-get, yum, or portage.
+software packages. It is similar to `apt-get` and `yum`.
 
 ### Installation
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 ### Install MultifokalHirn's brew packages
@@ -36,26 +36,47 @@ many useful features.
 
 ### oh-my-zsh
 
-For the installation of `oh-my-zsh` please refer to the
-[official documentation](https://github.com/ohmyzsh/ohmyzsh/wiki).
+> This is just quick supmmary of how to get and run the interactive install
+> script for `oh-my-zsh`. For more, please please refer to the
+> [official documentation](https://github.com/ohmyzsh/ohmyzsh/wiki).
 
-#### Custom Plugins
-
-```bash
-cd ~/.oh-my-zsh/custom/plugins/ # or $ZSH_CUSTOM/plugins
-
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git  
-git clone https://github.com/zsh-users/zsh-autosuggestions.git 
-git clone https://github.com/zsh-users/zsh-completions.git 
-git clone https://github.com/lukechilds/zsh-nvm.git 
-git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git 
-# git clone https://github.com/mroth/evalcache
-```
+| Method   | Command                                           |
+| :------- | :------------------------------------------------ |
+| **curl** | `sh -c "$(curl -fsSL https://install.ohmyz.sh/)"` |
+| **wget** | `sh -c "$(wget -O- https://install.ohmyz.sh/)"`   |
 
 #### .zshrc
 
 Please refer to my [.zshrc](.zshrc) for the configuration I use.
 
+#### Extending oh-my-zsh
+
+To install custom plugins and themes, you have to be in the respective
+directory in the folder assigned to `$ZSH_CUSTOM` (which is usually `~/.oh-my-zsh/custom/`).
+
+##### Custom Themes
+
+```bash
+cd $ZSH_CUSTOM/themes/ 
+```
+
+| Theme              | Command                                                              |
+| :----------------- | :------------------------------------------------------------------- |
+| `spaceship-prompt` | `git clone https://github.com/spaceship-prompt/spaceship-prompt.git` |
+
+##### Custom Plugins
+
+```bash
+cd $ZSH_CUSTOM/plugins/ 
+```
+
+| Plugin                    | Command                                                            |
+| :------------------------ | :----------------------------------------------------------------- |
+| `zsh-autosuggestions`     | `git clone https://github.com/zsh-users/zsh-autosuggestions.git`   |
+| `zsh-completions`         | `git clone https://github.com/zsh-users/zsh-completions.git`       |
+| `zsh-nvm`                 | `git clone https://github.com/lukechilds/zsh-nvm.git`              | `` |
+| `OhMyZsh-full-autoupdate` | `git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git` | `` |
+  
 ## Setups for specific languages
 
 ### python
@@ -109,6 +130,7 @@ which ruby
 
 ```bash
 brew install rbenv ruby
+
 source ~/.zshrc
 ```
 
@@ -124,7 +146,6 @@ ruby -v
 
 ruby -e 'puts Gem.user_dir'
 # /Users/my_user/.gem/ruby/3.2.0
-
 ```
 
 ### rust
@@ -133,7 +154,6 @@ ruby -e 'puts Gem.user_dir'
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-# cargo add self_update
 ```
 
 #### sccache
