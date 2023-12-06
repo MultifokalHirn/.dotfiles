@@ -1,0 +1,11 @@
+*
+
+# Since we ignore all files, we need to override the .gitignore file on a 
+# case-by-case basis whenever we want to add a new file:
+# 
+# $ git add -f .somefile
+#
+# Then you can commit and push normally, and .somefile is tracked by git. 
+# The .gitignore file does not apply to any files which are already being 
+# tracked by git, so any future changes to my .somefile show up in git status, 
+# git diff, etc. as usual.
