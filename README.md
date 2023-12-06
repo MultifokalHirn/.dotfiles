@@ -1,8 +1,6 @@
 # .dotfiles
 
-MultifokalHirn's `.dotfiles` repository, managed using the technique describe by
-[Drew DeVault](https://drewdevault.com/) in his blog post
-[*Managing my dotfiles as a git repository*](https://drewdevault.com/2019/12/30/dotfiles.html).
+MultifokalHirn's `.dotfiles` repository, managed using the
 
 ## Overview
 
@@ -12,49 +10,78 @@ can be used on any Unix-like system.
 
 ## How-To
 
-## brew
+### Using this Repository
 
-`brew` is a package manager for macOS. It is used to install and update
-software packages. It is similar to `apt-get` and `yum`.
+I follow the approach of [Drew DeVault](https://drewdevault.com/)'s blog post
+[*Managing my dotfiles as a git repository*](https://drewdevault.com/2019/12/30/dotfiles.html).
 
-### Installation
+```bash
+cd ~
+git init
+git remote add origin https://github.com/MultifokalHirn/.dotfiles.git
+git fetch --all
+
+#### Attention!
+# If you are not on a fresh system, make a backup before proceeding! 
+# Or at least go through the repo's contents, and for all files that you 
+# probably do not want to get overwritten, rename them to <name>.bak or so.
+
+# will already work if your home folder doesnt conflict with the repo
+git checkout main 
+
+# if you have made backups and are **sure** any force-overwrite will be fine
+git checkout --force main
+```
+
+### brew packages
+
+`brew` is a package manager for macOS similar to `apt-get` and `yum`. You can
+install it like so:
 
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### Install MultifokalHirn's brew packages
+In [`Brewfile-MultifokalHirn`](./Brewfile-MultifokalHirn) I have collected a
+set of packages and applications that I would want to have on any new system -
+to learn more, just check out the Brewfile.
+
+You can install the packages contained within like so:
 
 ```bash
 brew bundle --file=~/Brewfile-MultifokalHirn
 ```
 
-## zsh
+### zsh
 
-`zsh` is the shell I use on macOS. It is an extended version of `bash` with
-many useful features.
+I use `zsh` in combination with the config framework
+[`ohmyzsh`](https://github.com/ohmyzsh/ohmyzsh) (mostly out of habit, I have
+not looked at other alternatives to plain `bash` so far). `zsh` will be
+installed if you used my Brewfile, otherwise you can install it like so:
 
-### oh-my-zsh
+```bash
+brew install zsh  # consider setting it as you default shell
+```
 
-> This is just quick supmmary of how to get and run the interactive install
-> script for `oh-my-zsh`. For more, please please refer to the
-> [official documentation](https://github.com/ohmyzsh/ohmyzsh/wiki).
+You can install `ohmyzsh` like so (please refer to the
+[official documentation](https://github.com/ohmyzsh/ohmyzsh/wiki) for more
+information):
 
-| Method   | Command                                           |
-| :------- | :------------------------------------------------ |
-| **curl** | `sh -c "$(curl -fsSL https://install.ohmyz.sh/)"` |
-| **wget** | `sh -c "$(wget -O- https://install.ohmyz.sh/)"`   |
+```bash
+`sh -c "$(curl -fsSL https://install.ohmyz.sh/)"`
+```
 
-#### .zshrc
+#### Configuring zsh
 
-Please refer to my [.zshrc](.zshrc) for the configuration I use.
+Please refer to my [.zshrc](.zshrc) to check out the configuration I use.
 
-#### Extending oh-my-zsh
+#### Extending ohmyzsh
 
-To install custom plugins and themes, you have to be in the respective
-directory in the folder assigned to `$ZSH_CUSTOM` (which is usually `~/.oh-my-zsh/custom/`).
+To install custom themes or plugins, you have to be in the respective
+directory in the folder assigned to `$ZSH_CUSTOM` (which is usually
+`~/.oh-my-zsh/custom/`).
 
-##### Custom Themes
+##### Themes
 
 ```bash
 cd $ZSH_CUSTOM/themes/ 
@@ -64,7 +91,7 @@ cd $ZSH_CUSTOM/themes/
 | :----------------- | :------------------------------------------------------------------- |
 | `spaceship-prompt` | `git clone https://github.com/spaceship-prompt/spaceship-prompt.git` |
 
-##### Custom Plugins
+##### Plugins
 
 ```bash
 cd $ZSH_CUSTOM/plugins/ 
@@ -74,14 +101,12 @@ cd $ZSH_CUSTOM/plugins/
 | :------------------------ | :----------------------------------------------------------------- |
 | `zsh-autosuggestions`     | `git clone https://github.com/zsh-users/zsh-autosuggestions.git`   |
 | `zsh-completions`         | `git clone https://github.com/zsh-users/zsh-completions.git`       |
-| `zsh-nvm`                 | `git clone https://github.com/lukechilds/zsh-nvm.git`              | `` |
-| `OhMyZsh-full-autoupdate` | `git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git` | `` |
+| `zsh-nvm`                 | `git clone https://github.com/lukechilds/zsh-nvm.git`              |
+| `OhMyZsh-full-autoupdate` | `git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git` |
   
-## Setups for specific languages
+### Setups for specific languages
 
-### python
-
-#### Installation
+#### python
 
 I *always* advise to use `pyenv` when developing software with Python.
 It allows you to install and switch between different versions of Python and
@@ -94,7 +119,7 @@ pyenv install 3.12.0 # example version
 pyenv global 3.12.0
 ```
 
-#### pipx
+##### pipx
 
 `pipx` is a tool to install and run Python packages globally.
 It installs `pipx` itself into a separate virtual environment from your
@@ -103,17 +128,15 @@ it uses the `pipx` virtual environment.
 
 ```bash
 pip install --upgrade pip pipx
-
 pipx ensurepath
 pipx install pdm ruff pre-commit virtualenvwrapper
 ```
 
 ### ruby
 
-macOS has a built-in version of `ruby`. However, it is highly advised to install
-a separate version for your own development using `brew`.
-
-System ruby:
+macOS has a built-in version of `ruby`. However, I highly advise installing
+*separate* `ruby` versions and *only* using those in when developing. On a
+fresh system, you will see the following behavior:
 
 ```bash
 which ruby
@@ -123,7 +146,7 @@ which ruby
 # ruby 2.6.10p210 (2022-04-12 revision 67958) [universal.x86_64-darwin21]
 
 /usr/bin/ruby -e 'puts Gem.user_dir'
-# /Users/lennardwolf/.gem/ruby/2.6.0
+# /Users/my_user/.gem/ruby/2.6.0
 ```
 
 #### Setup
@@ -150,7 +173,7 @@ ruby -e 'puts Gem.user_dir'
 
 ### rust
 
-#### Installation
+You can install `rustup` like so:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
