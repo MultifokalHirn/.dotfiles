@@ -1,10 +1,14 @@
-# This Brewfile contains a list of Homebrew and Cask packages to be installed.
-# Homebrew is a package manager for macOS, and Cask is an extension for Homebrew that allows the installation of macOS applications.
+# This Brewfile contains a list of Homebrew and Cask packages to be installed
+
+# Homebrew is a package manager for macOS, and Cask is an extension for Homebrew that allows the installation of macOS applications
+
 # Usage: brew bundle --file=~/Brewfile-MultifokalHirn
 
-# Homebrew Packages:
+# Homebrew Packages
+
 brew "asciinema"                 # Terminal session recorder
 brew "bat"                       # Cat clone with syntax highlighting
+brew "bash"
 brew "bottom"                    # Cross-platform graphical process/system monitor
 brew "broot"                     # File manager and launcher for the command-line
 brew "exa"                       # Modern replacement for 'ls' command
@@ -12,6 +16,7 @@ brew "font-hack-nerd-font"       # Nerd Font patched version of Hack font
 brew "fortune"                   # Display random quotes
 brew "fzf"                       # Command-line fuzzy finder
 brew "gh"                        # GitHub CLI tool
+brew "git-extras"
 brew "git-delta"                 # Syntax-highlighting pager for Git
 brew "git"                       # Distributed version control system
 brew "glances"                   # System monitoring tool
@@ -19,7 +24,7 @@ brew "htop"                      # Interactive process viewer
 brew "jesseduffield/lazydocker/lazydocker"  # Docker CLI for the terminal
 brew "jq"                        # Lightweight and flexible command-line JSON processor
 brew "lazydocker"                # Terminal UI for Docker and Docker Compose
-# brew "lsd"                     # Colorful ls command alternative (commented out)
+brew "lesspipe"
 brew "mas"                       # Mac App Store command-line interface
 brew "muesli/homebrew-tap/duf"   # Disk Usage/Free Utility
 brew "nano"                      # Text editor
@@ -41,7 +46,8 @@ brew "wget"                      # Internet file retriever
 brew "zsh-completions"           # Additional completion definitions for Zsh
 brew "zsh"                       # Zsh shell
 
-# Cask Packages:
+# Cask Packages
+
 cask "dozer"                     # Hide menu bar icons on macOS
 cask "firefox"                   # Web browser
 cask "github"                    # GitHub Desktop client

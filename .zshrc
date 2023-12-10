@@ -64,10 +64,10 @@ zstyle ':omz:update' frequency 7
 
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-plugins=(git zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-interactive-cd zsh-navigation-tools macos ssh-agent history docker docker-compose 1password pre-commit python github zsh-nvm ohmyzsh-full-autoupdate)
+plugins=(git fzf-tab fzf-tab-source zsh-completions fast-syntax-highlighting  zsh-autosuggestions  macos ssh-agent history docker fzf-tab-source pre-commit python github zsh-nvm ohmyzsh-full-autoupdate)
 
 # Disabled plugins:
-# tmux pyenv
+# tmux pyenv docker-compose zsh-navigation-tools zsh-interactive-cd  zsh-syntax-highlighting
 
 source $ZSH/oh-my-zsh.sh
 
@@ -75,6 +75,80 @@ source $ZSH/oh-my-zsh.sh
 #-------------------------- USER CONFIG --------------------------#
 ###################################################################
 
+## ZSH
+source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+### fzf-tab
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+# show options in as popup - tmux must be installed
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
+# systemd - not relevant for mac
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+# previews
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
+export LESSOPEN='|~/.lessfilter %s'
+export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
+zstyle ':fzf-tab:complete:*:options' fzf-preview 
+zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
+# preview env vars
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
+	fzf-preview 'echo ${(P)word}'
+# preview git
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
+	'git diff $word | delta'
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
+	'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
+	'git help $word | bat -plman --color=always'
+zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
+	'case "$group" in
+	"commit tag") git show --color=always $word ;;
+	*) git show --color=always $word | delta ;;
+	esac'
+zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+	'case "$group" in
+	"modified file") git diff $word | delta ;;
+	"recent commit object name") git show --color=always $word | delta ;;
+	*) git log --color=always $word ;;
+	esac'
+# preview brew
+zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word'
+zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
+zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3:wrap'
+zstyle ':fzf-tab:complete:kill:*' popup-pad 0 3
+# zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
+zstyle ":fzf-tab:*" fzf-flags --color=bg+:23
+# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# zstyle ":completion:*:git-checkout:*" sort false
+zstyle ':completion:*' file-sort modification
+zstyle ':completion:*:exa' sort false
+zstyle ':completion:files' sort false
+zstyle ':completion:*:complete:*' use-cache true
+zstyle ':completion:*' menu yes select # search
+zstyle ':completion:*' list-grouped false
+zstyle ':completion:*' list-separator ''
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*:warnings' format '%F{red}%B-- No match for: %d --%b%f'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+setopt complete_in_word
+setopt no_beep
 ## ENV VARS
 
 export LANG=en_US.UTF-8
@@ -101,6 +175,8 @@ export WORDCHARS='*?[]~&;!$%^<>'
 #-----------------------------------------------------------------#
 
 ## PYTHON
+### python-better-expections
+export FORCE_COLOR=1
 export BETTER_EXCEPTIONS=1
 
 ### pyenv
