@@ -24,6 +24,8 @@ brew "htop"                      # Interactive process viewer
 brew "jesseduffield/lazydocker/lazydocker"  # Docker CLI for the terminal
 brew "jq"                        # Lightweight and flexible command-line JSON processor
 brew "lazydocker"                # Terminal UI for Docker and Docker Compose
+brew "hr"
+brew "chafa"
 brew "lesspipe"
 brew "mas"                       # Mac App Store command-line interface
 brew "muesli/homebrew-tap/duf"   # Disk Usage/Free Utility
@@ -49,6 +51,7 @@ brew "zsh"                       # Zsh shell
 # Cask Packages
 
 cask "dozer"                     # Hide menu bar icons on macOS
+cask "kitty"
 cask "firefox"                   # Web browser
 cask "github"                    # GitHub Desktop client
 cask "google-chrome"             # Web browser

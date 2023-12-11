@@ -54,7 +54,8 @@ git checkout --force main
 
 ### iTerm2
 
-I use [iTerm2](https://iterm2.com) as a replacement for *Terminal*, which comes shipped with macOS. Please refer to the iterm2 homepage to learn more about its features and how to install it.
+I use [iTerm2](https://iterm2.com) as a replacement for *Terminal*, which comes
+shipped with macOS. Please refer to the iterm2 homepage to learn more about its features and how to install it.
 
 **Note:** Whether you use iTerm2, Terminal, or some other terminal emulator has no effect on the rest described herein.
 
@@ -126,6 +127,9 @@ cd $ZSH_CUSTOM/plugins/
 | Plugin                    | Command                                                            |
 | :------------------------ | :----------------------------------------------------------------- |
 | `zsh-autosuggestions`     | `git clone https://github.com/zsh-users/zsh-autosuggestions.git`   |
+| `fzf-tab`                 | `git clone https://github.com/Aloxaf/fzf-tab`                        |
+| `fzf-tab-source`          | `git clone https://github.com/Freed-Wu/fzf-tab-source`             |
+| `fast-syntax-highlighting`| `git clone https://github.com/zdharma-continuum/fast-syntax-highlighting`   |
 | `zsh-completions`         | `git clone https://github.com/zsh-users/zsh-completions.git`       |
 | `zsh-nvm`                 | `git clone https://github.com/lukechilds/zsh-nvm.git`              |
 | `OhMyZsh-full-autoupdate` | `git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git` |

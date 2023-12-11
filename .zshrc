@@ -64,7 +64,7 @@ zstyle ':omz:update' frequency 7
 
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-plugins=(git fzf-tab fzf-tab-source zsh-completions fast-syntax-highlighting  zsh-autosuggestions  macos ssh-agent history docker fzf-tab-source pre-commit python github zsh-nvm ohmyzsh-full-autoupdate)
+plugins=(git fzf-tab fzf-tab-source zsh-completions fast-syntax-highlighting  zsh-autosuggestions macos ssh-agent history docker pre-commit python github zsh-nvm ohmyzsh-full-autoupdate)
 
 # Disabled plugins:
 # tmux pyenv docker-compose zsh-navigation-tools zsh-interactive-cd  zsh-syntax-highlighting
@@ -76,7 +76,11 @@ source $ZSH/oh-my-zsh.sh
 ###################################################################
 
 ## ZSH
+
+setopt no_beep
+setopt complete_in_word
 source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
+
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 # set descriptions format to enable group support
@@ -95,7 +99,24 @@ zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
 # systemd - not relevant for mac
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 # previews
+preview() {
+  if file --mime-type {} | grep -qF image/; then
+    kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} | sed \$d
+  else
+    less ${(Q)realpath}
+    # bat --color=always {}
+fi
+}
 zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
+# zstyle ':fzf-tab:complete:*:*' fzf-preview 'preview'
+
+# zstyle ':fzf-tab:complete:*:*' fzf-preview \
+# 'if file --mime-type {} | grep -qF image/; then
+#     kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} | sed \$d
+#   else
+#     less ${(Q)realpath}
+#     # bat --color=always {}
+# fi'
 export LESSOPEN='|~/.lessfilter %s'
 export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
 zstyle ':fzf-tab:complete:*:options' fzf-preview 
@@ -147,8 +168,9 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
-setopt complete_in_word
-setopt no_beep
+source ~/auto-sized-fzf.sh
+
+
 ## ENV VARS
 
 export LANG=en_US.UTF-8
@@ -244,6 +266,11 @@ auto-retry() {
       false
     )
   done
+}
+# FZF_DEFAULT_OPTS="--border --no-height $(fzf_sizer_preview_window_settings)"
+# resize window and fzf preview sizing/location will resize with you
+precmd() {
+  FZF_DEFAULT_OPTS="--border --no-height $(fzf_sizer_preview_window_settings)"
 }
 
 #                             ALIASES                             #
