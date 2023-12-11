@@ -64,16 +64,18 @@ zstyle ':omz:update' frequency 7
 
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-plugins=(git fzf-tab fzf-tab-source zsh-completions fast-syntax-highlighting  zsh-autosuggestions macos ssh-agent history docker pre-commit python github zsh-nvm ohmyzsh-full-autoupdate)
+plugins=(git fzf-tab fzf-tab-source zsh-completions fast-syntax-highlighting zsh-autosuggestions macos history docker pre-commit python github zsh-nvm ohmyzsh-full-autoupdate pyenv-lazy zinsults)
 
 # Disabled plugins:
-# tmux pyenv docker-compose zsh-navigation-tools zsh-interactive-cd  zsh-syntax-highlighting
+# tmux pyenv docker-compose zsh-navigation-tools zsh-interactive-cd  zsh-syntax-highlighting ssh-agent
 
 source $ZSH/oh-my-zsh.sh
 
 ###################################################################
 #-------------------------- USER CONFIG --------------------------#
 ###################################################################
+## PATH
+PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 
 ## ZSH
 
@@ -86,9 +88,15 @@ zstyle ':completion:*:git-checkout:*' sort false
 # set descriptions format to enable group support
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 ### fzf-tab
+FZF_TAB_GROUP_COLORS=(
+  $'\033[94m' $'\033[32m' $'\033[33m' $'\033[35m' $'\033[31m' $'\033[38;5;27m' $'\033[36m'
+  $'\033[38;5;100m' $'\033[38;5;98m' $'\033[91m' $'\033[38;5;80m' $'\033[92m'
+  $'\033[38;5;214m' $'\033[38;5;165m' $'\033[38;5;124m' $'\033[38;5;120m'
+)
+zstyle ':fzf-tab:*' group-colors $FZF_TAB_GROUP_COLORS
 # preview directory's content with exa when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 # switch group using `,` and `.`
@@ -119,25 +127,25 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 # fi'
 export LESSOPEN='|~/.lessfilter %s'
 export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
-zstyle ':fzf-tab:complete:*:options' fzf-preview 
+zstyle ':fzf-tab:complete:*:options' fzf-preview
 zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
 # preview env vars
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
-	fzf-preview 'echo ${(P)word}'
+  fzf-preview 'echo ${(P)word}'
 # preview git
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
-	'git diff $word | delta'
+  'git diff $word | delta'
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
-	'git log --color=always $word'
+  'git log --color=always $word'
 zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
-	'git help $word | bat -plman --color=always'
+  'git help $word | bat -plman --color=always'
 zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
-	'case "$group" in
+  'case "$group" in
 	"commit tag") git show --color=always $word ;;
 	*) git show --color=always $word | delta ;;
 	esac'
 zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
-	'case "$group" in
+  'case "$group" in
 	"modified file") git diff $word | delta ;;
 	"recent commit object name") git show --color=always $word | delta ;;
 	*) git log --color=always $word ;;
@@ -205,7 +213,7 @@ export BETTER_EXCEPTIONS=1
 export PATH="$PYENV_ROOT/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# eval "$(pyenv init -)"
 
 ### tk-inter
 export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
@@ -286,11 +294,15 @@ alias htop='btm'
 alias la="exa -la --icons"
 alias lzd='lazydocker'
 alias update="brew update; brew upgrade" # update brew apps/libs
+alias rm='safe-rm'                       # https://github.com/kaelzhang/shell-safe-rm
 
-# Colorize terminal
+# TODO: consider using this instead:
+# Remove all items safely, to Trash (`brew install trash`).
+# [[ -z "$commands[trash]" ]] || alias rm='trash' 2>&1 > /dev/null
 
-# alias ls='ls -G'
-# alias ll='ls -lG'
+alias stats='sort | uniq -c | sort -r'
+# Lists the ten most used commands.
+alias history-stats="history 0 | awk '{print \$2}' | stats | head"
 
 ###################################################################
 #-------------------CONFIDENTIAL CONFIGURATIONS-------------------#

@@ -9,56 +9,59 @@
 	recentrepo = ~
 
 [alias]
-        st = status
-        co = checkout
-        ci = commit -S
-        br = branch
-        fe = fetch
-        ui = update-index
-        lg = log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr)%Creset%C(blue) by %an%Creset%C(yellow)%d%Creset' --abbrev-commit
+     st = status
+     co = checkout
+     ci = commit -S
+     br = branch
+     fe = fetch
+     ui = update-index
+     lg = log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr)%Creset%C(blue) by %an%Creset%C(yellow)%d%Creset' --abbrev-commit
 
-        # View the SHA, description, and history graph of the latest 20 commits
-        l = log --pretty=format:'%Cred%h%Creset - %s - %C(green)%ad%Creset %C(blue)by %an%Creset%C(yellow)%d%Creset' --date=short --abbrev-commit --date=relative --color
-        ls = log --pretty=format:'%Cred%h%Creset - %s' --abbrev-commit
-        # View the current working tree status using the short format
-        s = status -s
-        # Show the diff between the latest commit and the current state
-        d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
-        # `git di $number` shows the diff between the state `$number` revisions ago and the current state
-        d1 = !"d() { git diff --patch-with-stat HEAD~1; }; git diff-index --quiet HEAD~1 -- || clear; d"
-        d  = !"d() { git diff --patch-with-stat HEAD~${1-0}; }; git diff-index --quiet HEAD~${1-0} -- || clear; d"
-        di1 = !"d() { git diff --word-diff --patch-with-stat HEAD~1; }; git diff-index --quiet HEAD~1 -- || clear; d"
-        di = !"d() { git diff --word-diff --patch-with-stat HEAD~${1-0}; }; git diff-index --quiet HEAD~${1-0} -- || clear; d"
-        # Pull in remote changes for the current repository and all its submodules
-        p = !"git pull; git submodule foreach git pull origin master"
-        # Clone a repository including all submodules
-        c = clone --recursive
-        # Commit all changes
-        ca = !git add -A && git commit -av
-        # Switch to a branch, creating it if necessary
-        go = checkout -B
-        # Show verbose output about tags, branches or remotes
-        tags = tag -l
-        branches = branch -a
-        remotes = remote -v
-        # Credit an author on the latest commit
-        credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
-        # Interactive rebase with the given number of latest commits
-        reb = "!r() { git rebase -i HEAD~$1; }; r"
-        # Undo a `git push`
-        unstage = reset HEAD
-        undocommit = reset HEAD~1
-        undopush = push -f origin HEAD^:master
-        get = "!f() { git pull --rebase upstream `git symbolic-ref HEAD`; }; f"
-        sd = show --pretty=format:%b
+     # View the SHA, description, and history graph of the latest 20 commits
+     l = log --pretty=format:'%Cred%h%Creset - %s - %C(green)%ad%Creset %C(blue)by %an%Creset%C(yellow)%d%Creset' --date=short --abbrev-commit --date=relative --color
+     ls = log --pretty=format:'%Cred%h%Creset - %s' --abbrev-commit
+     # View the current working tree status using the short format
+     s = status -s
+     # Show the diff between the latest commit and the current state
+     d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
+     # `git di $number` shows the diff between the state `$number` revisions ago and the current state
+     d1 = !"d() { git diff --patch-with-stat HEAD~1; }; git diff-index --quiet HEAD~1 -- || clear; d"
+     d  = !"d() { git diff --patch-with-stat HEAD~${1-0}; }; git diff-index --quiet HEAD~${1-0} -- || clear; d"
+     di1 = !"d() { git diff --word-diff --patch-with-stat HEAD~1; }; git diff-index --quiet HEAD~1 -- || clear; d"
+     di = !"d() { git diff --word-diff --patch-with-stat HEAD~${1-0}; }; git diff-index --quiet HEAD~${1-0} -- || clear; d"
+     # Pull in remote changes for the current repository and all its submodules
+     p = !"git pull; git submodule foreach git pull origin master"
+     # Clone a repository including all submodules
+     c = clone --recursive
+     # Commit all changes
+     ca = !git add -A && git commit -av
+     # Switch to a branch, creating it if necessary
+     go = checkout -B
+     # Show verbose output about tags, branches or remotes
+     tags = tag -l
+     branches = branch -a
+     remotes = remote -v
+     # Credit an author on the latest commit
+     credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+     # Interactive rebase with the given number of latest commits
+     reb = "!r() { git rebase -i HEAD~$1; }; r"
+     # Undo a `git push`
+     unstage = reset HEAD
+     undocommit = reset HEAD~1
+     undopush = push -f origin HEAD^:master
+     get = "!f() { git pull --rebase upstream `git symbolic-ref HEAD`; }; f"
+     sd = show --pretty=format:%b
 
 [color]
-        diff = auto
-        status = auto
-        branch = auto
-
+     diff = auto
+     status = auto
+     branch = auto
+	# Use colors in Git commands that are capable of colored output when
+	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+	ui = auto
 [push]
 	default = simple
+    followTags = true
 [help]
 	autocorrect = 1
 [credential]
@@ -85,18 +88,17 @@
 	line-numbers-left-format = "{nm:>3}┊"
 	line-numbers-right-format = "{np:>3}│ "
 	line-numbers-zero-style = "#888888"
-[push]
-	followTags = true
 [merge]
     conflictstyle = diff3
-
+	# Include summaries of merged commits in newly created merge commit messages
+	log = true
 [diff]
     colorMoved = default
 
 # end gitdelta
 
 [diff "localizablestrings"]
-       textconv = "iconv -f utf-16 -t utf-8"
+    textconv = "iconv -f utf-16 -t utf-8"
 [log]
 	decorate = full
 [filter "media"]
@@ -107,12 +109,31 @@
 	smudge = git-lfs smudge -- %f
 	required = true
 [core]
-	excludesfile = /Users/cartwatch/.gitignore_global
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[commit]
-	template = /Users/cartwatch/.stCommitMsg
+	excludesfile = ~/.gitignore_global
+
+[init]
+	defaultBranch = MultifokalHirn
+
+# URL shorthands
+
+[url "git@github.com:"]
+
+	insteadOf = "gh:"
+	pushInsteadOf = "github:"
+	pushInsteadOf = "git://github.com/"
+
+[url "git://github.com/"]
+
+	insteadOf = "github:"
+
+[url "git@gist.github.com:"]
+
+	insteadOf = "gst:"
+	pushInsteadOf = "gist:"
+	pushInsteadOf = "git://gist.github.com/"
+
+[url "git://gist.github.com/"]
+
+	insteadOf = "gist:"
+
+

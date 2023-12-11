@@ -124,16 +124,19 @@ cd $ZSH_CUSTOM/themes/
 cd $ZSH_CUSTOM/plugins/ 
 ```
 
-| Plugin                    | Command                                                            |
-| :------------------------ | :----------------------------------------------------------------- |
-| `zsh-autosuggestions`     | `git clone https://github.com/zsh-users/zsh-autosuggestions.git`   |
-| `fzf-tab`                 | `git clone https://github.com/Aloxaf/fzf-tab`                        |
-| `fzf-tab-source`          | `git clone https://github.com/Freed-Wu/fzf-tab-source`             |
-| `fast-syntax-highlighting`| `git clone https://github.com/zdharma-continuum/fast-syntax-highlighting`   |
-| `zsh-completions`         | `git clone https://github.com/zsh-users/zsh-completions.git`       |
-| `zsh-nvm`                 | `git clone https://github.com/lukechilds/zsh-nvm.git`              |
-| `OhMyZsh-full-autoupdate` | `git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git` |
-  
+| Plugin                     | Command                                                                   |
+| :------------------------- | :------------------------------------------------------------------------ |
+| `zsh-autosuggestions`      | `git clone https://github.com/zsh-users/zsh-autosuggestions.git`          |
+| `fzf-tab`                  | `git clone https://github.com/Aloxaf/fzf-tab`                             |
+| `fzf-tab-source`           | `git clone https://github.com/Freed-Wu/fzf-tab-source`                    |
+| `fast-syntax-highlighting` | `git clone https://github.com/zdharma-continuum/fast-syntax-highlighting` |
+| `zsh-completions`          | `git clone https://github.com/zsh-users/zsh-completions.git`              |
+| `zsh-nvm`                  | `git clone https://github.com/lukechilds/zsh-nvm.git`                     |
+| `OhMyZsh-full-autoupdate`  | `git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git`        |
+
+`git clone https://github.com/davidparsson/zsh-pyenv-lazy.git ~/.oh-my-zsh/custom/plugins/pyenv-lazy`
+`git clone https://github.com/ahmubashshir/zinsults.git  ~/.oh-my-zsh/custom/plugins/zinsults`
+
 ### Setups for specific languages
 
 #### `python`
@@ -217,6 +220,12 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 ```bash
 cargo install sccache
+```
+
+## Misc
+
+```bash
+npm i -g safe-rm
 ```
 
 <!-- 
