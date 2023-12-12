@@ -97,7 +97,11 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 # zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
+# export FZF_DEFAULT_OPTS='--color=16,bg:-1,bg+:15,hl:4,hl+:4,fg:-1,fg+:-1,gutter:-1,pointer:-1,marker:-1,prompt:1 --height 60% --reverse --color border:46 --border=sharp --prompt="➤  " --pointer="➤ " --marker="➤ "'
+# export FZF_DEFAULT_OPTS='--reverse --color border:46 --border=sharp --prompt="➤  " --pointer="➤ " --marker="➤ "'
+# export FZF_DEFAULT_OPTS='--reverse'
+export FZF_TMUX_OPTS="-p"
+# export FZF_CTRL_R_OPTS="--reverse --preview 'printf {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 ### fzf-tab
 FZF_TAB_GROUP_COLORS=(
   $'\033[94m' $'\033[32m' $'\033[33m' $'\033[35m' $'\033[31m' $'\033[38;5;27m' $'\033[36m'
@@ -106,7 +110,7 @@ FZF_TAB_GROUP_COLORS=(
 )
 zstyle ':fzf-tab:*' group-colors $FZF_TAB_GROUP_COLORS
 # preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 # show options in as popup - tmux must be installed
@@ -139,7 +143,7 @@ zstyle ':fzf-tab:complete:*:options' fzf-preview
 zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
 # preview env vars
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
-  fzf-preview 'echo ${(P)word}'
+  fzf-preview 'printf ${(P)word}'
 # preview git
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
   'git diff $word | delta'
@@ -165,12 +169,12 @@ zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3
 zstyle ':fzf-tab:complete:kill:*' popup-pad 0 3
 # zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
 zstyle ":fzf-tab:*" fzf-flags --color=bg+:23
-# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 # zstyle ":completion:*:git-checkout:*" sort false
 zstyle ':completion:*' file-sort modification
 zstyle ':completion:*:exa' sort false
 zstyle ':completion:files' sort false
-# zstyle ':completion:*:complete:*' use-cache true
+zstyle ':completion:*:complete:*' use-cache true
 zstyle ':completion:*' menu yes select # search
 zstyle ':completion:*' list-grouped false
 zstyle ':completion:*' list-separator ''
@@ -184,7 +188,7 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
-source ~/auto-sized-fzf.sh
+# source ~/auto-sized-fzf.sh
 
 
 ## ENV VARS
@@ -291,6 +295,8 @@ precmd() {
 
 #                             ALIASES                             #
 #-----------------------------------------------------------------#
+# if you alias an existing command, for example 'ls' then you can run '\ls'
+# to run the unaliased version
 
 alias p="change-project" # defined in custom functions
 

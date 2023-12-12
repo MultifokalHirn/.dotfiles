@@ -134,8 +134,10 @@ cd $ZSH_CUSTOM/plugins/
 | `zsh-nvm`                  | `git clone https://github.com/lukechilds/zsh-nvm.git`                     |
 | `OhMyZsh-full-autoupdate`  | `git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git`        |
 
-`git clone https://github.com/davidparsson/zsh-pyenv-lazy.git ~/.oh-my-zsh/custom/plugins/pyenv-lazy`
-`git clone https://github.com/ahmubashshir/zinsults.git  ~/.oh-my-zsh/custom/plugins/zinsults`
+```
+git clone https://github.com/davidparsson/zsh-pyenv-lazy.git ~/.oh-my-zsh/custom/plugins/pyenv-lazy
+git clone https://github.com/ahmubashshir/zinsults.git  ~/.oh-my-zsh/custom/plugins/zinsults
+```
 
 ### Setups for specific languages
 
