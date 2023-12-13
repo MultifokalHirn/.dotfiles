@@ -1,4 +1,5 @@
 # .dotfiles
+![Screenshot 2023-12-13 at 23 31 23 copy](https://github.com/MultifokalHirn/.dotfiles/assets/7870758/ec67770f-d335-44cc-b44a-1743c77e1bcf)
 
 ## Overview
 
