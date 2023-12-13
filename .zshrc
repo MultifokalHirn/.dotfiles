@@ -112,9 +112,9 @@ zstyle ':fzf-tab:*' group-colors $FZF_TAB_GROUP_COLORS
 # preview directory's content with exa when completing cd
 # zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 # switch group using `,` and `.`
-zstyle ':fzf-tab:*' switch-group ',' '.'
+zstyle ':fzf-tab:*.*' switch-group ',' '.'
 # show options in as popup - tmux must be installed
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*.*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
 # systemd - not relevant for mac
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
