@@ -271,7 +271,7 @@ alias kubectl="/usr/local/bin/kubectl"
 
 change-project() {
   # Used via: alias p="change-project"
-  cd $(find ~/Documents/GitHub -maxdepth 1 -type d | selecta) && clear
+  cd $(find -L ~/Documents/GitHub -maxdepth 1 -type d | selecta) && clear
 }
 
 show-file() {
@@ -298,7 +298,7 @@ precmd() {
 # if you alias an existing command, for example 'ls' then you can run '\ls'
 # to run the unaliased version
 
-alias p="change-project" # defined in custom functions
+alias p="change-project" # change-project is defined in custom functions
 
 alias cat="bat -P --style 'plain,changes' --color=always"
 alias cdd="br -s"
@@ -307,9 +307,12 @@ alias du="dust"
 alias htop='btm'
 alias la="exa -la --icons"
 alias lzd='lazydocker'
+alias clipboard="pbcopy"
+alias clippy="pbcopy"
 alias update="brew update; brew upgrade" # update brew apps/libs
-alias rm='safe-rm'                       # https://github.com/kaelzhang/shell-safe-rm
 
+alias rm='safe-rm'                       # https://github.com/kaelzhang/shell-safe-rm
+# npm install -g safe-rm
 # TODO: consider using this instead:
 # Remove all items safely, to Trash (`brew install trash`).
 # [[ -z "$commands[trash]" ]] || alias rm='trash' 2>&1 > /dev/null
