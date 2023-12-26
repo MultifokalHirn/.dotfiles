@@ -38,6 +38,7 @@ brew "pandoc"     # Universal document converter
 brew "pre-commit" # Framework for managing and maintaining multi-language pre-commit hooks
 brew "pyenv"      # Python version management
 brew "rclone"     # Command-line program to sync files and directories to and from cloud storage
+brew "rg"     # ripgrep, a faster grep
 brew "rsync"      # Fast and versatile file copying/syncing program
 # brew "screen"
 brew "selecta"         # Fuzzy text selector for files and anything else you need to select

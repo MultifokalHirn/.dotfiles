@@ -278,6 +278,10 @@ show-file() {
   cat $(ls | selecta)
 }
 
+from-clipboard() {
+  echo $(pbpaste) && pbpaste
+}
+
 auto-retry() {
   false
   while [ $? -ne 0 ]; do
@@ -309,6 +313,9 @@ alias la="exa -la --icons"
 alias lzd='lazydocker'
 alias clipboard="pbcopy"
 alias clippy="pbcopy"
+alias copied="pbpaste"
+# alias copied="echo $pbpaste && $pbpaste" # usage example: `copied | echo`
+# alias copied="from-clipboard" # usage example: `copied | echo`
 alias update="brew update; brew upgrade" # update brew apps/libs
 
 alias rm='safe-rm'                       # https://github.com/kaelzhang/shell-safe-rm

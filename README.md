@@ -1,4 +1,5 @@
 # .dotfiles
+
 ![Screenshot 2023-12-13 at 23 31 23 copy](https://github.com/MultifokalHirn/.dotfiles/assets/7870758/ec67770f-d335-44cc-b44a-1743c77e1bcf)
 
 ## Overview
@@ -116,7 +117,7 @@ cd $ZSH_CUSTOM/themes/
 ```
 
 | Theme              | Command                                                              |
-| :----------------- | :------------------------------------------------------------------- |
+|:-------------------|:---------------------------------------------------------------------|
 | `spaceship-prompt` | `git clone https://github.com/spaceship-prompt/spaceship-prompt.git` |
 
 ##### Plugins
@@ -126,7 +127,7 @@ cd $ZSH_CUSTOM/plugins/
 ```
 
 | Plugin                     | Command                                                                   |
-| :------------------------- | :------------------------------------------------------------------------ |
+|:---------------------------|:--------------------------------------------------------------------------|
 | `zsh-autosuggestions`      | `git clone https://github.com/zsh-users/zsh-autosuggestions.git`          |
 | `fzf-tab`                  | `git clone https://github.com/Aloxaf/fzf-tab`                             |
 | `fzf-tab-source`           | `git clone https://github.com/Freed-Wu/fzf-tab-source`                    |
@@ -167,7 +168,7 @@ python -V # check whether you are using the intended python version
 pip install --upgrade pipx
 pipx ensurepath
 
-pipx install ruff virtualenvwrapper # example packages
+pipx install ruff virtualenvwrapper bpython # example packages
 ```
 
 ### `ruby`
