@@ -85,6 +85,13 @@ source $ZSH/oh-my-zsh.sh
 ## PATH
 PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 
+## less
+
+export LESS="-FXr"
+# -F = “Causes less to automatically exit if the entire file can be displayed on the first screen.”
+# -X = “Disables sending the termcap initialization and deinitialization strings to the terminal.” (stops less clearing the screen)
+
+
 ## ZSH
 
 setopt no_beep
@@ -139,6 +146,8 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 # fi'
 export LESSOPEN='|~/.lessfilter %s'
 export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
+
+
 zstyle ':fzf-tab:complete:*:options' fzf-preview
 zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
 # preview env vars
@@ -309,7 +318,7 @@ alias cdd="br -s"
 alias dfh='df -x"squashfs" -x"overlay" -h'
 alias du="dust"
 alias htop='btm'
-alias la="exa -la --icons"
+alias la="exa -la --icons --color=always"
 alias lzd='lazydocker'
 alias clipboard="pbcopy"
 alias clippy="pbcopy"
