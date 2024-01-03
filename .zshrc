@@ -72,10 +72,10 @@ zstyle ':omz:update' frequency 7
 
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-plugins=(git fzf-tab fzf-tab-source zsh-completions fast-syntax-highlighting zsh-autosuggestions macos history  pre-commit python github zsh-nvm ohmyzsh-full-autoupdate pyenv-lazy zinsults)
+plugins=(git fzf-tab fzf-tab-source zsh-completions fast-syntax-highlighting zsh-autosuggestions macos history pre-commit python zsh-nvm ohmyzsh-full-autoupdate pyenv-lazy zinsults wakatime)
 
 # Disabled plugins:
-# tmux pyenv docker-compose zsh-navigation-tools zsh-interactive-cd docker zsh-syntax-highlighting ssh-agent
+# tmux pyenv docker-compose zsh-navigation-tools zsh-interactive-cd docker zsh-syntax-highlighting ssh-agent github
 
 source $ZSH/oh-my-zsh.sh
 
