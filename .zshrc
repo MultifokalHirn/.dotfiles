@@ -88,6 +88,7 @@ export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 ## PATH
 PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 PATH="/usr/local/opt/gawk/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/file-formula/bin:$PATH"
 ## less
 
 export LESS="-FXr"
@@ -121,7 +122,7 @@ FZF_TAB_GROUP_COLORS=(
 )
 zstyle ':fzf-tab:*' group-colors $FZF_TAB_GROUP_COLORS
 # preview directory's content with exa when completing cd
-# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 -l --color=always --icons $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*.*' switch-group ',' '.'
 # show options in as popup - tmux must be installed
