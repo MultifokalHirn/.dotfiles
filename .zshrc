@@ -72,19 +72,22 @@ zstyle ':omz:update' frequency 7
 
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-plugins=(git fzf-tab fzf-tab-source zsh-completions fast-syntax-highlighting zsh-autosuggestions macos history pre-commit python zsh-nvm ohmyzsh-full-autoupdate pyenv-lazy zinsults wakatime)
+plugins=(git fzf-tab fzf-tab-source  fast-syntax-highlighting zsh-autosuggestions macos history pre-commit python zsh-nvm ohmyzsh-full-autoupdate pyenv-lazy zinsults zsh-completions )
 
 # Disabled plugins:
-# tmux pyenv docker-compose zsh-navigation-tools zsh-interactive-cd docker zsh-syntax-highlighting ssh-agent github
+# tmux pyenv docker-compose zsh-navigation-tools zsh-interactive-cd docker zsh-syntax-highlighting ssh-agent github wakatime
 
 source $ZSH/oh-my-zsh.sh
 
 ###################################################################
 #-------------------------- USER CONFIG --------------------------#
 ###################################################################
+## TMUX
+export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
+
 ## PATH
 PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
-
+PATH="/usr/local/opt/gawk/libexec/gnubin:$PATH"
 ## less
 
 export LESS="-FXr"
@@ -106,8 +109,9 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # export FZF_DEFAULT_OPTS='--color=16,bg:-1,bg+:15,hl:4,hl+:4,fg:-1,fg+:-1,gutter:-1,pointer:-1,marker:-1,prompt:1 --height 60% --reverse --color border:46 --border=sharp --prompt="➤  " --pointer="➤ " --marker="➤ "'
 # export FZF_DEFAULT_OPTS='--reverse --color border:46 --border=sharp --prompt="➤  " --pointer="➤ " --marker="➤ "'
-# export FZF_DEFAULT_OPTS='--reverse'
-export FZF_TMUX_OPTS="-p"
+# export FZF_DEFAULT_OPTS='-p80%,60% ' # --reverse 
+export FZF_DEFAULT_OPTS='--info=hidden --margin 1% --pointer='►' --height 100% --min-height=12 --color border:237 --border=sharp --preview-window=70%,' # --reverse 
+export FZF_TMUX_OPTS="-p" # https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices
 # export FZF_CTRL_R_OPTS="--reverse --preview 'printf {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 ### fzf-tab
 FZF_TAB_GROUP_COLORS=(
@@ -132,8 +136,14 @@ preview() {
   else
     less ${(Q)realpath}
     # bat --color=always {}
-fi
-}
+# preview() {
+#   if file --mime-type {} | grep -qF image/; then
+#     kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} | sed \$d
+#   else
+#     less ${(Q)realpath}
+#     # bat --color=always {}
+# fi
+# }
 zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 # zstyle ':fzf-tab:complete:*:*' fzf-preview 'preview'
 
@@ -229,6 +239,7 @@ export WORDCHARS='*?[]~&;!$%^<>'
 ### python-better-expections
 export FORCE_COLOR=1
 export BETTER_EXCEPTIONS=1
+export POETRY_VIRTUALENVS_IN_PROJECT=1
 
 ### pyenv
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -302,9 +313,9 @@ auto-retry() {
 }
 # FZF_DEFAULT_OPTS="--border --no-height $(fzf_sizer_preview_window_settings)"
 # resize window and fzf preview sizing/location will resize with you
-precmd() {
-  FZF_DEFAULT_OPTS="--border --no-height $(fzf_sizer_preview_window_settings)"
-}
+# precmd() {
+#   FZF_DEFAULT_OPTS="--border --no-height $(fzf_sizer_preview_window_settings)"
+# }
 
 #                             ALIASES                             #
 #-----------------------------------------------------------------#

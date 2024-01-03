@@ -37,6 +37,18 @@ brew "nmap"
 brew "pandoc"     # Universal document converter
 brew "pre-commit" # Framework for managing and maintaining multi-language pre-commit hooks
 brew "pyenv"      # Python version management
+
+# https://github.com/sindresorhus/quick-look-plugins
+brew "qlcolorcode"  # macOS quicklook plugin
+brew "qlstephen"  # macOS quicklook plugin
+brew "qlmarkdown"  # macOS quicklook plugin
+brew "quicklook-json"  # macOS quicklook plugin
+brew "qlimagesize"  # macOS quicklook plugin
+brew "suspicious-package"  # macOS quicklook plugin
+brew "apparency"  # macOS quicklook plugin
+brew "quicklookase"  # macOS quicklook plugin
+brew "qlvideo"  # macOS quicklook plugin
+
 brew "rclone"     # Command-line program to sync files and directories to and from cloud storage
 brew "rg"     # ripgrep, a faster grep
 brew "rsync"      # Fast and versatile file copying/syncing program
