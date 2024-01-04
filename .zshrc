@@ -243,7 +243,6 @@ zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl
 #-----------------------------------------------------------------------------#
 
 ## PYTHON
-
 export FORCE_COLOR=1
 export BETTER_EXCEPTIONS=1
 export POETRY_VIRTUALENVS_IN_PROJECT=1
@@ -268,8 +267,8 @@ export NVM_COMPLETION=true
 
 ## RUBY
 if [ -d "$HOMEBREW_PREFIX/opt/ruby/bin" ]; then
-  export PATH=$HOMEBREW_PREFIX/opt/ruby/bin:$PATH
-  export PATH=$(gem environment gemdir)/bin:$PATH
+  export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
+  export PATH="$(gem environment gemdir)/bin:$PATH"
 fi
 
 ## RUST
@@ -281,11 +280,11 @@ export RUSTC_WRAPPER=sccache # see README.md for details
 
 ## GOOGLE CLOUD
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+# # The next line updates PATH for the Google Cloud SDK.
+# if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+# # The next line enables shell command completion for gcloud.
+# if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
 alias kubectl="$HOMEBREW_PREFIX/bin/kubectl"
 
@@ -302,9 +301,9 @@ show-file() {
   cat $(ls | selecta)
 }
 
-from-clipboard() {
-  echo $(pbpaste) && pbpaste
-}
+# from-clipboard() {
+#   echo $(pbpaste) && pbpaste
+# }
 
 auto-retry() {
   false
@@ -315,11 +314,7 @@ auto-retry() {
     )
   done
 }
-# FZF_DEFAULT_OPTS="--border --no-height $(fzf_sizer_preview_window_settings)"
-# resize window and fzf preview sizing/location will resize with you
-# precmd() {
-#   FZF_DEFAULT_OPTS="--border --no-height $(fzf_sizer_preview_window_settings)"
-# }
+
 
 #                             ALIASES                             #
 #-----------------------------------------------------------------------------#
@@ -347,7 +342,7 @@ alias rm='safe-rm'                       # https://github.com/kaelzhang/shell-sa
 # TODO: consider using this instead:
 # Remove all items safely, to Trash (`brew install trash`).
 # [[ -z "$commands[trash]" ]] || alias rm='trash' 2>&1 > /dev/null
-
+alias history="history -E 1"             # ignore duplicates in history
 alias stats='sort | uniq -c | sort -r'
 # Lists the ten most used commands.
 alias history-stats="history 0 | awk '{print \$2}' | stats | head"
