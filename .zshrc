@@ -171,7 +171,8 @@ export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 ## LESS
 export LESSOPEN="|$HOMEBREW_PREFIX/bin/lesspipe.sh %s"
 # export LESSOPEN='|$HOME/.lessfilter %s'
-export LESS="-FXr"
+export LESS="--RAW-CONTROL-CHARS --quit-if-one-screen --mouse"
+# export LESS="-FXr"
 # -F = “Causes less to automatically exit if the entire file can be displayed on the first screen.”
 # -X = “Disables sending the termcap initialization and deinitialization strings to the terminal.” (stops less clearing the screen)
 
@@ -403,7 +404,7 @@ autoload -Uz compinit && compinit
 #  ARCHIVE                                                                    #
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
 
-
+# find -L $PROJECTS_ROOT -maxdepth 1 -type d | fzf --reverse --pointer="►" --height 100% --min-height=12 --color border:237 --border=sharp --preview-window=30%, --preview 'cd $@; git status ; exa -1 -l --color=always --icons ${(Q)realpath}'
 # export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 # export PYTHONHOME=$PYENV_ROOT/versions/"$(python -V | cut -d' ' -f 2)"
 # [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh

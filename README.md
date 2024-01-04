@@ -6,54 +6,86 @@
   <!-- github-banner-end -->
 </p>
 
+This repository contains my personal dotfiles, as well as some instructions on how to replicate my setup.
+
+
 <!-- markdownlint-restore -->
 <h2> Contents </h2>
 
 - [Overview](#overview)
-- [My Setup](#my-setup)
+  - [Main Files](#main-files)
+  - [Using this Repository](#using-this-repository)
+- [Setup Instructions](#setup-instructions)
   - [iTerm2](#iterm2)
   - [`brew` packages](#brew-packages)
   - [`zsh`](#zsh)
-    - [Configuring `zsh`](#configuring-zsh)
-    - [Extending `ohmyzsh`](#extending-ohmyzsh)
-  - [Language specific setups](#language-specific-setups)
+    - [`.zshrc`](#zshrc)
+    - [`ohmyzsh`](#ohmyzsh)
+  - [Language specific Setups](#language-specific-setups)
     - [`python`](#python)
     - [`ruby`](#ruby)
     - [`rust`](#rust)
-- [Using this Repository](#using-this-repository)
 
 ## Overview
 
-```txt
-.dotfiles/
-├── .zshrc                    Configuration file for zsh
-├── .p10k.zsh                 Configuration file for powerlevel10k theme
-|
-├── Brewfile-MultifokalHirn   Collection of packages and applications for Homebrew
-|
-├── .gitconfig                Configuration file for Git
-├── .gitignore                File specifying patterns to ignore in Git
-├── .gitmessage               Template for Git commit messages
-|
-├── .gemrc                    Configuration file for RubyGems
-|
-└── .config/
-   └── bat                    Configuration directory for bat 
+### Main Files
+
+These are the main files in this repository and are imho worth having a look at.
+
+| File                       | Description                          | Highlights                               |
+|----------------------------|--------------------------------------|------------------------------------------|
+| [`.zshrc`](.zshrc)         | Configuration file for zsh shell     | language setups; fzf-completions; `TODO` |
+| [`.p10k.zsh`](.p10k.zsh)   | Configuration file for powerlevel10k |                                          |
+| [`.gitconfig`](.gitconfig) | Configuration file for Git           | git-delta                                |
+| [`.gemrc`](.gemrc)         | Configuration file for RubyGems      |                                          |
+
+### Using this Repository
+
+I follow the approach described in [Drew DeVault](https://drewdevault.com/)'s
+blog [post](https://drewdevault.com/2019/12/30/dotfiles.html) "*Managing my
+dotfiles as a git repository*".
+
+```bash
+cd ~
+git init
+git remote add origin https://github.com/MultifokalHirn/.dotfiles.git
+git fetch --all
 ```
 
-I mainly use devices running  macOS, so some of the topics here may be specific
-to that operating system. However, most of the config files are platform
-agnostic and can be used anywhere you can use the thing that it configures.
+The next step will be to merge the repository contents with your current
+setup. **Please be very careful here!**
+
+> **Attention!**
+If you are not on a fresh system, make a backup before proceeding!
+Or at least go through the repo's contents, and for all files that you
+probably do not want to get overwritten, rename them to `<name>.bak` or somesuch.
+
+I recommend you first run the following, which will already work, if your home folder does not conflict with the repo
+
+``` bash
+git checkout main  # 'main' is this repo's main branch 
+```
+
+If that *did* produce an error, you *can* force the `checkout` as per below.
+
+Again, ***please* make backups and make sure that you will not be able to overwrite anything that cannot be restored**.
+
+``` bash
+git checkout --force main
+```
+
 <!--more-->
 
-## My Setup
+## Setup Instructions
+>
+> Note: Some of the topics here may be specific to macOS.
 
 ### iTerm2
 
 I use [iTerm2](https://iterm2.com) as a replacement for *Terminal*, which comes
 shipped with macOS. Please refer to the iterm2 homepage to learn more about its features and how to install it.
 
-**Note:** Whether you use iTerm2, Terminal, or some other terminal emulator has no effect on the rest described herein.
+**Note:** Whether you use *iTerm2*, *Terminal*, or some other terminal emulator has no effect on the rest described herein.
 
 ### `brew` packages
 
@@ -86,19 +118,19 @@ not looked at other alternatives to plain `bash` so far).
 brew install zsh  # consider setting it as you default shell
 ```
 
+#### `.zshrc`
+
+Please refer to my [`.zshrc`](.zshrc) to check out the configuration I use. For me, the config results in shell that extremely fun and quick to use, while also being aesthetically pleasing (at least to me).
+
+#### `ohmyzsh`
+
 You can install `ohmyzsh` like so (please refer to the
 [official documentation](https://github.com/ohmyzsh/ohmyzsh/wiki) for more
 information):
 
 ```bash
-`sh -c "$(curl -fsSL https://install.ohmyz.sh/)"`
+sh -c "$(curl -fsSL https://install.ohmyz.sh/)"
 ```
-
-#### Configuring `zsh`
-
-Please refer to my [`.zshrc`](.zshrc) to check out the configuration I use. For me, the config results in shell that extremely fun and quick to use, while also being aesthetically pleasing (at least to me).
-
-#### Extending `ohmyzsh`
 
 To install custom themes or plugins, you have to clone them into the respective directory in the folder assigned to `$ZSH_CUSTOM` (which is usually `~/.oh-my-zsh/custom/`).
 
@@ -169,7 +201,7 @@ git clone https://github.com/davidparsson/zsh-pyenv-lazy.git
 git clone https://github.com/sobolevn/wakatime-zsh-plugin.git wakatime;
 ```
 
-### Language specific setups
+### Language specific Setups
 
 #### `python`
 
@@ -253,41 +285,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 ```bash
 cargo install sccache
-```
-
-## Using this Repository
-
-I follow the approach described in [Drew DeVault](https://drewdevault.com/)'s
-blog [post](https://drewdevault.com/2019/12/30/dotfiles.html) "*Managing my
-dotfiles as a git repository*".
-
-```bash
-cd ~
-git init
-git remote add origin https://github.com/MultifokalHirn/.dotfiles.git
-git fetch --all
-```
-
-The next step will be to merge the repository contents with your current
-setup. **Please be very careful here!**
-
-> **Attention!**
-If you are not on a fresh system, make a backup before proceeding!
-Or at least go through the repo's contents, and for all files that you
-probably do not want to get overwritten, rename them to `<name>.bak` or somesuch.
-
-I recommend you first run the following, which will already work, if your home folder does not conflict with the repo
-
-``` bash
-git checkout main  # 'main' is this repo's main branch 
-```
-
-If that *did* produce an error, you *can* force the `checkout` as per below.
-
-Again, ***please* make backups and make sure that you will not be able to overwrite anything that cannot be restored**.
-
-``` bash
-git checkout --force main
 ```
 
 <!-- ## Misc
