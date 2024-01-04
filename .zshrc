@@ -1,7 +1,7 @@
 
 #                                                                             #
-#                                   .ZSHRC                                    #
-#                                                                             #
+# .ZSHRC                                                                      #
+# ------------                                                                #
 # Author: @MultifokalHirn                                                     #
 # Repository: https://github.com/MultifokalHirn/.dotfiles                     #
 #                                                                             #
@@ -10,19 +10,16 @@
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
 
 
-#                    Enable Powerlevel10k instant prompt.                     #
+# Enable Powerlevel10k instant prompt.                                        #
 #-----------------------------------------------------------------------------#
-# ATTENTION: This should stay close to the top of $HOME/.zshrc.                   #
+# ATTENTION: This should stay close to the top of $HOME/.zshrc.               #
 # Initialization code that may require console input (password prompts, [y/n] #
 # confirmations, etc) must go above this block; everything else may go below  #
-
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
+INSTANT_P="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -r $INSTANT_P ]]; then source $INSTANT_P; fi
 
 #                                                                             #
-#                                 Oh-My-Zsh                                   #
+# Oh-My-Zsh                                                                   #
 #-----------------------------------------------------------------------------#
 
 zstyle ':omz:update' frequency 7  # check for oh-my-zsh updates every 7 days
@@ -31,12 +28,12 @@ HIST_STAMPS="dd.mm.yyyy"
 export ZSH=$HOME/.oh-my-zsh # Path to your oh-my-zsh installation.
 
 ### THEME                                   
-
-# Standard themes can be found in $ZSH/themes/                              #
-# Custom themes may be added to $ZSH_CUSTOM/themes/   
+# Standard themes can be found in $ZSH/themes/
+# Custom themes may be added to $ZSH_CUSTOM/themes/
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+### MISC CONFIGS
 # Uncomment this if you want to use spaceship-prompt
 # export SPACESHIP_CONFIG="$HOME/.spaceshiprc.zsh" 
 
@@ -69,13 +66,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 
 ### PLUGINS                                   
-
-# Standard plugins can be found in $ZSH/plugins/                              #
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/                         #
-#                                                                             #
-# ATTENTION: plugins are loaded in the order they are listed here. Be careful #
-# when changing the order of plugins, as they may depend on each other (e.g.  #
-# the completion system).                                                     #
+# Standard plugins can be found in $ZSH/plugins/                             
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/                        
+#                                                                             
+# ATTENTION: plugins are loaded in the order they are listed here. Be careful 
+# when changing the order of plugins, as they may depend on each other (e.g.  
+# the completion system).                                                     
 
 plugins=(
   git
@@ -110,49 +106,63 @@ source $ZSH/oh-my-zsh.sh # initialize oh-my-zsh
 
 
 ###############################################################################
-#-------------------------------- USER CONFIG --------------------------------#
+# USER CONFIG ----------------------------------------------------------------#
 ###############################################################################
 
+has_cmd() {
+  # Helper function to check if a command exists. 
+  # Example usage: `has_cmd some_command && echo yay || echo no`
+	for cmd in "$@"; do
+		command -v "$cmd" >/dev/null
+	done
+}
 
-#                                  ENV VARS                                   #
+# ENV VARS                                                                    #
 #.............................................................................#
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export HOMEBREW_NO_ANALYTICS=1
-export HOMEBREW_PREFIX="/usr/local" # $(brew --prefix)
+export HOMEBREW_PREFIX="/usr/local"  # $(brew --prefix)
 # export HOMEBREW_NO_ENV_HINTS=1 
 
 ## preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
 else
-  export EDITOR='code' # VS Code needs to be installed
+  has_cmd code && export EDITOR='code' || export EDITOR='open'
 fi
 
-## stolen from @garybernhardt
+## 'stolen' from @garybernhardt
 ### ...........................................................................
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd" # colorization in ls
 export GREP_OPTIONS="--color"            # colorization in grep results
 export WORDCHARS='*?[]$HOME&;!$%^<>'
-#   By default, zsh considers many characters part of a word (e.g., _ and -).
-#   Narrow that down to allow easier skipping through words (!)
+# By default, zsh considers many characters part of a word (e.g., _ and -).
+# Narrow that down to allow easier skipping through words (!)
 
 
-#                                    ZSH                                      #
+# ZSH                                                                         #
 #.............................................................................#
 
 setopt no_beep
 setopt complete_in_word
-source $HOMEBREW_PREFIX/opt/git-extras/share/git-extras/git-extras-completion.zsh
 
 ## PATH
-export PATH="$HOMEBREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
-export PATH="$HOMEBREW_PREFIX/opt/gawk/libexec/gnubin:$PATH"
-export PATH="$HOMEBREW_PREFIX/opt/file-formula/bin:$PATH"
+
+### GNU coreutils
+GNU_GREP="$HOMEBREW_PREFIX/opt/grep/libexec/gnubin"
+GNU_AWK="$HOMEBREW_PREFIX/opt/gawk/libexec/gnubin"
+GNU_FILE="$HOMEBREW_PREFIX/opt/file-formula/bin"
+GNU_FIND="$HOMEBREW_PREFIX/opt/findutils/libexec/gnubin"
+
+if [ -d "$GNU_GREP" ]; then export PATH="$GNU_GREP:$PATH"; fi
+if [ -d "$GNU_AWK" ]; then export PATH="$GNU_AWK:$PATH"; fi
+if [ -d "$GNU_FILE" ]; then export PATH="$GNU_FILE:$PATH"; fi
+if [ -d "$GNU_FIND" ]; then export PATH="$GNU_FIND:$PATH"; fi
 
 
-#                           STANDARD APPLICATIONS                             #
+# Standard Applications                                                       #
 #.............................................................................#
 
 ## TMUX
@@ -165,8 +175,14 @@ export LESS="-FXr"
 # -F = “Causes less to automatically exit if the entire file can be displayed on the first screen.”
 # -X = “Disables sending the termcap initialization and deinitialization strings to the terminal.” (stops less clearing the screen)
 
-#                                COMPLETIONS                                  #
+
+# Completions                                                                 #
 #.............................................................................#
+
+GIT_EXTRAS="$HOMEBREW_PREFIX/opt/git-extras"
+if [ -d "$GIT_EXTRAS" ]; then 
+  source $GIT_EXTRAS/share/git-extras/git-extras-completion.zsh
+fi
 
 zstyle ':completion::complete:*' call-command true
 zstyle ':completion::complete:*' use-cache true
@@ -236,46 +252,68 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview 'case "$group" in
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3:wrap'
 zstyle ':fzf-tab:complete:kill:*' popup-pad 0 3
-zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word' # systemd - not relevant for mac
+
+# zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word' # systemd - not relevant for mac
 
 
-#                        PROGRAMMING LANGUAGE MATTERS                         #
 #-----------------------------------------------------------------------------#
+#  Programming Language Setups                                                #
+#-----------------------------------------------------------------------------#
+# see README.md for details
 
 ## PYTHON
+#.........................................................
 export FORCE_COLOR=1
 export BETTER_EXCEPTIONS=1
 export POETRY_VIRTUALENVS_IN_PROJECT=1
 
 ### pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-## ATTENTION: pyenv-lazy plugin is required to be installed and enabled for 
-## pyenv to work without the following line being uncommented
-# eval "$(pyenv init -)"
+PYENV_ROOT="$HOME/.pyenv"
+if [ -d $PYENV_ROOT ]; then
+  export PYENV_ROOT=$PYENV_ROOT
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  ## ATTENTION: pyenv-lazy plugin is required to be installed and enabled for 
+  ## pyenv to work without the following line being uncommented
+  # eval "$(pyenv init -)"
+fi
 
 ### tk-inter
-# export PATH="$HOMEBREW_PREFIX/opt/tcl-tk/bin:$PATH"
-# export LDFLAGS="-L$HOMEBREW_PREFIX/opt/tcl-tk/lib"
-# export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/tcl-tk/include"
-# export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/tcl-tk/lib/pkgconfig"
+TK_INTER="$HOMEBREW_PREFIX/opt/tcl-tk"
+if [ -d $TK_INTER ]; then
+  export PATH="$TK_INTER/bin:$PATH"
+  export LDFLAGS="-L$TK_INTER/lib"
+  export CPPFLAGS="-I$TK_INTER/include"
+  export PKG_CONFIG_PATH="$TK_INTER/lib/pkgconfig"
+fi
 
-## NODE VERSION MANAGER
-export NVM_DIR="$HOME/.nvm"
-export NVM_LAZY_LOAD=true
-export NVM_COMPLETION=true
+## NODE 
+#.........................................................
+### nvm (Node Version Manager)
+NVM_DIR="$HOME/.nvm"
+if [ -d $NVM_DIR ]; then
+  export NVM_DIR=$NVM_DIR
+  export NVM_LAZY_LOAD=true
+  export NVM_COMPLETION=true
+fi
 
 ## RUBY
-if [ -d "$HOMEBREW_PREFIX/opt/ruby/bin" ]; then
-  export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
+#.........................................................
+HOMEBREW_RUBY="$HOMEBREW_PREFIX/opt/ruby/bin"
+if [ -d $HOMEBREW_RUBY ]; then
+  export PATH="$HOMEBREW_RUBY:$PATH"
   export PATH="$(gem environment gemdir)/bin:$PATH"
 fi
 
 ## RUST
-export PATH="$HOME/.cargo/bin:$PATH"
-export RUSTC_WRAPPER=sccache # see README.md for details
+#.........................................................
+RUST_BINARIES="$HOME/.cargo/bin"
+if [ -d $RUST_BINARIES ]; then
+  export PATH="$RUST_BINARIES:$PATH"
+  if [ -f "$RUST_BINARIES/sccache" ]; then export RUSTC_WRAPPER=sccache; fi
+fi
 
-#                         APP SPECIFIC CONFIGURATION                          #
+
+#  Misc                                                                       #
 #-----------------------------------------------------------------------------#
 
 ## GOOGLE CLOUD
@@ -286,20 +324,21 @@ export RUSTC_WRAPPER=sccache # see README.md for details
 # # The next line enables shell command completion for gcloud.
 # if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
-alias kubectl="$HOMEBREW_PREFIX/bin/kubectl"
+KUBECTL_PATH="$HOMEBREW_PREFIX/bin/kubectl"
+if [ -f "$KUBECTL_PATH" ]; then alias kubectl="$KUBECTL_PATH"; fi
 
 
 #                             CUSTOM FUNCTIONS                                #
 #-----------------------------------------------------------------------------#
-
+export PROJECTS_ROOT="$HOME/Documents/GitHub"
 change-project() {
   # Used via: alias p="change-project"
-  cd $(find -L $HOME/Documents/GitHub -maxdepth 1 -type d | selecta) && clear
+  cd $(find -L $PROJECTS_ROOT -maxdepth 1 -type d | selecta) && clear
 }
 
-show-file() {
-  cat $(ls | selecta)
-}
+# show-file() {
+#   cat $(ls | selecta)
+# }
 
 # from-clipboard() {
 #   echo $(pbpaste) && pbpaste
@@ -316,53 +355,55 @@ auto-retry() {
 }
 
 
-#                             ALIASES                             #
+#  ALIASES                                                                    #
 #-----------------------------------------------------------------------------#
 # if you alias an existing command, for example 'ls' then you can run '\ls'
 # to run the unaliased version
 
-alias p="change-project" # change-project is defined in custom functions
-
-alias cat="bat -P --style 'plain,changes' --color=always"
-alias cdd="br -s"
 alias dfh='df -x"squashfs" -x"overlay" -h'
-alias du="dust"
-alias htop='btm'
-alias la="exa -la --icons --color=always"
-alias lzd='lazydocker'
-alias clipboard="pbcopy"
-alias clippy="pbcopy"
-alias copied="pbpaste"
-alias update="brew update; brew upgrade"
-# alias copied="echo $pbpaste && $pbpaste" # usage example: `copied | echo`
-# alias copied="from-clipboard" # usage example: `copied | echo`
+alias history='history -E 1' # show timestamps and ignore duplicates in history
+alias p='change-project' # change-project is defined in custom functions
 
-alias rm='safe-rm'                       # https://github.com/kaelzhang/shell-safe-rm
-# npm install -g safe-rm
-# TODO: consider using this instead:
-# Remove all items safely, to Trash (`brew install trash`).
-# [[ -z "$commands[trash]" ]] || alias rm='trash' 2>&1 > /dev/null
-alias history="history -E 1"             # ignore duplicates in history
-alias stats='sort | uniq -c | sort -r'
+has_cmd bat && alias cat='bat -P --style "plain,changes" --color=always'
+has_cmd brew && alias update='brew update && brew upgrade'
+has_cmd broot && alias cdd='broot -s'
+has_cmd /usr/local/bin/htop && alias top='/usr/local/bin/htop'
+has_cmd btm && alias top='btm'
+has_cmd dust && alias du='dust'
+has_cmd exa && alias la='exa -la --icons --color=always' || alias la='ls -lah'
+has_cmd lazydocker && alias lzd='lazydocker'
+# alias clipboard='pbcopy'
+# alias clippy='pbcopy'
+# alias copied='pbpaste'
+# alias copied='echo $pbpaste && $pbpaste' # usage example: `copied | echo`
+# alias copied='from-clipboard' # usage example: `copied | echo`
+
 # Lists the ten most used commands.
-alias history-stats="history 0 | awk '{print \$2}' | stats | head"
+alias stats='sort | uniq -c | sort -r'
+alias history-stats='\history 0 | awk "{print \$2}" | stats | head'
 
-#                                                                             #
-#                         .                          #
+has_cmd safe-rm && alias rm='safe-rm' 
+# https://github.com/kaelzhang/shell-safe-rm
+# To install: npm install -g safe-rm
+# TODO: consider using this instead:
+#   Remove all items safely, to Trash (`brew install trash`).
+#   [[ -z "$commands[trash]" ]] || alias rm='trash' 2>&1 > /dev/null
+
+
+# Load External Configs                                                       #
 #-----------------------------------------------------------------------------#
 
 source $HOME/.zshrc-confidentials  # Load additional/secret configurations
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh # Load powerlevel10k config
-
+autoload -Uz compinit && compinit
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
 
 
-
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
-#                                   ARCHIVE                                   #
+#  ARCHIVE                                                                    #
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
 
-# alias la="ls -lah"
+
 # export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 # export PYTHONHOME=$PYENV_ROOT/versions/"$(python -V | cut -d' ' -f 2)"
 # [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh

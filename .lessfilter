@@ -73,5 +73,6 @@ elif [ "$category" = text ]; then
 		pygmentize "$1" | less
 	fi
 else
-	exit 1
+	lesspipe.sh "$1" | bat --color=always
+	# exit 1
 fi
