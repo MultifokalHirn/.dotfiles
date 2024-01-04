@@ -86,8 +86,8 @@ source $ZSH/oh-my-zsh.sh
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 
 ## PATH
-PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
-PATH="/usr/local/opt/gawk/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gawk/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/file-formula/bin:$PATH"
 ## less
 
@@ -131,12 +131,9 @@ zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
 # systemd - not relevant for mac
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 # previews
-preview() {
-  if file --mime-type {} | grep -qF image/; then
-    kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} | sed \$d
-  else
-    less ${(Q)realpath}
-    # bat --color=always {}
+# export FZF_PREVIEW_COLUMNS=80
+# export FZF_PREVIEW_LINES=12
+
 # preview() {
 #   if file --mime-type {} | grep -qF image/; then
 #     kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} | sed \$d
@@ -155,9 +152,8 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 #     less ${(Q)realpath}
 #     # bat --color=always {}
 # fi'
-export LESSOPEN='|~/.lessfilter %s'
+# export LESSOPEN='|~/.lessfilter %s'
 export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
-
 
 zstyle ':fzf-tab:complete:*:options' fzf-preview
 zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
@@ -210,12 +206,17 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # source ~/auto-sized-fzf.sh
 
+zstyle ':completion::complete:*' use-cache true
+zstyle ':completion::complete:*' call-command true
+# work when fzf-tab is not installed
+zstyle ':completion:*' menu select
+zstyle ':completion:*' extra-verbose true
 
 ## ENV VARS
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export SPACESHIP_CONFIG="$HOME/.spaceshiprc.zsh"
+# export SPACESHIP_CONFIG="$HOME/.spaceshiprc.zsh"
 export HOMEBREW_NO_ANALYTICS=1
 # export HOMEBREW_NO_ENV_HINTS=1
 
