@@ -34,6 +34,9 @@ export ZSH=$HOME/.oh-my-zsh # Path to your oh-my-zsh installation.
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 ### MISC CONFIGS
+
+# Commands starting from " " (whitespace) won't be saved in history:
+HIST_IGNORE_SPACE="true"
 # Uncomment this if you want to use spaceship-prompt
 # export SPACESHIP_CONFIG="$HOME/.spaceshiprc.zsh" 
 
@@ -72,7 +75,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # ATTENTION: plugins are loaded in the order they are listed here. Be careful 
 # when changing the order of plugins, as they may depend on each other (e.g.  
 # the completion system).                                                     
-
+autoload -Uz compinit && compinit # initialize zsh completion system
 plugins=(
   git
   fzf-tab
@@ -225,9 +228,14 @@ export FZF_TMUX_OPTS='-p' # https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Inte
 # export FZF_CTRL_R_OPTS="--reverse --preview 'printf {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 # export FZF_PREVIEW_COLUMNS=80
 # export FZF_PREVIEW_LINES=12
+zstyle ':fzf-tab:*' accept-line enter
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# apply to all command
+zstyle ':fzf-tab:*' popup-min-size 50 8
+zstyle ':fzf-tab:*' popup-pad 30 0
 
-zstyle ':fzf-tab:*.*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*.*' switch-group ',' '.' # switch group using `,` and `.`
+zstyle ':fzf-tab:complete:*' fzf-min-height 16
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' fzf-flags --color=bg+:23
 zstyle ':fzf-tab:*' group-colors $FZF_TAB_GROUP_COLORS
@@ -238,6 +246,7 @@ zstyle ':fzf-tab:complete:*' fzf-preview 'less ${(Q)realpath}'  # zstyle ':fzf-t
 zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word'
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 -l --color=always --icons $realpath' # preview directory's content with exa when completing cd
 zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
+zstyle ':fzf-tab:complete:*:builtin' fzf-preview 'man $word'
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
 zstyle ':fzf-tab:complete:git-help:*' fzf-preview 'git help $word | bat -plman --color=always'
@@ -361,6 +370,25 @@ auto-retry() {
 # if you alias an existing command, for example 'ls' then you can run '\ls'
 # to run the unaliased version
 
+# From Dan Ryan's blog - http://danryan.co/using-antigen-for-zsh.html
+man () {
+  # Shows pretty `man` page.
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+      man "$@"
+}
+
+# Sorts directories in top, colors, and prints `/` at directories:
+# alias ls="gls --color -h --group-directories-first -F"
+
+alias bat="\bat --theme=GitHub"
+
 alias dfh='df -x"squashfs" -x"overlay" -h'
 alias history='history -E 1' # show timestamps and ignore duplicates in history
 alias p='change-project' # change-project is defined in custom functions
@@ -396,7 +424,7 @@ has_cmd safe-rm && alias rm='safe-rm'
 
 source $HOME/.zshrc-confidentials  # Load additional/secret configurations
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh # Load powerlevel10k config
-autoload -Uz compinit && compinit
+
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
 
 

@@ -72,6 +72,12 @@ elif [ "$category" = text ]; then
 	elif has_cmd pygmentize; then
 		pygmentize "$1" | less
 	fi
+# elif [ $(has_cmd "$1") ]; then
+# 	if has_cmd tldr; then
+# 		tldr "$1" | less
+# 	else
+# 		cat $(which "$1") $(man "$1") | less
+# 	fi
 else
 	lesspipe.sh "$1" | bat --color=always
 	# exit 1
