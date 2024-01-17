@@ -42,7 +42,7 @@ if [ "$kind" = json ]; then
 # https://github.com/wofr06/lesspipe/pull/107
 elif [ -d "$1" ]; then
 	if has_cmd eza; then
-		eza -hl --git --color=always --icons "$1"
+		eza --sort=type --long --no-time --no-permissions --time-style=relative --color=always --icons "$1" #  --no-user  --git
 	elif has_cmd exa; then
 		exa -la --color=always --icons "$1"
 	fi

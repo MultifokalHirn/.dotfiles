@@ -16,7 +16,7 @@
 # Initialization code that may require console input (password prompts, [y/n] #
 # confirmations, etc) must go above this block; everything else may go below  #
 INSTANT_P="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-if [[ -r $INSTANT_P ]]; then source $INSTANT_P; fi
+if [[ -r $INSTANT_P ]]; then source $INSTANT_P; fi 
 
 #                                                                             #
 # Oh-My-Zsh                                                                   #
@@ -196,6 +196,7 @@ zstyle ':completion:*:complete:*' use-cache true
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*:exa' sort false
+zstyle ':completion:*:eza' sort false
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:messages' format '%d'
@@ -244,7 +245,7 @@ zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
 zstyle ':fzf-tab:complete:*:options' fzf-preview
 zstyle ':fzf-tab:complete:*' fzf-preview 'less ${(Q)realpath}'  # zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word'
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 -l --color=always --icons $realpath' # preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 -l --color=always --icons $realpath' # preview directory's content with exa when completing cd
 zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
 zstyle ':fzf-tab:complete:*:builtin' fzf-preview 'man $word'
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'
@@ -400,6 +401,7 @@ has_cmd /usr/local/bin/htop && alias top='/usr/local/bin/htop'
 has_cmd btm && alias top='btm'
 has_cmd dust && alias du='dust'
 has_cmd exa && alias la='exa -la --icons --color=always' || alias la='ls -lah'
+has_cmd eza && alias la='eza --sort=type --long --all --icons --color=always' || alias la='ls -lah'
 has_cmd lazydocker && alias lzd='lazydocker'
 # alias clipboard='pbcopy'
 # alias clippy='pbcopy'

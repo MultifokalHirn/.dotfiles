@@ -12,7 +12,8 @@ brew "bash" # Bash shell
 brew "bat" # Cat clone with syntax highlighting
 brew "bottom" # Cross-platform graphical process/system monitor
 brew "broot" # File manager and launcher for the command-line
-brew "exa" # Modern replacement for 'ls' command
+brew "exa" # Modern replacement 'ls'
+brew "eza" # maintained modern replacement for 'exa'
 brew "fortune" # Display random quotes
 brew "fzf" # Command-line fuzzy finder
 brew "gh" # GitHub CLI tool

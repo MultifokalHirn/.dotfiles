@@ -5,9 +5,9 @@
     // language - current active spelling language
     "language": "en,de-de",
     // words - list of words to be always considered correct
-    "import": [
-        "@cspell/dict-de-de/cspell-ext.json"
-    ],
+    // "import": [
+    //     "@cspell/dict-de-de/cspell-ext.json"
+    // ],
     "dictionaries": [
         "softwareTerms",
         "en_US",
