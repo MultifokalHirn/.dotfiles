@@ -18,6 +18,8 @@ This repository contains my personal dotfiles, as well as some instructions on h
 - [Setup Instructions](#setup-instructions)
   - [iTerm2](#iterm2)
   - [`brew` packages](#brew-packages)
+  - [Other additional packages and applications](#other-additional-packages-and-applications)
+    - [cspell](#cspell)
   - [`zsh`](#zsh)
     - [`.zshrc`](#zshrc)
     - [`ohmyzsh`](#ohmyzsh)
@@ -104,6 +106,18 @@ You can install the packages contained within like so:
 
 ```bash
 brew bundle --file=~/Brewfile-MultifokalHirn
+```
+
+### Other additional packages and applications
+
+#### cspell
+
+See the official [website](https://cspell.org) for more information.
+
+``` bash
+npm install -g cspell@latest # install cspell
+npm install -g @cspell/dict-de-de # german dictionary
+cspell link add @cspell/dict-de-de # link dictionary
 ```
 
 ### `zsh`
