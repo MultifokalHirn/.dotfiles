@@ -74,7 +74,7 @@
 # git-delta
 # https://github.com/dandavison/delta
 [core]
-    pager = pager = delta --plus-style="syntax #195019" --minus-style="normal #601919" --paging=always
+    pager = delta --plus-style="syntax #195019" --minus-style="normal #601919" --paging=always
     excludesfile = ~/.gitignore_global
 [blame]
     pager = delta
@@ -84,6 +84,7 @@
 [interactive]
     diffFilter = delta --color-only --features=interactive
 [delta]
+    side-by-side = true
     navigate = true    # use n and N to move between diff sections
     light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 	features = decorations line-numbers side-by-side

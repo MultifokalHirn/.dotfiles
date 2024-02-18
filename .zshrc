@@ -240,7 +240,46 @@ zstyle ':fzf-tab:complete:*' fzf-min-height 16
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' fzf-flags --color=bg+:23
 zstyle ':fzf-tab:*' group-colors $FZF_TAB_GROUP_COLORS
-zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'printf ${(P)word}' # preview env vars
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 -l --color=always --icons $realpath'
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# zstyle ':fzf-tab:*' fzf-min-height 10
+# apply to all command
+zstyle ':fzf-tab:*' popup-min-size 50 10
+# only apply to 'diff'
+zstyle ':fzf-tab:complete:diff:*' popup-min-size 80 12
+zstyle ':fzf-tab:*' show-group none
+# zstyle ':fzf-tab:*' fzf-pad 4
+zstyle ':fzf-tab:*.*' switch-group ',' '.'
+# show options in as popup - tmux must be installed
+zstyle ':fzf-tab:*.*' fzf-command ftb-tmux-popup
+# zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
+# systemd - not relevant for mac
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+# previews
+# preview() {
+#   if file --mime-type {} | grep -qF image/; then
+#     kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} | sed \$d
+#   else
+#     less ${(Q)realpath}
+#     # bat --color=always {}
+# fi
+# }
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
+# zstyle ':fzf-tab:complete:*:*' fzf-preview 'preview'
+
+# zstyle ':fzf-tab:complete:*:*' fzf-preview \
+# 'if file --mime-type {} | grep -qF image/; then
+#     kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} | sed \$d
+#   else
+#     less ${(Q)realpath}
+#     # bat --color=always {}
+# fi'
+export LESSOPEN='|~/.lessfilter %s'
+export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
+
+zstyle ':fzf-tab:complete:*:options' fzf-preview
 zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
 zstyle ':fzf-tab:complete:*:options' fzf-preview
 zstyle ':fzf-tab:complete:*' fzf-preview 'less ${(Q)realpath}'  # zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
@@ -263,14 +302,54 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview 'case "$group" in
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3:wrap'
 zstyle ':fzf-tab:complete:kill:*' popup-pad 0 3
+# zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
+zstyle ":fzf-tab:*" fzf-flags --color=bg+:23
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# zstyle ":completion:*:git-checkout:*" sort false
+zstyle ':completion:*' file-sort modification
+zstyle ':completion:*:exa' sort false
+zstyle ':completion:files' sort false
+zstyle ':completion:*:complete:*' use-cache true
+zstyle ':completion:*' menu yes select # search
+zstyle ':completion:*' list-grouped false
+zstyle ':completion:*' list-separator ''
+# zstyle ':completion:*' group-name ''
+# zstyle ':completion:*' verbose yes
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*:warnings' format '%F{red}%B-- No match for: %d --%b%f'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
-# zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word' # systemd - not relevant for mac
+# source ~/auto-sized-fzf.sh
 
 
-#-----------------------------------------------------------------------------#
-#  Programming Language Setups                                                #
-#-----------------------------------------------------------------------------#
-# see README.md for details
+## ENV VARS
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export SPACESHIP_CONFIG="$HOME/.spaceshiprc.zsh"
+export HOMEBREW_NO_ANALYTICS=1
+# export HOMEBREW_NO_ENV_HINTS=1
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nano'
+else
+  export EDITOR='code' # VS Code
+fi
+
+## (stolen from @garybernhardt)
+export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd" # colorization in ls
+export GREP_OPTIONS="--color"            # colorization in grep results
+#   By default, zsh considers many characters part of a word (e.g., _ and -).
+#   Narrow that down to allow easier skipping through words (!)
+export WORDCHARS='*?[]~&;!$%^<>'
+
+#                 LANGUAGE SPECIFIC CONFIGURATION                 #
+#-----------------------------------------------------------------#
 
 ## PYTHON
 #.........................................................
@@ -393,6 +472,15 @@ alias bat="\bat --theme=GitHub"
 alias dfh='df -x"squashfs" -x"overlay" -h'
 alias history='history -E 1' # show timestamps and ignore duplicates in history
 alias p='change-project' # change-project is defined in custom functions
+alias d='cd ~/Downloads/'
+alias mv='mv -iv'
+alias cp='cp -iv'
+alias mkdir='mkdir -v'
+
+# "Run" the file to look at its content (https://www.stefanjudis.com/today-i-learned/suffix-aliases-in-zsh/)
+# $ ./readme.md
+# -> cat ./readme.md
+alias -s {js,json,env,md,html,css,toml}=cat
 
 has_cmd bat && alias cat='bat -P --style "plain,changes" --color=always'
 has_cmd brew && alias update='brew update && brew upgrade'
@@ -439,3 +527,6 @@ source $HOME/.zshrc-confidentials  # Load additional/secret configurations
 # export PYTHONHOME=$PYENV_ROOT/versions/"$(python -V | cut -d' ' -f 2)"
 # [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 # source $HOME/.config/broot/launcher/bash/br
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PATH="/usr/local/opt/postgresql@16/bin:$PATH"
