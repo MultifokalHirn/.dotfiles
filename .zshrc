@@ -202,7 +202,7 @@ if [ -d "$GIT_EXTRAS" ]; then
   source $GIT_EXTRAS/share/git-extras/git-extras-completion.zsh
 fi
 
-zstyle ':completion::complete:*' call-command true
+zstyle ':completion::complete:*' call-command true # use the --help output of commands to generate auto-completions in all contexts
 zstyle ':completion::complete:*' use-cache true
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 zstyle ':completion:*:*:docker:*' option-stacking yes
@@ -243,7 +243,7 @@ export FZF_TMUX_OPTS='-p' # https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Inte
 # export FZF_CTRL_R_OPTS="--reverse --preview 'printf {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 # export FZF_PREVIEW_COLUMNS=80
 # export FZF_PREVIEW_LINES=12
-zstyle ':fzf-tab:*' accept-line enter
+# zstyle ':fzf-tab:*' accept-line enter
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 # apply to all command
 zstyle ':fzf-tab:*' popup-min-size 50 8
@@ -505,6 +505,7 @@ has_cmd dust && alias du='dust'
 has_cmd exa && alias la='exa -la --icons --color=always' || alias la='ls -lah'
 has_cmd eza && alias la='eza --sort=type --long --all --icons --color=always' || alias la='ls -lah'
 has_cmd lazydocker && alias lzd='lazydocker'
+
 # alias clipboard='pbcopy'
 # alias clippy='pbcopy'
 # alias copied='pbpaste'
