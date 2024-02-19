@@ -154,11 +154,13 @@ setopt complete_in_word
 ## PATH
 
 ### GNU coreutils
+GNU_BIN="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin"
 GNU_GREP="$HOMEBREW_PREFIX/opt/grep/libexec/gnubin"
 GNU_AWK="$HOMEBREW_PREFIX/opt/gawk/libexec/gnubin"
 GNU_FILE="$HOMEBREW_PREFIX/opt/file-formula/bin"
 GNU_FIND="$HOMEBREW_PREFIX/opt/findutils/libexec/gnubin"
 
+if [ -d "$GNU_BIN" ]; then export PATH="$GNU_BIN:$PATH"; fi
 if [ -d "$GNU_GREP" ]; then export PATH="$GNU_GREP:$PATH"; fi
 if [ -d "$GNU_AWK" ]; then export PATH="$GNU_AWK:$PATH"; fi
 if [ -d "$GNU_FILE" ]; then export PATH="$GNU_FILE:$PATH"; fi
@@ -183,6 +185,18 @@ export LESS="--RAW-CONTROL-CHARS --quit-if-one-screen --mouse"
 # Completions                                                                 #
 #.............................................................................#
 
+# mcfly (ctrl+r for searching in history)
+export MCFLY_FUZZY=2
+export MCFLY_INTERFACE_VIEW=BOTTOM
+export MCFLY_DISABLE_MENU=TRUE
+export MCFLY_RESULTS=50
+export MCFLY_RESULTS_SORT=LAST_RUN
+## set mcfly light theme if device in light mode
+if [[ "$(defaults read -g AppleInterfaceStyle 2&>/dev/null)" != "Dark" ]]; then
+    export MCFLY_LIGHT=TRUE
+fi
+
+# zsh completions
 GIT_EXTRAS="$HOMEBREW_PREFIX/opt/git-extras"
 if [ -d "$GIT_EXTRAS" ]; then 
   source $GIT_EXTRAS/share/git-extras/git-extras-completion.zsh
@@ -511,8 +525,8 @@ has_cmd safe-rm && alias rm='safe-rm'
 
 # Load External Configs                                                       #
 #-----------------------------------------------------------------------------#
-
-source $HOME/.zshrc-confidentials  # Load additional/secret configurations
+has_cmd mcfly && eval "$(mcfly init zsh)"
+[[ ! -f $HOME/.zshrc-confidentials ]] || source $HOME/.zshrc-confidentials  # Load additional/secret configurations
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh # Load powerlevel10k config
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
