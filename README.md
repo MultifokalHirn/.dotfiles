@@ -12,21 +12,22 @@ This repository contains my personal dotfiles, as well as some instructions on h
 <!-- markdownlint-restore -->
 <h2> Contents </h2>
 
-- [Overview](#overview)
-  - [Main Files](#main-files)
-  - [Using this Repository](#using-this-repository)
-- [Setup Instructions](#setup-instructions)
-  - [iTerm2](#iterm2)
-  - [`brew` packages](#brew-packages)
-  - [Other additional packages and applications](#other-additional-packages-and-applications)
-    - [cspell](#cspell)
-  - [`zsh`](#zsh)
-    - [`.zshrc`](#zshrc)
-    - [`ohmyzsh`](#ohmyzsh)
-  - [Language specific Setups](#language-specific-setups)
-    - [`python`](#python)
-    - [`ruby`](#ruby)
-    - [`rust`](#rust)
+1. [Overview](#overview)
+   1. [Main Files](#main-files)
+   2. [Using this Repository](#using-this-repository)
+2. [Setup Instructions](#setup-instructions)
+   1. [iTerm2](#iterm2)
+   2. [`brew` packages](#brew-packages)
+   3. [Other additional packages and applications](#other-additional-packages-and-applications)
+      1. [cspell](#cspell)
+   4. [`zsh`](#zsh)
+      1. [`.zshrc`](#zshrc)
+      2. [`ohmyzsh`](#ohmyzsh)
+      3. [`lesspipe.sh`](#lesspipesh)
+   5. [Language-specific Setups](#language-specific-setups)
+      1. [`python`](#python)
+      2. [`ruby`](#ruby)
+      3. [`rust`](#rust)
 
 ## Overview
 
@@ -215,7 +216,21 @@ git clone https://github.com/davidparsson/zsh-pyenv-lazy.git
 git clone https://github.com/sobolevn/wakatime-zsh-plugin.git wakatime;
 ```
 
-### Language specific Setups
+#### `lesspipe.sh`
+
+> [Link to Repository](https://github.com/wofr06/lesspipe)
+
+*"To browse files under UNIX the excellent viewer less can be used. By setting the environment variable `LESSOPEN`, less can be enhanced by external filters to become even more powerful. Most Linux distributions come already with a "lesspipe.sh" that covers the most common situations."*
+
+##### Installation
+
+```bash
+cd /usr/local/bin/
+wget https://raw.githubusercontent.com/wofr06/lesspipe/refs/heads/lesspipe/lesspipe.sh
+chmod +x /usr/local/bin/lesspipe.sh
+```
+
+### Language-specific Setups
 
 #### `python`
 
@@ -225,10 +240,11 @@ decouples your development environment from the system `python` which Apple
 will update from time to time, potentially breaking your development setup.
 
 ```bash
-brew install pyenv
+brew install pyenv python-argcomplete
+activate-global-python-argcomplete --user
 
-pyenv install 3.12.0 # example version
-pyenv global 3.12.0 # set global python version to 3.12.0 (default is system python) 
+pyenv install 3.13.0 # example version
+pyenv global 3.13.0 # set global python version to 3.13.0 (default is system python) 
 ```
 
 ##### `pipx`
@@ -240,7 +256,8 @@ it uses the `pipx` virtual environment.
 
 ```bash
 python -V # check whether you are using the intended python version
-pip install --upgrade pipx
+brew install pipx # NEW - global pip packages are best installed using brew in 2024 apparently
+# OLD: pip install --upgrade pipx 
 pipx ensurepath
 
 pipx install ruff virtualenvwrapper bpython # example packages

@@ -12,7 +12,7 @@ brew "bash" # Bash shell
 brew "bat" # Cat clone with syntax highlighting
 brew "bottom" # Cross-platform graphical process/system monitor
 brew "broot" # File manager and launcher for the command-line
-brew "exa" # Modern replacement 'ls'
+# brew "exa" # Modern replacement 'ls'
 brew "eza" # maintained modern replacement for 'exa'
 brew "fortune" # Display random quotes
 brew "fzf" # Command-line fuzzy finder
@@ -40,6 +40,8 @@ brew "nmap" # Network exploration tool and security scanner
 brew "pandoc" # Universal document converter
 brew "pre-commit" # Framework for managing and maintaining multi-language pre-commit hooks
 brew "pyenv" # Python version management
+brew "pipx" # Python package executer
+brew "python-argcomplete" # Python package 'argcomplete'
 
 # https://github.com/sindresorhus/quick-look-plugins
 brew "qlcolorcode" # macOS quicklook plugin for color-coded files

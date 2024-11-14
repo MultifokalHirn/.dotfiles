@@ -21,7 +21,7 @@ if [[ -r $INSTANT_P ]]; then source $INSTANT_P; fi
 #                                                                             #
 # Oh-My-Zsh                                                                   #
 #-----------------------------------------------------------------------------#
-
+# eval "$(/opt/homebrew/bin/brew shellenv)"
 zstyle ':omz:update' frequency 7  # check for oh-my-zsh updates every 7 days
 zstyle ':omz:update' mode auto  # install updates automatically without asking
 HIST_STAMPS="dd.mm.yyyy"
@@ -86,7 +86,7 @@ plugins=(
   history
   pre-commit
   python
-  zsh-nvm
+  # zsh-nvm
   ohmyzsh-full-autoupdate
   pyenv-lazy
   zinsults
@@ -184,7 +184,7 @@ export LESS="--RAW-CONTROL-CHARS --quit-if-one-screen --mouse"
 
 # Completions                                                                 #
 #.............................................................................#
-
+source <(fzf --zsh)
 # mcfly (ctrl+r for searching in history)
 export MCFLY_FUZZY=2
 export MCFLY_INTERFACE_VIEW=BOTTOM
@@ -380,7 +380,7 @@ if [ -d $PYENV_ROOT ]; then
   ## pyenv to work without the following line being uncommented
   # eval "$(pyenv init -)"
 fi
-
+eval "$(register-python-argcomplete pipx)"
 ### tk-inter
 TK_INTER="$HOMEBREW_PREFIX/opt/tcl-tk"
 if [ -d $TK_INTER ]; then
@@ -411,6 +411,7 @@ fi
 ## RUST
 #.........................................................
 RUST_BINARIES="$HOME/.cargo/bin"
+. "$HOME/.cargo/env"
 if [ -d $RUST_BINARIES ]; then
   export PATH="$RUST_BINARIES:$PATH"
   if [ -f "$RUST_BINARIES/sccache" ]; then export RUSTC_WRAPPER=sccache; fi
@@ -490,7 +491,7 @@ alias d='cd ~/Downloads/'
 alias mv='mv -iv'
 alias cp='cp -iv'
 alias mkdir='mkdir -v'
-
+alias hn='clx --nerdfonts --categories="top,best,ask,show,new"'
 # "Run" the file to look at its content (https://www.stefanjudis.com/today-i-learned/suffix-aliases-in-zsh/)
 # $ ./readme.md
 # -> cat ./readme.md
