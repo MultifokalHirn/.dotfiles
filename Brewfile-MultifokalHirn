@@ -12,8 +12,8 @@ brew "bash" # Bash shell
 brew "bat" # Cat clone with syntax highlighting
 brew "bottom" # Cross-platform graphical process/system monitor
 brew "broot" # File manager and launcher for the command-line
-# brew "exa" # Modern replacement 'ls'
-brew "eza" # maintained modern replacement for 'exa'
+brew "clx" # Hacker News browser in the terminal
+brew "eza" # maintained modern replacement for 'ls' (predecessor exa is not maintained)
 brew "fortune" # Display random quotes
 brew "fzf" # Command-line fuzzy finder
 brew "gh" # GitHub CLI tool
@@ -42,7 +42,7 @@ brew "pre-commit" # Framework for managing and maintaining multi-language pre-co
 brew "pyenv" # Python version management
 brew "pipx" # Python package executer
 brew "python-argcomplete" # Python package 'argcomplete'
-
+brew "trash"
 # https://github.com/sindresorhus/quick-look-plugins
 brew "qlcolorcode" # macOS quicklook plugin for color-coded files
 brew "qlstephen" # macOS quicklook plugin for plain text files without file extensions
@@ -64,8 +64,8 @@ brew "tldr" # Simplified and community-driven man pages
 brew "tmux" # Terminal multiplexer
 brew "tree" # Display directories as trees
 brew "wget" # Internet file retriever
-brew "zsh-completions" # Additional completion definitions for Zsh
 brew "zsh" # Zsh shell
+brew "zsh-completions" # Additional completion definitions for Zsh
 
 ## Packages I want to checkout
 

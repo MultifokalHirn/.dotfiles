@@ -88,7 +88,7 @@ plugins=(
   python
   # zsh-nvm
   ohmyzsh-full-autoupdate
-  pyenv-lazy
+  # pyenv-lazy
   zinsults
   zsh-completions
   # docker
@@ -111,12 +111,28 @@ source $ZSH/oh-my-zsh.sh # initialize oh-my-zsh
 ###############################################################################
 # USER CONFIG ----------------------------------------------------------------#
 ###############################################################################
+# ANSI Colors for reference
+# Black        0;30     Dark Gray     1;30
+# Red          0;31     Light Red     1;31
+# Green        0;32     Light Green   1;32
+# Brown/Orange 0;33     Yellow        1;33
+# Blue         0;34     Light Blue    1;34
+# Purple       0;35     Light Purple  1;35
+# Cyan         0;36     Light Cyan    1;36
+# Light Gray   0;37     White         1;37
+
+LIGHTGRAY='\033[0;37m'
+GRAY='\033[1;30m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
 
 has_cmd() {
   # Helper function to check if a command exists. 
   # Example usage: `has_cmd some_command && echo yay || echo no`
 	for cmd in "$@"; do
-		command -v "$cmd" >/dev/null
+		command -v "$cmd" >/dev/null || printf "Cannot create alias using ${RED}$cmd${NC} since it is not installed.\n"
 	done
 }
 
@@ -209,7 +225,6 @@ zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:complete:*' use-cache true
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*:descriptions' format '[%d]'
-zstyle ':completion:*:exa' sort false
 zstyle ':completion:*:eza' sort false
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:matches' group 'yes'
@@ -254,8 +269,8 @@ zstyle ':fzf-tab:complete:*' fzf-min-height 16
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' fzf-flags --color=bg+:23
 zstyle ':fzf-tab:*' group-colors $FZF_TAB_GROUP_COLORS
-# preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 -l --color=always --icons $realpath'
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 -l --color=always --icons $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 # zstyle ':fzf-tab:*' fzf-min-height 10
@@ -298,7 +313,7 @@ zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
 zstyle ':fzf-tab:complete:*:options' fzf-preview
 zstyle ':fzf-tab:complete:*' fzf-preview 'less ${(Q)realpath}'  # zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word'
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 -l --color=always --icons $realpath' # preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 -l --color=always --icons $realpath' # preview directory's content with eza when completing cd
 zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
 zstyle ':fzf-tab:complete:*:builtin' fzf-preview 'man $word'
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'
@@ -321,7 +336,7 @@ zstyle ":fzf-tab:*" fzf-flags --color=bg+:23
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 # zstyle ":completion:*:git-checkout:*" sort false
 zstyle ':completion:*' file-sort modification
-zstyle ':completion:*:exa' sort false
+zstyle ':completion:*:eza' sort false
 zstyle ':completion:files' sort false
 zstyle ':completion:*:complete:*' use-cache true
 zstyle ':completion:*' menu yes select # search
@@ -378,7 +393,7 @@ if [ -d $PYENV_ROOT ]; then
   export PATH="$PYENV_ROOT/bin:$PATH"
   ## ATTENTION: pyenv-lazy plugin is required to be installed and enabled for 
   ## pyenv to work without the following line being uncommented
-  # eval "$(pyenv init -)"
+  eval "$(pyenv init -)"
 fi
 eval "$(register-python-argcomplete pipx)"
 ### tk-inter
@@ -445,9 +460,9 @@ change-project() {
 #   cat $(ls | selecta)
 # }
 
-# from-clipboard() {
-#   echo $(pbpaste) && pbpaste
-# }
+show-clipboard() {
+  has_cmd pbpaste && printf "$(pbpaste)\n"
+}
 
 auto-retry() {
   false
@@ -482,48 +497,51 @@ man () {
 # Sorts directories in top, colors, and prints `/` at directories:
 # alias ls="gls --color -h --group-directories-first -F"
 
-alias bat="\bat --theme=GitHub"
-
-alias dfh='df -x"squashfs" -x"overlay" -h'
+alias hint="printf '${BLUE}Cool commands and aliases:\n\n${GREEN}hn\ncdd\nstats\nfortune\ntrash\n'"
+alias reload="printf 'Running ${BLUE}_omz::reload${NC}!\n'; _omz::reload"
+alias rel="reload"
+alias df="df; printf '\nFor more human-readable output, try running ${GREEN}dfh${NC}!\n'"
+alias dfh='/bin/df -h'
 alias history='history -E 1' # show timestamps and ignore duplicates in history
 alias p='change-project' # change-project is defined in custom functions
 alias d='cd ~/Downloads/'
 alias mv='mv -iv'
 alias cp='cp -iv'
-alias mkdir='mkdir -v'
+create-dir () {
+  # DIR="${pwd}"
+  mkdir $@ && printf "Created new directory ${GREEN}$@/${NC} ${GRAY}in $(pwd)${NC}\n"
+}
+alias mkdir='create-dir'
 alias hn='clx --nerdfonts --categories="top,best,ask,show,new"'
 # "Run" the file to look at its content (https://www.stefanjudis.com/today-i-learned/suffix-aliases-in-zsh/)
 # $ ./readme.md
 # -> cat ./readme.md
 alias -s {js,json,env,md,html,css,toml}=cat
 
-has_cmd bat && alias cat='bat -P --style "plain,changes" --color=always'
-has_cmd brew && alias update='brew update && brew upgrade'
+has_cmd bat && alias cat='bat --theme=GitHub -P --style "plain,changes" --color=always'
+has_cmd brew && alias update="printf 'Running ${BLUE}brew update${NC}...\n'; brew update && printf 'Running ${BLUE}brew upgrade${NC}...\n'; brew upgrade"
 has_cmd broot && alias cdd='broot -s'
-has_cmd /usr/local/bin/htop && alias top='/usr/local/bin/htop'
+has_cmd /opt/homebrew/bin/htop && alias top='/opt/homebrew/bin/htop'
 has_cmd btm && alias top='btm'
 has_cmd dust && alias du='dust'
-has_cmd exa && alias la='exa -la --icons --color=always' || alias la='ls -lah'
 has_cmd eza && alias la='eza --sort=type --long --all --icons --color=always' || alias la='ls -lah'
 has_cmd lazydocker && alias lzd='lazydocker'
 
-# alias clipboard='pbcopy'
+alias clipboard='show-clipboard'
 # alias clippy='pbcopy'
 # alias copied='pbpaste'
-# alias copied='echo $pbpaste && $pbpaste' # usage example: `copied | echo`
-# alias copied='from-clipboard' # usage example: `copied | echo`
+# alias copied='echo "$(pbpaste)"; $pbpaste' # usage example: `copied | echo`
+alias copied="show-clipboard" # usage example: `copied | echo`
 
 # Lists the ten most used commands.
-alias stats='sort | uniq -c | sort -r'
-alias history-stats='\history 0 | awk "{print \$2}" | stats | head'
-
-has_cmd safe-rm && alias rm='safe-rm' 
-# https://github.com/kaelzhang/shell-safe-rm
-# To install: npm install -g safe-rm
-# TODO: consider using this instead:
+alias print-stats='sort | uniq -c | sort -r' # only for use with piped in data 
+alias stats='printf "${BLUE}Your most used commands:${NC}\n"; \history 0 | awk "{print \$2}" | print-stats | head'
 #   Remove all items safely, to Trash (`brew install trash`).
-#   [[ -z "$commands[trash]" ]] || alias rm='trash' 2>&1 > /dev/null
-
+remove-file () {
+  \trash $@ && printf "${RED}$@${NC} was moved into the Trash\n${GRAY}(Hint: Run ${BLUE}trash${GRAY} to list all items currently in the Trash)${NC}\n"
+}
+[[ -z "$commands[trash]" ]] || alias rm='remove-file' # 2>&1 > /dev/null
+alias trash='trash -l' # lists all items currently in the Trash
 
 # Load External Configs                                                       #
 #-----------------------------------------------------------------------------#
@@ -546,3 +564,16 @@ has_cmd mcfly && eval "$(mcfly init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="/usr/local/opt/postgresql@16/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if command -v ngrok &>/dev/null; then
+  eval "$(ngrok completion)"
+fi
+
+
+# Created by `pipx` on 2024-11-07 11:00:52
+export PATH="$PATH:~/.local/bin"
+has_cmd fortune && fortune
