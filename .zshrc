@@ -6,6 +6,35 @@
 # Repository: https://github.com/MultifokalHirn/.dotfiles                     #
 #                                                                             #
 
+# Performance optimizations
+DISABLE_AUTO_UPDATE="true"
+DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_COMPFIX="true"
+
+# TODO: test this # Cache completions aggressively
+# autoload -Uz compinit
+# if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+#     compinit
+# else
+#     compinit -C
+# fi
+
+# ANSI Colors for reference
+# Black        0;30     Dark Gray     1;30
+# Red          0;31     Light Red     1;31
+# Green        0;32     Light Green   1;32
+# Brown/Orange 0;33     Yellow        1;33
+# Blue         0;34     Light Blue    1;34
+# Purple       0;35     Light Purple  1;35
+# Cyan         0;36     Light Cyan    1;36
+# Light Gray   0;37     White         1;37
+
+LIGHTGRAY='\033[0;37m'
+GRAY='\033[1;30m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
 
@@ -84,7 +113,7 @@ plugins=(
   zsh-autosuggestions
   macos
   history
-  pre-commit
+  # pre-commit
   python
   # zsh-nvm
   ohmyzsh-full-autoupdate
@@ -111,22 +140,7 @@ source $ZSH/oh-my-zsh.sh # initialize oh-my-zsh
 ###############################################################################
 # USER CONFIG ----------------------------------------------------------------#
 ###############################################################################
-# ANSI Colors for reference
-# Black        0;30     Dark Gray     1;30
-# Red          0;31     Light Red     1;31
-# Green        0;32     Light Green   1;32
-# Brown/Orange 0;33     Yellow        1;33
-# Blue         0;34     Light Blue    1;34
-# Purple       0;35     Light Purple  1;35
-# Cyan         0;36     Light Cyan    1;36
-# Light Gray   0;37     White         1;37
 
-LIGHTGRAY='\033[0;37m'
-GRAY='\033[1;30m'
-RED='\033[0;31m'
-BLUE='\033[0;34m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
 
 has_cmd() {
   # Helper function to check if a command exists. 
@@ -354,6 +368,9 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # source ~/auto-sized-fzf.sh
 
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#663399,standout"
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 ## ENV VARS
 
@@ -397,13 +414,13 @@ if [ -d $PYENV_ROOT ]; then
 fi
 eval "$(register-python-argcomplete pipx)"
 ### tk-inter
-TK_INTER="$HOMEBREW_PREFIX/opt/tcl-tk"
-if [ -d $TK_INTER ]; then
-  export PATH="$TK_INTER/bin:$PATH"
-  export LDFLAGS="-L$TK_INTER/lib"
-  export CPPFLAGS="-I$TK_INTER/include"
-  export PKG_CONFIG_PATH="$TK_INTER/lib/pkgconfig"
-fi
+# TK_INTER="$HOMEBREW_PREFIX/opt/tcl-tk"
+# if [ -d $TK_INTER ]; then
+#   export PATH="$TK_INTER/bin:$PATH"
+#   export LDFLAGS="-L$TK_INTER/lib"
+#   export CPPFLAGS="-I$TK_INTER/include"
+#   export PKG_CONFIG_PATH="$TK_INTER/lib/pkgconfig"
+# fi
 
 ## NODE 
 #.........................................................
@@ -417,20 +434,20 @@ fi
 
 ## RUBY
 #.........................................................
-HOMEBREW_RUBY="$HOMEBREW_PREFIX/opt/ruby/bin"
-if [ -d $HOMEBREW_RUBY ]; then
-  export PATH="$HOMEBREW_RUBY:$PATH"
-  export PATH="$(gem environment gemdir)/bin:$PATH"
-fi
+# HOMEBREW_RUBY="$HOMEBREW_PREFIX/opt/ruby/bin"
+# if [ -d $HOMEBREW_RUBY ]; then
+#   export PATH="$HOMEBREW_RUBY:$PATH"
+#   export PATH="$(gem environment gemdir)/bin:$PATH"
+# fi
 
 ## RUST
 #.........................................................
-RUST_BINARIES="$HOME/.cargo/bin"
-. "$HOME/.cargo/env"
-if [ -d $RUST_BINARIES ]; then
-  export PATH="$RUST_BINARIES:$PATH"
-  if [ -f "$RUST_BINARIES/sccache" ]; then export RUSTC_WRAPPER=sccache; fi
-fi
+# RUST_BINARIES="$HOME/.cargo/bin"
+# if [ -f "$HOME/.cargo/env" ]; then . "$HOME/.cargo/env"; fi
+# if [ -d $RUST_BINARIES ]; then
+#   export PATH="$RUST_BINARIES:$PATH"
+#   if [ -f "$RUST_BINARIES/sccache" ]; then export RUSTC_WRAPPER=sccache; fi
+# fi
 
 
 #  Misc                                                                       #
@@ -448,104 +465,10 @@ KUBECTL_PATH="$HOMEBREW_PREFIX/bin/kubectl"
 if [ -f "$KUBECTL_PATH" ]; then alias kubectl="$KUBECTL_PATH"; fi
 
 
-#                             CUSTOM FUNCTIONS                                #
-#-----------------------------------------------------------------------------#
-export PROJECTS_ROOT="$HOME/Documents/GitHub"
-change-project() {
-  # Used via: alias p="change-project"
-  cd $(find -L $PROJECTS_ROOT -maxdepth 1 -type d | selecta) && clear
-}
-
-# show-file() {
-#   cat $(ls | selecta)
-# }
-
-show-clipboard() {
-  has_cmd pbpaste && printf "$(pbpaste)\n"
-}
-
-auto-retry() {
-  false
-  while [ $? -ne 0 ]; do
-    "$@" || (
-      sleep 1
-      false
-    )
-  done
-}
-
-
-#  ALIASES                                                                    #
-#-----------------------------------------------------------------------------#
-# if you alias an existing command, for example 'ls' then you can run '\ls'
-# to run the unaliased version
-
-# From Dan Ryan's blog - http://danryan.co/using-antigen-for-zsh.html
-man () {
-  # Shows pretty `man` page.
-  env \
-    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-    LESS_TERMCAP_md=$(printf "\e[1;31m") \
-    LESS_TERMCAP_me=$(printf "\e[0m") \
-    LESS_TERMCAP_se=$(printf "\e[0m") \
-    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-    LESS_TERMCAP_ue=$(printf "\e[0m") \
-    LESS_TERMCAP_us=$(printf "\e[1;32m") \
-      man "$@"
-}
-
-# Sorts directories in top, colors, and prints `/` at directories:
-# alias ls="gls --color -h --group-directories-first -F"
-
-alias hint="printf '${BLUE}Cool commands and aliases:\n\n${GREEN}hn\ncdd\nstats\nfortune\ntrash\n'"
-alias reload="printf 'Running ${BLUE}_omz::reload${NC}!\n'; _omz::reload"
-alias rel="reload"
-alias df="df; printf '\nFor more human-readable output, try running ${GREEN}dfh${NC}!\n'"
-alias dfh='/bin/df -h'
-alias history='history -E 1' # show timestamps and ignore duplicates in history
-alias p='change-project' # change-project is defined in custom functions
-alias d='cd ~/Downloads/'
-alias mv='mv -iv'
-alias cp='cp -iv'
-create-dir () {
-  # DIR="${pwd}"
-  mkdir $@ && printf "Created new directory ${GREEN}$@/${NC} ${GRAY}in $(pwd)${NC}\n"
-}
-alias mkdir='create-dir'
-alias hn='clx --nerdfonts --categories="top,best,ask,show,new"'
-# "Run" the file to look at its content (https://www.stefanjudis.com/today-i-learned/suffix-aliases-in-zsh/)
-# $ ./readme.md
-# -> cat ./readme.md
-alias -s {js,json,env,md,html,css,toml}=cat
-
-has_cmd bat && alias cat='bat --theme=GitHub -P --style "plain,changes" --color=always'
-has_cmd brew && alias update="printf 'Running ${BLUE}brew update${NC}...\n'; brew update && printf 'Running ${BLUE}brew upgrade${NC}...\n'; brew upgrade"
-has_cmd broot && alias cdd='broot -s'
-has_cmd /opt/homebrew/bin/htop && alias top='/opt/homebrew/bin/htop'
-has_cmd btm && alias top='btm'
-has_cmd dust && alias du='dust'
-has_cmd eza && alias la='eza --sort=type --long --all --icons --color=always' || alias la='ls -lah'
-has_cmd lazydocker && alias lzd='lazydocker'
-
-alias clipboard='show-clipboard'
-# alias clippy='pbcopy'
-# alias copied='pbpaste'
-# alias copied='echo "$(pbpaste)"; $pbpaste' # usage example: `copied | echo`
-alias copied="show-clipboard" # usage example: `copied | echo`
-
-# Lists the ten most used commands.
-alias print-stats='sort | uniq -c | sort -r' # only for use with piped in data 
-alias stats='printf "${BLUE}Your most used commands:${NC}\n"; \history 0 | awk "{print \$2}" | print-stats | head'
-#   Remove all items safely, to Trash (`brew install trash`).
-remove-file () {
-  \trash $@ && printf "${RED}$@${NC} was moved into the Trash\n${GRAY}(Hint: Run ${BLUE}trash${GRAY} to list all items currently in the Trash)${NC}\n"
-}
-[[ -z "$commands[trash]" ]] || alias rm='remove-file' # 2>&1 > /dev/null
-alias trash='trash -l' # lists all items currently in the Trash
 
 # Load External Configs                                                       #
 #-----------------------------------------------------------------------------#
-has_cmd mcfly && eval "$(mcfly init zsh)"
+
 [[ ! -f $HOME/.zshrc-confidentials ]] || source $HOME/.zshrc-confidentials  # Load additional/secret configurations
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh # Load powerlevel10k config
 
@@ -563,7 +486,7 @@ has_cmd mcfly && eval "$(mcfly init zsh)"
 # source $HOME/.config/broot/launcher/bash/br
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export PATH="/usr/local/opt/postgresql@16/bin:$PATH"
+# export PATH="/usr/local/opt/postgresql@16/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -576,4 +499,7 @@ fi
 
 # Created by `pipx` on 2024-11-07 11:00:52
 export PATH="$PATH:~/.local/bin"
-has_cmd fortune && fortune
+
+
+# Source aliases last
+[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases

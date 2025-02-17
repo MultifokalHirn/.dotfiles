@@ -66,7 +66,7 @@ brew "tree" # Display directories as trees
 brew "wget" # Internet file retriever
 brew "zsh" # Zsh shell
 brew "zsh-completions" # Additional completion definitions for Zsh
-
+brew "helix" # code editor
 ## Packages I want to checkout
 
 # brew "shellcheck" # Static analysis and lint tool, for (ba)sh scripts
@@ -76,6 +76,9 @@ brew "zsh-completions" # Additional completion definitions for Zsh
 # cask "maccy" # Clipboard manager
 # cask "syntax-highlight" # Quicklook extension for source files
 
+## Casks
+# cask "ghostty"
+# cask "plugdata" # music synthesis software
 # cask "font-hack-nerd-font" # Nerd Font patched version of Hack font
 # cask "dozer" # Hide menu bar icons on macOS
 # cask "kitty"
