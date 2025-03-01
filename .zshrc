@@ -45,8 +45,9 @@ NC='\033[0m' # No Color
 # Initialization code that may require console input (password prompts, [y/n] #
 # confirmations, etc) must go above this block; everything else may go below  #
 INSTANT_P="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-if [[ -r $INSTANT_P ]]; then source $INSTANT_P; fi 
-
+if [[ -r $INSTANT_P ]]; then 
+  source $INSTANT_P; 
+fi
 #                                                                             #
 # Oh-My-Zsh                                                                   #
 #-----------------------------------------------------------------------------#
@@ -452,6 +453,16 @@ fi
 
 #  Misc                                                                       #
 #-----------------------------------------------------------------------------#
+## ATUIN HISTORY
+# if [ -f "$HOME/.atuin/bin/env" ]; then 
+#   . "$HOME/.atuin/bin/env"; 
+#   eval "$(atuin init zsh)"
+# fi
+
+## MCFLY
+# "Fly through your shell history"
+# has_cmd mcfly && eval "$(mcfly init zsh)"
+
 
 ## GOOGLE CLOUD
 
@@ -461,8 +472,8 @@ fi
 # # The next line enables shell command completion for gcloud.
 # if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
-KUBECTL_PATH="$HOMEBREW_PREFIX/bin/kubectl"
-if [ -f "$KUBECTL_PATH" ]; then alias kubectl="$KUBECTL_PATH"; fi
+# KUBECTL_PATH="$HOMEBREW_PREFIX/bin/kubectl"
+# if [ -f "$KUBECTL_PATH" ]; then alias kubectl="$KUBECTL_PATH"; fi
 
 
 
@@ -471,6 +482,18 @@ if [ -f "$KUBECTL_PATH" ]; then alias kubectl="$KUBECTL_PATH"; fi
 
 [[ ! -f $HOME/.zshrc-confidentials ]] || source $HOME/.zshrc-confidentials  # Load additional/secret configurations
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh # Load powerlevel10k config
+
+# if command -v ngrok &>/dev/null; then
+#   eval "$(ngrok completion)"
+# fi
+
+export PATH="$PATH:~/.local/bin"
+
+
+# Source aliases last
+[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases &> /dev/null
+
+
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
 
@@ -485,21 +508,11 @@ if [ -f "$KUBECTL_PATH" ]; then alias kubectl="$KUBECTL_PATH"; fi
 # [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 # source $HOME/.config/broot/launcher/bash/br
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # export PATH="/usr/local/opt/postgresql@16/bin:$PATH"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-if command -v ngrok &>/dev/null; then
-  eval "$(ngrok completion)"
-fi
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-# Created by `pipx` on 2024-11-07 11:00:52
-export PATH="$PATH:~/.local/bin"
-
-
-# Source aliases last
-[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

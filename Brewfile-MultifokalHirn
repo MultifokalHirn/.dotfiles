@@ -77,21 +77,26 @@ brew "helix" # code editor
 # cask "syntax-highlight" # Quicklook extension for source files
 
 ## Casks
-# cask "ghostty"
-# cask "plugdata" # music synthesis software
-# cask "font-hack-nerd-font" # Nerd Font patched version of Hack font
 # cask "dozer" # Hide menu bar icons on macOS
-# cask "kitty"
 # cask "firefox" # Web browser
+# cask "font-0xproto-nerd-font"
+# cask "font-arimo-nerd-font"
+# cask "font-departure-mono-nerd-font"
+# cask "font-geist-mono-nerd-font"
+# cask "font-hack-nerd-font" # Nerd Font patched version of Hack font
+# cask "font-martian-mono-nerd-font"
+# cask "font-proggy-clean-tt-nerd-font"
+# cask "ghostty"
 # cask "github" # GitHub Desktop client
 # cask "google-chrome" # Web browser
 # cask "handbrake" # Open-source video transcoder
 # cask "iterm2" # Terminal emulator for macOS
 # cask "osxfuse" # File system integration for macOS
+# cask "plugdata" # music synthesis software
 # cask "telegram" # Messaging app
 # cask "visual-studio-code" # Source code editor
 # cask "vlc" # Media player
-cask "hammerspoon" # interact with macOS API in Lua
+# cask "hammerspoon" # interact with macOS API in Lua
 
 ## VS Code extensions
 

@@ -32,8 +32,6 @@ auto-retry() {
   done
 }
 
-
-
 #  ALIASES                                                                    #
 #-----------------------------------------------------------------------------#
 # if you alias an existing command, for example 'ls' then you can run '\ls'
@@ -76,6 +74,8 @@ alias hn='clx --nerdfonts --categories="top,best,ask,show,new"'
 # -> cat ./readme.md
 alias -s {js,json,env,md,html,css,toml}=cat
 
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
 has_cmd bat && alias cat='bat --theme=GitHub -P --style "plain,changes" --color=always'
 has_cmd brew && alias update="printf 'Running ${BLUE}brew update${NC}...\n'; brew update && printf 'Running ${BLUE}brew upgrade${NC}...\n'; brew upgrade"
 has_cmd broot && alias cdd='broot -s'
@@ -84,7 +84,7 @@ has_cmd btm && alias top='btm'
 has_cmd dust && alias du='dust'
 has_cmd eza && alias la='eza --sort=type --long --all --icons --color=always' || alias la='ls -lah'
 has_cmd lazydocker && alias lzd='lazydocker'
-has_cmd mcfly && eval "$(mcfly init zsh)"
+
 alias clipboard='show-clipboard'
 # alias clippy='pbcopy'
 # alias copied='pbpaste'
