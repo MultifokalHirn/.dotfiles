@@ -1,0 +1,36 @@
+#!/bin/zsh
+#
+# .zstyles - Set zstyle settings for plugins that need them.
+#
+
+#
+# Antidote
+#
+
+# zstyle ':antidote:bundle' file ${ZDOTDIR:-~}/.zplugins.txt
+# zstyle ':antidote:bundle' use-friendly-names 'yes'
+zstyle ':completion::complete:*' call-command true # use the --help output of commands to generate auto-completions in all contexts
+zstyle ':completion::complete:*' use-cache true
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:complete:*' use-cache true
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*:eza' sort false
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:processes' command "ps -wu$USER -opid,user,comm"
+zstyle ':completion:*:warnings' format '%F{red}%B-- No match for: %d --%b%f'
+zstyle ':completion:*' extra-verbose true
+zstyle ':completion:*' file-sort modification
+zstyle ':completion:*' list-grouped false
+zstyle ':completion:*' list-separator ''
+zstyle ':completion:*' menu select
+zstyle ':completion:*' menu yes select # search
+zstyle ':completion:*' option-stacking true
+zstyle ':completion:*' word true
+zstyle ':completion:files' sort false
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # enable filename colorizing
+# zstyle ':completion:*' group-name ''
+# zstyle ':completion:*' verbose yes
