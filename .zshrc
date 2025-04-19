@@ -11,13 +11,9 @@ DISABLE_AUTO_UPDATE="true"
 DISABLE_MAGIC_FUNCTIONS="true"
 DISABLE_COMPFIX="true"
 
-# TODO: test this # Cache completions aggressively
-# autoload -Uz compinit
-# if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
-#     compinit
-# else
-#     compinit -C
-# fi
+# Init completions with cache (faster startup)
+autoload -Uz compinit
+compinit -C
 
 # ANSI Colors for reference
 # Black        0;30     Dark Gray     1;30
@@ -36,8 +32,19 @@ BLUE='\033[0;34m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
+# printf "\n${GRAY}---${NC}\n"
+# printf "\n${BLUE}ToDo${NC}\n"
+# cat ~/todo.txt
+# printf "\n${GRAY}---${NC}\n"
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
 
+# if [[ -f "~/rainbow.sh" ]]; then
+#   echo "wsrtr"
+#   alias say="touch /tmp/say; echo $@ >> /tmp/say && ~/rainbow.sh -f /tmp/say; rm /tmp/say;"
+# else
+#   alias say="cowsay"
+# fi
+# alias say="touch /tmp/say && echo '$@' >> /tmp/say && bash ~/rainbow.sh /tmp/say; rm /tmp/say "
 
 # Enable Powerlevel10k instant prompt.                                        #
 #-----------------------------------------------------------------------------#
@@ -48,6 +55,11 @@ INSTANT_P="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 if [[ -r $INSTANT_P ]]; then 
   source $INSTANT_P; 
 fi
+rainbow() {
+  touch /tmp/say && echo $@ >> /tmp/say && ~/rainbow.sh '/tmp/say' 
+}
+alias say="rainbow"
+# command -v "fortune" &> /dev/null  && command -v "say" &> /dev/null && fortune | say
 #                                                                             #
 # Oh-My-Zsh                                                                   #
 #-----------------------------------------------------------------------------#
@@ -106,6 +118,11 @@ HIST_IGNORE_SPACE="true"
 # when changing the order of plugins, as they may depend on each other (e.g.  
 # the completion system).                                                     
 autoload -Uz compinit && compinit # initialize zsh completion system
+
+# TODO: try out antidote
+# source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+# source ~/.zsh_plugins.zsh
+
 plugins=(
   git
   fzf-tab
@@ -170,7 +187,6 @@ fi
 ## 'stolen' from @garybernhardt
 ### ...........................................................................
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd" # colorization in ls
-export GREP_OPTIONS="--color"            # colorization in grep results
 export WORDCHARS='*?[]$HOME&;!$%^<>'
 # By default, zsh considers many characters part of a word (e.g., _ and -).
 # Narrow that down to allow easier skipping through words (!)
@@ -178,11 +194,21 @@ export WORDCHARS='*?[]$HOME&;!$%^<>'
 
 # ZSH                                                                         #
 #.............................................................................#
-
+setopt autocd nomatch
 setopt no_beep
-setopt complete_in_word
+setopt complete_in_word 
+# Share history across all terminal sessions
+setopt SHARE_HISTORY
 
+# Append to history file, don't overwrite
+setopt APPEND_HISTORY
+
+# Better history searching with arrow keys
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
 ## PATH
+
+export PATH="$PATH:~/.local/bin"
 
 ### GNU coreutils
 GNU_BIN="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin"
@@ -450,9 +476,15 @@ fi
 #   if [ -f "$RUST_BINARIES/sccache" ]; then export RUSTC_WRAPPER=sccache; fi
 # fi
 
+## GO
+#.........................................................
+export PATH="$HOME/go/bin:$PATH"
 
 #  Misc                                                                       #
 #-----------------------------------------------------------------------------#
+## Tabby AI Autocomplete
+eval "$(tabby-agent init --shell zsh)"
+
 ## ATUIN HISTORY
 # if [ -f "$HOME/.atuin/bin/env" ]; then 
 #   . "$HOME/.atuin/bin/env"; 
@@ -480,18 +512,15 @@ fi
 # Load External Configs                                                       #
 #-----------------------------------------------------------------------------#
 
-[[ ! -f $HOME/.zshrc-confidentials ]] || source $HOME/.zshrc-confidentials  # Load additional/secret configurations
-[[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh # Load powerlevel10k config
+[[ ! -f $HOME/.zshrc-confidentials ]] || source $HOME/.zshrc-confidentials 2> /dev/null # Load additional/secret configurations
+[[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh 2> /dev/null # Load powerlevel10k config
 
 # if command -v ngrok &>/dev/null; then
 #   eval "$(ngrok completion)"
 # fi
 
-export PATH="$PATH:~/.local/bin"
-
-
 # Source aliases last
-[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases &> /dev/null
+[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases 2> /dev/null
 
 
 
@@ -505,8 +534,31 @@ export PATH="$PATH:~/.local/bin"
 # find -L $PROJECTS_ROOT -maxdepth 1 -type d | fzf --reverse --pointer="►" --height 100% --min-height=12 --color border:237 --border=sharp --preview-window=30%, --preview 'cd $@; git status ; exa -1 -l --color=always --icons ${(Q)realpath}'
 # export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 # export PYTHONHOME=$PYENV_ROOT/versions/"$(python -V | cut -d' ' -f 2)"
-# [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-# source $HOME/.config/broot/launcher/bash/br
+# TmuxSessionInit()
+# {
+#     declare sessionName="$1";
+#     shift;
+
+#     # Check if the Tmux session exists
+#     if ! tmux has-session -t="$sessionName" 2> '/dev/null';
+#     then
+#         # Create the Tmux session
+#         TMUX='' tmux new-session -ds "$sessionName";
+#     fi
+
+#     # Switch if inside of Tmux
+#     if [[ "${TMUX-}" != '' ]];
+#     then
+#         exec tmux switch-client -t "$sessionName";
+#     fi
+
+#     # Attach if outside of Tmux
+#     exec tmux attach -t "$sessionName";
+# }
+
+# TmuxSessionInit '0';
+# tmux source-file ~/.tmux.conf
+# tmux -CC 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # export PATH="/usr/local/opt/postgresql@16/bin:$PATH"
 
@@ -515,4 +567,17 @@ export PATH="$PATH:~/.local/bin"
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh &> /dev/null
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit

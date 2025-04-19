@@ -91,6 +91,7 @@ brew "helix" # code editor
 # cask "google-chrome" # Web browser
 # cask "handbrake" # Open-source video transcoder
 # cask "iterm2" # Terminal emulator for macOS
+# cask "kitty"
 # cask "osxfuse" # File system integration for macOS
 # cask "plugdata" # music synthesis software
 # cask "telegram" # Messaging app

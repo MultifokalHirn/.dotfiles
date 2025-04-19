@@ -50,20 +50,28 @@ man () {
     LESS_TERMCAP_us=$(printf "\e[1;32m") \
       man "$@"
 }
-
+# fuzzy-find any file with syntax preview
+fbat() {
+  local file
+  file=$(fzf --preview 'bat --style=numbers --color=always --line-range :500 {}') && code "$file"
+}
 # Sorts directories in top, colors, and prints `/` at directories:
 # alias ls="gls --color -h --group-directories-first -F"
+alias grep='grep --color=auto' # colors grep results
 alias todo="nano ~/todo.txt"
 alias hint="printf '${BLUE}Cool commands and aliases:\n\n${GREEN}hn\ncdd\nstats\nfortune\ntrash\n'"
-alias reload="printf 'Running ${BLUE}_omz::reload${NC}!\n'; _omz::reload"
+alias reload="printf 'Running ${BLUE}_omz::reload${NC}! ${GRAY}(consider compiling zsh stuff using ${GREEN}zcompile ~/.zshrc ~/.aliases${GRAY}).\n'; _omz::reload"
 alias rel="reload"
 alias df="df; printf '\nFor more human-readable output, try running ${GREEN}dfh${NC}!\n'"
 alias dfh='/bin/df -h'
 alias history='history -E 1' # show timestamps and ignore duplicates in history
+alias h='history | fzf' # Fuzzy search through command history
 alias p='change-project' # change-project is defined in custom functions
 alias d='cd ~/Downloads/'
 alias mv='mv -iv'
 alias cp='cp -iv'
+alias myip="curl ifconfig.me"
+alias localip="ipconfig getifaddr en0"
 create-dir () {
   \mkdir $@ && printf "Created new directory ${GREEN}$@/${NC} ${GRAY}in $(pwd)${NC}\n"
 }
@@ -75,6 +83,8 @@ alias hn='clx --nerdfonts --categories="top,best,ask,show,new"'
 alias -s {js,json,env,md,html,css,toml}=cat
 
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
+alias ports='lsof -i -P -n | grep LISTEN' # View port usage
 
 has_cmd bat && alias cat='bat --theme=GitHub -P --style "plain,changes" --color=always'
 has_cmd brew && alias update="printf 'Running ${BLUE}brew update${NC}...\n'; brew update && printf 'Running ${BLUE}brew upgrade${NC}...\n'; brew upgrade"
