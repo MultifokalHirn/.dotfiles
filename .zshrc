@@ -39,6 +39,7 @@ zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
 
 # Ensure the .zsh_plugins.txt file exists so you can add plugins.
 [[ -f ${zsh_plugins}.txt ]] || touch ${zsh_plugins}.txt
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 
 # fpath=(${antidote_path}/functions $fpath)
@@ -51,6 +52,7 @@ fi
 
 # Source your static plugins file.
 source ${zsh_plugins}.zsh
+source <(fzf --zsh)
 autoload -Uz promptinit && promptinit && prompt pure
 # To customize prompt, run `p10k configure` or edit .p10k.zsh.
 [[ ! -f ${HOME}/.p10k.zsh ]] || source ${HOME}/.p10k.zsh
