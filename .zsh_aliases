@@ -7,7 +7,9 @@
 
 #                             CUSTOM FUNCTIONS                                #
 #-----------------------------------------------------------------------------#
+
 export PROJECTS_ROOT="$HOME/Documents/GitHub"
+
 can-use-for-aliasing() {
   # Helper function to check if a command exists to use for aliasing
   # Example usage: `can-use-for-aliasing some_command && echo yay || echo no`
@@ -98,6 +100,7 @@ can-use-for-aliasing broot && alias cdd='broot -s'
 can-use-for-aliasing htop && alias top='htop'
 can-use-for-aliasing btm && alias top='btm'
 can-use-for-aliasing dust && alias du='dust'
+can-use-for-aliasing fd && alias find='fd'
 can-use-for-aliasing eza && alias la='eza --sort=type --long --all --icons --color=always' || alias la='ls -lah'
 can-use-for-aliasing lazydocker && alias lzd='lazydocker'
 
