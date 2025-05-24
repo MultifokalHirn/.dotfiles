@@ -164,7 +164,7 @@ has_cmd() {
   # Helper function to check if a command exists. 
   # Example usage: `has_cmd some_command && echo yay || echo no`
 	for cmd in "$@"; do
-		command -v "$cmd" >/dev/null || printf "Cannot create alias using ${RED}$cmd${NC} since it is not installed.\n"
+		command -v "$cmd" >/dev/null || printf "Command ${RED}$cmd${NC} is not installed.\n"
 	done
 }
 
@@ -206,8 +206,8 @@ setopt APPEND_HISTORY
 # Better history searching with arrow keys
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
-## PATH
 
+## PATH
 export PATH="$PATH:~/.local/bin"
 
 ### GNU coreutils
@@ -222,7 +222,6 @@ if [ -d "$GNU_GREP" ]; then export PATH="$GNU_GREP:$PATH"; fi
 if [ -d "$GNU_AWK" ]; then export PATH="$GNU_AWK:$PATH"; fi
 if [ -d "$GNU_FILE" ]; then export PATH="$GNU_FILE:$PATH"; fi
 if [ -d "$GNU_FIND" ]; then export PATH="$GNU_FIND:$PATH"; fi
-
 
 # Standard Applications                                                       #
 #.............................................................................#
@@ -458,6 +457,8 @@ if [ -d $NVM_DIR ]; then
   export NVM_LAZY_LOAD=true
   export NVM_COMPLETION=true
 fi
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 ## RUBY
 #.........................................................
@@ -483,7 +484,10 @@ export PATH="$HOME/go/bin:$PATH"
 #  Misc                                                                       #
 #-----------------------------------------------------------------------------#
 ## Tabby AI Autocomplete
-eval "$(tabby-agent init --shell zsh)"
+# has_cmd tabby-agent && eval "$(tabby-agent init --shell zsh)"
+
+## ZOXIDE: Shell extension to navigate your filesystem faster
+has_cmd zoxide && eval "$(zoxide init zsh)"
 
 ## ATUIN HISTORY
 # if [ -f "$HOME/.atuin/bin/env" ]; then 
@@ -512,7 +516,6 @@ eval "$(tabby-agent init --shell zsh)"
 # Load External Configs                                                       #
 #-----------------------------------------------------------------------------#
 
-[[ ! -f $HOME/.zshrc-confidentials ]] || source $HOME/.zshrc-confidentials 2> /dev/null # Load additional/secret configurations
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh 2> /dev/null # Load powerlevel10k config
 
 # if command -v ngrok &>/dev/null; then
@@ -521,6 +524,7 @@ eval "$(tabby-agent init --shell zsh)"
 
 # Source aliases last
 [ -f ~/.zsh_aliases ] && source ~/.zsh_aliases 2> /dev/null
+[[ ! -f $HOME/.zshrc-confidentials ]] || source $HOME/.zshrc-confidentials 2> /dev/null # Load additional/secret configurations
 
 
 

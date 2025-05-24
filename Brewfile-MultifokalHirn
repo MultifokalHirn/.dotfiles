@@ -1,11 +1,11 @@
 #                                                                             #
-# Brewfile                                                                     #
+# Brewfile                                                                    #
 # ------------                                                                #
 # Author: @MultifokalHirn                                                     #
-# Repository: https://github.com/MultifokalHirn/.dotfiles                      #
+# Repository: https://github.com/MultifokalHirn/.dotfiles                     #
 #                                                                             #
-# This Brewfile contains a list of Homebrew packages to be installed           #
-# Usage: brew bundle --file=~/Brewfile-MultifokalHirn                           #
+# This Brewfile contains a list of Homebrew packages to be installed          #
+# Usage: brew bundle --file=~/Brewfile-MultifokalHirn                         #
 #                                                                             #
 
 #                                                                             #
@@ -45,9 +45,11 @@ brew "jq"                 # Lightweight and flexible command-line JSON processor
 brew "lazydocker"         # Terminal UI for Docker and Docker Compose
 brew "less"               # Pager program similar to more
 brew "lesspipe"           # Preprocessor for less
+brew "mkcert"             # Simple tool to make locally trusted development certificates
 brew "nano"               # Text editor
 brew "nanorc"             # Syntax highlighting for nano
 brew "nmap"               # Network exploration tool and security scanner
+brew "nvm"                # Manage multiple Node.js versions
 brew "pandoc"             # Universal document converter
 brew "pipx"               # Python package executer
 brew "pre-commit"         # Framework for managing and maintaining multi-language pre-commit hooks
@@ -60,11 +62,13 @@ brew "selecta"            # Fuzzy text selector for files and anything else you 
 brew "sqlite"             # Command-line interface for SQLite
 brew "squashfs"           # Compressed read-only file system
 brew "tldr"               # Simplified and community-driven man pages
-brew "tailscale"          #
+brew "tailscale"          # Tailscale VPN
 brew "tmux"               # Terminal multiplexer
 brew "trash"              # (?)
 brew "tree"               # Display directories as trees
 brew "wget"               # Internet file retriever
+brew "xh"                 # Friendly and fast tool for sending HTTP requests. https://github.com/ducaale/xh
+brew "zoxide"             # Shell extension to navigate your filesystem faster
 brew "zsh-completions"    # Additional completion definitions for Zsh
 brew "zsh"                # Zsh shell
 # brew "clx"                                # Hacker News browser in the terminal [DEPRECATED]
@@ -87,9 +91,10 @@ cask "iterm2"          # Terminal emulator for macOS
 cask "jordanbaird-ice" # Hide menu bar icons on macOS; replaced dozer
 cask "maccy"           # clipboard manager
 cask "macfuse"         # File system integration for macOS (formely 'osxfuse')
+cask "postman"         # Postman
+cask "obsidian"        # obsidian
 cask "telegram"        # Messaging app
-# cask "firefox"                             # Web browser
-# cask "plugdata" # music synthesis software
+cask "plugdata"        # music synthesis software
 cask "font-martian-mono"
 cask "font-monaspace"
 cask "font-sf-mono-nerd-font-ligaturized"
@@ -100,6 +105,7 @@ cask "font-geist-mono-nerd-font"
 cask "font-hack-nerd-font" # Nerd Font patched version of Hack font
 cask "font-martian-mono-nerd-font"
 cask "font-proggy-clean-tt-nerd-font"
+# cask "firefox"                             # Web browser
 # cask "github"                             # GitHub Desktop client
 # cask "google-chrome"                      # Web browser
 # cask "kitty"
