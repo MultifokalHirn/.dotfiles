@@ -90,7 +90,8 @@ brew "zsh"                # Zsh shell
 # CASKS                                                                       #
 # -----                                                                       #
 
-cask "alt-tab" # window switching with previews
+cask "alt-tab"  # window switching with previews
+cask "basictex" # Minimal TeX Live distribution for macOS (for pandoc)
 cask "ghostty"
 cask "hammerspoon"     # interact with macOS API in Lua
 cask "handbrake"       # Open-source video transcoder
@@ -109,7 +110,8 @@ cask "font-0xproto-nerd-font"
 cask "font-arimo-nerd-font"
 cask "font-departure-mono-nerd-font"
 cask "font-geist-mono-nerd-font"
-cask "font-hack-nerd-font" # Nerd Font patched version of Hack font
+cask "chaychoong/tap/font-opus-one" #
+cask "font-hack-nerd-font"          # Nerd Font patched version of Hack font
 cask "font-martian-mono-nerd-font"
 cask "font-proggy-clean-tt-nerd-font"
 # cask "firefox"                             # Web browser

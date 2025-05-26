@@ -19,6 +19,8 @@ can-use-for-aliasing() {
 }
 change-project() {
   # Used via: alias p="change-project"
+  # cd $(fd -L $PROJECTS_ROOT --maxdepth 1 --type d | selecta) && clear
+  # old way using find, not fd
   cd $(find -L $PROJECTS_ROOT -maxdepth 1 -type d | selecta) && clear
 }
 
@@ -68,7 +70,7 @@ fbat() {
 alias grep='grep --color=auto' # colors grep results
 alias todo="nano ~/todo.txt"
 alias hint="printf '${BLUE}Cool commands and aliases:\n\n${GREEN}hn\ncdd\nstats\nfortune\ntrash\n'"
-alias reload="printf 'Running ${BLUE}_omz::reload${NC}! ${GRAY}(consider compiling zsh stuff using ${GREEN}zcompile ~/.zshrc ~/.aliases${GRAY}).\n'; _omz::reload"
+alias reload="printf 'Running ${BLUE}_omz::reload${NC}! ${GRAY}(consider compiling zsh stuff using ${GREEN}zcompile ~/.zshrc ~/.zsh_aliases${GRAY}).\n'; _omz::reload"
 alias rel="reload"
 alias df="df; printf '\nFor more human-readable output, try running ${GREEN}dfh${NC}!\n'"
 alias dfh='/bin/df -h'
@@ -100,7 +102,7 @@ can-use-for-aliasing broot && alias cdd='broot -s'
 can-use-for-aliasing htop && alias top='htop'
 can-use-for-aliasing btm && alias top='btm'
 can-use-for-aliasing dust && alias du='dust'
-can-use-for-aliasing fd && alias find='fd'
+# can-use-for-aliasing fd && alias find='fd'
 can-use-for-aliasing eza && alias la='eza --sort=type --long --all --icons --color=always' || alias la='ls -lah'
 can-use-for-aliasing lazydocker && alias lzd='lazydocker'
 

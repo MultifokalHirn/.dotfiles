@@ -19,12 +19,12 @@ This repository contains my personal dotfiles, as well as some instructions on h
    1. [iTerm2](#iterm2)
    2. [`brew` packages](#brew-packages)
    3. [Other additional packages and applications](#other-additional-packages-and-applications)
-      1. [cspell](#cspell)
-   4. [`zsh`](#zsh)
+   4. [pandoc \& building pdfs](#pandoc--building-pdfs)
+   5. [`zsh`](#zsh)
       1. [`.zshrc`](#zshrc)
       2. [`ohmyzsh`](#ohmyzsh)
       3. [`lesspipe.sh`](#lesspipesh)
-   5. [Language-specific Setups](#language-specific-setups)
+   6. [Language-specific Setups](#language-specific-setups)
       1. [`python`](#python)
       2. [`ruby`](#ruby)
       3. [`rust`](#rust)
@@ -111,6 +111,21 @@ brew bundle --file=~/Brewfile-MultifokalHirn
 
 ### Other additional packages and applications
 
+### pandoc & building pdfs
+
+See <https://gist.github.com/ilessing/7ff705de0f594510e463146762cef779> for more info
+
+``` bash
+brew install pandoc basictex
+
+# to build pdf files have pdflatex from basictex in your PATH
+la /Library/TeX/texbin/pdflatex
+# lrwxrwxrwx - root 26 May 11:37 /Library/TeX/texbin/pdflatex -> pdftex
+
+ln -s -v /Library/TeX/texbin/pdflatex /opt/homebrew/bin/pdflatex
+```
+
+<!-- 
 #### cspell
 
 See the official [website](https://cspell.org) for more information.
@@ -119,7 +134,7 @@ See the official [website](https://cspell.org) for more information.
 npm install -g cspell@latest # install cspell
 npm install -g @cspell/dict-de-de # german dictionary
 cspell link add @cspell/dict-de-de # link dictionary
-```
+``` -->
 
 ### `zsh`
 
