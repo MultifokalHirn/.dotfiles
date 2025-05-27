@@ -12,6 +12,8 @@
 # Packages I want to check out                                                #
 # ----------------------------                                               #
 # brew "nushell"
+# brew "zsh-async"          # https://github.com/mafredri/zsh-async
+# brew "zsh-abbr"           # https://github.com/olets/zsh-abbr
 brew "midnight-commander" # visual file manager https://midnight-commander.org
 brew "stats"              # macOS system monitor in your menu bar (like iStat menus) https://github.com/exelban/stats
 brew "ripgrep-all"        # Wrapper around ripgrep that adds multiple rich file types
@@ -74,16 +76,19 @@ brew "tldr"               # Simplified and community-driven man pages
 brew "tailscale"          # Tailscale VPN
 brew "tmux"               # Terminal multiplexer
 brew "trash"              # (?)
+brew "tree"               # Display directories as trees
+brew "wget"               # Internet file retriever
+brew "xh"                 # Friendly and fast tool for sending HTTP requests. https://github.com/ducaale/xh
+brew "zoxide"             # Shell extension to navigate your filesystem faster
 # brew "olets/tap/zsh-window-title" # DEPRECATED ?
-brew "tree"                # Display directories as trees
-brew "wget"                # Internet file retriever
-brew "xh"                  # Friendly and fast tool for sending HTTP requests. https://github.com/ducaale/xh
-brew "zoxide"              # Shell extension to navigate your filesystem faster
-brew "zsh-autosuggestions" #
-brew "zsh-autocomplete"    # Additional completion definitions for Zsh
-# brew "zsh-completions"              # Additional completion definitions for Zsh
+brew "zsh-autosuggestions"          #
+brew "zsh-you-should-use"           # ZSH plugin that reminds you to use existing aliases for commands you just typed
+brew "zsh-git-prompt"               # Informative git prompt for zsh https://github.com/olivierverdier/zsh-git-prompt
+brew "zsh-autocomplete"             # Additional completion definitions for Zsh
+brew "zsh-completions"              # Additional completion definitions for Zsh
 brew "zsh-fast-syntax-highlighting" #
 brew "zsh-history-substring-search" # Zsh port of Fish shell's history search
+brew "zsh-autopair"                 # Auto-close and delete matching delimiters in zsh
 brew "zsh"                          # Zsh shell
 # brew "clx"                                # Hacker News browser in the terminal [DEPRECATED]
 # brew "glances"                            # System monitoring tool
@@ -97,7 +102,7 @@ brew "zsh"                          # Zsh shell
 # CASKS                                                                       #
 # -----                                                                       #
 
-cask "anki"               # Memory training application
+# cask "anki"               # Memory training application
 cask "alt-tab"            # window switching with previews
 cask "basictex"           # Minimal TeX Live distribution for macOS (for pandoc)
 cask "ghostty"            # Terminal emulator

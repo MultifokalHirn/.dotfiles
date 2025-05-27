@@ -116,30 +116,34 @@ HIST_IGNORE_SPACE="true"
 #                                                                             
 # ATTENTION: plugins are loaded in the order they are listed here. Be careful 
 # when changing the order of plugins, as they may depend on each other (e.g.  
-# the completion system).                                                     
+# the completion system).   
+  if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  fi                                                  
 autoload -Uz compinit && compinit # initialize zsh completion system
 
 # TODO: try out antidote
 # source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 # source ~/.zsh_plugins.zsh
-# plugins
+
 source $HOMEBREW_PREFIX/Cellar/zsh-fast-syntax-highlighting/1.55/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $HOMEBREW_PREFIX/opt/zsh-git-prompt/zshrc.sh
 source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source $HOMEBREW_PREFIX/share/zsh-autopair/autopair.zsh
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $HOMEBREW_PREFIX/share/zsh-you-should-use/you-should-use.plugin.zsh
 
 plugins=(
   git
   fzf-tab
   fzf-tab-source
-  # fast-syntax-highlighting
-  # zsh-autosuggestions
   macos
   history
   # pre-commit
   python
   # zsh-nvm
   ohmyzsh-full-autoupdate
-  # zsh-history-substring-search
   # pyenv-lazy
   zinsults
   zsh-completions
