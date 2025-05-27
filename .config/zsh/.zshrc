@@ -10,7 +10,7 @@
 DISABLE_AUTO_UPDATE="true"
 DISABLE_MAGIC_FUNCTIONS="true"
 DISABLE_COMPFIX="true"
-
+export HOMEBREW_PREFIX="$(brew --prefix)"
 # Init completions with cache (faster startup)
 autoload -Uz compinit
 compinit -C
@@ -122,19 +122,24 @@ autoload -Uz compinit && compinit # initialize zsh completion system
 # TODO: try out antidote
 # source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 # source ~/.zsh_plugins.zsh
+# plugins
+source $HOMEBREW_PREFIX/Cellar/zsh-fast-syntax-highlighting/1.55/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 plugins=(
   git
   fzf-tab
   fzf-tab-source
-  fast-syntax-highlighting
-  zsh-autosuggestions
+  # fast-syntax-highlighting
+  # zsh-autosuggestions
   macos
   history
   # pre-commit
   python
   # zsh-nvm
   ohmyzsh-full-autoupdate
+  # zsh-history-substring-search
   # pyenv-lazy
   zinsults
   zsh-completions
@@ -149,7 +154,7 @@ plugins=(
   # zsh-navigation-tools
 )
 
-export DISABLE_AUTO_TITLE="true" # for https://github.com/olets/zsh-window-title#oh-my-zsh-users
+# export DISABLE_AUTO_TITLE="true" # for https://github.com/olets/zsh-window-title#oh-my-zsh-users
 
 #..............................................................................
 
@@ -176,7 +181,7 @@ has_cmd() {
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export HOMEBREW_NO_ANALYTICS=1
-export HOMEBREW_PREFIX="/usr/local"  # $(brew --prefix)
+
 # export HOMEBREW_NO_ENV_HINTS=1 
 
 ## preferred editor for local and remote sessions
@@ -208,6 +213,7 @@ setopt APPEND_HISTORY
 # Better history searching with arrow keys
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
+
 
 ## PATH
 export PATH="$PATH:~/.local/bin"
@@ -461,7 +467,7 @@ if [ -d $NVM_DIR ]; then
 fi
 
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh" || echo "could not init nvm" # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  || echo "could not init nvm bash_completion"  # This loads nvm bash_completion
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  || echo could not init nvm bash_completion  # This loads nvm bash_completion
 
 CONSOLE_NINJA_BIN="$HOME/.console-ninja/.bin"
 [[ -d $CONSOLE_NINJA_BIN ]] && PATH="$CONSOLE_NINJA_BIN:$PATH" || echo "could not find console-ninja bin directory"
@@ -536,11 +542,10 @@ autoload -Uz _zinit
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
 
-
 # Load External Configs                                                       #
 #-----------------------------------------------------------------------------#
 
-[[ ! -f $HOME/.config/zsh/.p10k.zsh ]] || source $HOME/.config/zsh/.p10k.zsh 2> /dev/null # Load powerlevel10k config
+[ -f $HOME/.config/zsh/.p10k.zsh ] && source $HOME/.config/zsh/.p10k.zsh 2> /dev/null # Load powerlevel10k config
 
 ## Source aliases and confidentials last
 [ -f $HOME/.config/zsh/.zsh_aliases ] && source $HOME/.config/zsh/.zsh_aliases 2> /dev/null
