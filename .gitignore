@@ -10,3 +10,4 @@
 # tracked by git, so any future changes to my .somefile show up in git status, 
 # git diff, etc. as usual.
 .config/zsh/.zshrc-confidentials
+.gitconfig
