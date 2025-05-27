@@ -20,6 +20,7 @@ This repository contains my personal dotfiles, as well as some instructions on h
    2. [`brew` packages](#brew-packages)
    3. [Other additional packages and applications](#other-additional-packages-and-applications)
    4. [pandoc \& building pdfs](#pandoc--building-pdfs)
+      1. [eisvogel template](#eisvogel-template)
    5. [`zsh`](#zsh)
       1. [`.zshrc`](#zshrc)
       2. [`ohmyzsh`](#ohmyzsh)
@@ -125,6 +126,18 @@ la /Library/TeX/texbin/pdflatex
 ln -s -v /Library/TeX/texbin/pdflatex /opt/homebrew/bin/pdflatex
 ```
 
+#### eisvogel template
+
+Template files are in .pandoc folder. You will nee these to build pdfs with eisvogel.
+
+```bash
+sudo tlmgr install soul adjustbox babel-german background bidi collectbox csquotes everypage filehook footmisc footnotebackref framed fvextra letltxmacro ly1 mdframed mweights needspace pagecolor sourcecodepro sourcesanspro titling ucharcat unicode-math upquote xecjk xurl zref draftwatermark
+```
+
+```bash
+pandoc README.md -o Downloads/README.pdf --template eisvogel
+```
+
 <!-- 
 #### cspell
 
@@ -215,7 +228,7 @@ git clone https://github.com/Freed-Wu/fzf-tab-source.git
 git clone https://github.com/zsh-users/zsh-completions.git
 
 # fast-syntax-highlighting
-#  fast syntax highlighting 🙃
+#  fast syntax highlighting
 git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git
 
 # zsh-nvm

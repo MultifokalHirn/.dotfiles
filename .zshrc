@@ -149,6 +149,8 @@ plugins=(
   # zsh-navigation-tools
 )
 
+export DISABLE_AUTO_TITLE="true" # for https://github.com/olets/zsh-window-title#oh-my-zsh-users
+
 #..............................................................................
 
 source $ZSH/oh-my-zsh.sh # initialize oh-my-zsh
@@ -431,7 +433,7 @@ export POETRY_VIRTUALENVS_IN_PROJECT=1
 
 ### pyenv
 PYENV_ROOT="$HOME/.pyenv"
-if [ -d $PYENV_ROOT ]; then
+if [[ -d $PYENV_ROOT ]]; then
   export PYENV_ROOT=$PYENV_ROOT
   export PATH="$PYENV_ROOT/bin:$PATH"
   ## ATTENTION: pyenv-lazy plugin is required to be installed and enabled for 
@@ -457,8 +459,12 @@ if [ -d $NVM_DIR ]; then
   export NVM_LAZY_LOAD=true
   export NVM_COMPLETION=true
 fi
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh" || echo "could not init nvm" # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  || echo "could not init nvm bash_completion"  # This loads nvm bash_completion
+
+CONSOLE_NINJA_BIN="$HOME/.console-ninja/.bin"
+[[ -d $CONSOLE_NINJA_BIN ]] && PATH="$CONSOLE_NINJA_BIN:$PATH" || echo "could not find console-ninja bin directory"
 
 ## RUBY
 #.........................................................
@@ -511,24 +517,36 @@ has_cmd zoxide && eval "$(zoxide init zsh)"
 # KUBECTL_PATH="$HOMEBREW_PREFIX/bin/kubectl"
 # if [ -f "$KUBECTL_PATH" ]; then alias kubectl="$KUBECTL_PATH"; fi
 
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
 
-
-# Load External Configs                                                       #
-#-----------------------------------------------------------------------------#
-
-[[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh 2> /dev/null # Load powerlevel10k config
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 # if command -v ngrok &>/dev/null; then
 #   eval "$(ngrok completion)"
 # fi
 
-# Source aliases last
-[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases 2> /dev/null
-[[ ! -f $HOME/.zshrc-confidentials ]] || source $HOME/.zshrc-confidentials 2> /dev/null # Load additional/secret configurations
-
-
-
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
+
+
+# Load External Configs                                                       #
+#-----------------------------------------------------------------------------#
+
+[[ ! -f $HOME/.config/zsh/.p10k.zsh ]] || source $HOME/.config/zsh/.p10k.zsh 2> /dev/null # Load powerlevel10k config
+
+## Source aliases and confidentials last
+[ -f $HOME/.config/zsh/.zsh_aliases ] && source $HOME/.config/zsh/.zsh_aliases 2> /dev/null
+[[ ! -f $HOME/.config/zsh/.zshrc-confidentials ]] || source $HOME/.config/zsh/.zshrc-confidentials 2> /dev/null # Load additional/secret configurations
+
+
 
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
@@ -566,24 +584,4 @@ has_cmd zoxide && eval "$(zoxide init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # export PATH="/usr/local/opt/postgresql@16/bin:$PATH"
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh &> /dev/null
-
-### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
-
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
-PATH=~/.console-ninja/.bin:$PATH

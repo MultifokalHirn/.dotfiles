@@ -12,6 +12,8 @@
 # Packages I want to check out                                                #
 # ----------------------------                                               #
 # brew "nushell"
+brew "midnight-commander" # visual file manager https://midnight-commander.org
+brew "stats" # macOS system monitor in your menu bar (like iStat menus) https://github.com/exelban/stats
 brew "ripgrep-all" # Wrapper around ripgrep that adds multiple rich file types
 brew "fd"          # Simple, fast and user-friendly alternative to find. https://github.com/sharkdp/fd
 # brew "presenterm"
@@ -76,6 +78,11 @@ brew "tree"               # Display directories as trees
 brew "wget"               # Internet file retriever
 brew "xh"                 # Friendly and fast tool for sending HTTP requests. https://github.com/ducaale/xh
 brew "zoxide"             # Shell extension to navigate your filesystem faster
+brew "olets/tap/zsh-window-title"    # 
+brew "zsh-fast-syntax-highlighting"    # 
+brew "zsh-autosuggestions"    # 
+brew "zsh-syntax-highlighting"    # 
+brew "zsh-history-substring-search"    # 
 brew "zsh-completions"    # Additional completion definitions for Zsh
 brew "zsh"                # Zsh shell
 # brew "clx"                                # Hacker News browser in the terminal [DEPRECATED]
@@ -90,9 +97,11 @@ brew "zsh"                # Zsh shell
 # CASKS                                                                       #
 # -----                                                                       #
 
+cask "anki"  # Memory training application
 cask "alt-tab"  # window switching with previews
 cask "basictex" # Minimal TeX Live distribution for macOS (for pandoc)
-cask "ghostty"
+cask "ghostty" # Terminal emulator
+cask "karabiner-elements" # Keyboard customiser
 cask "hammerspoon"     # interact with macOS API in Lua
 cask "handbrake"       # Open-source video transcoder
 cask "iterm2"          # Terminal emulator for macOS
