@@ -11,13 +11,15 @@
 #                                                                             #
 # Packages I want to check out                                                #
 # ----------------------------                                               #
+tap "charmbracelet/tap"
 # brew "nushell"
+brew "charmbracelet/tap/freeze" # screenshot a command https://github.com/charmbracelet/freeze
 # brew "zsh-async"          # https://github.com/mafredri/zsh-async
 # brew "zsh-abbr"           # https://github.com/olets/zsh-abbr
 brew "midnight-commander" # visual file manager https://midnight-commander.org
-brew "stats"              # macOS system monitor in your menu bar (like iStat menus) https://github.com/exelban/stats
 brew "ripgrep-all"        # Wrapper around ripgrep that adds multiple rich file types
 brew "fd"                 # Simple, fast and user-friendly alternative to find. https://github.com/sharkdp/fd
+# cask "stats"              # macOS system monitor in your menu bar (like iStat menus) https://github.com/exelban/stats
 # brew "presenterm"
 # brew "starship.rs"
 # brew "dui"
@@ -103,20 +105,24 @@ brew "zsh"                          # Zsh shell
 # -----                                                                       #
 
 # cask "anki"               # Memory training application
-cask "alt-tab"            # window switching with previews
-cask "basictex"           # Minimal TeX Live distribution for macOS (for pandoc)
-cask "ghostty"            # Terminal emulator
-cask "karabiner-elements" # Keyboard customiser
-cask "hammerspoon"        # interact with macOS API in Lua
-cask "handbrake"          # Open-source video transcoder
-cask "iterm2"             # Terminal emulator for macOS
-cask "jordanbaird-ice"    # Hide menu bar icons on macOS; replaced dozer
-cask "maccy"              # clipboard manager
-cask "macfuse"            # File system integration for macOS (formely 'osxfuse')
-cask "postman"            # Postman
-cask "obsidian"           # obsidian
-cask "telegram"           # Messaging app
-cask "plugdata"           # music synthesis software
+cask "ngrok"              # Secure introspectable tunnels to localhost
+cask "git-credential-manager" # Git Credential Manager for macOS
+cask "alt-tab"                # window switching with previews
+cask "basictex"               # Minimal TeX Live distribution for macOS (for pandoc)
+cask "ghostty"                # Terminal emulator
+cask "karabiner-elements"     # Keyboard customiser
+cask "hammerspoon"            # interact with macOS API in Lua
+cask "handbrake"              # Open-source video transcoder
+cask "iterm2"                 # Terminal emulator for macOS
+cask "jordanbaird-ice"        # Hide menu bar icons on macOS; replaced dozer
+cask "maccy"                  # clipboard manager
+cask "macfuse"                # File system integration for macOS (formely 'osxfuse')
+cask "postman"                # Postman
+cask "obsidian"               # obsidian
+cask "telegram"               # Messaging app
+cask "plugdata"               # music synthesis software
+cask "raycast"               # shortcuts etc
+
 cask "font-martian-mono"
 cask "font-monaspace"
 cask "font-sf-mono-nerd-font-ligaturized"

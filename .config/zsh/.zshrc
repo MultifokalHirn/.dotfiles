@@ -185,7 +185,7 @@ has_cmd() {
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export HOMEBREW_NO_ANALYTICS=1
-
+export LOGS_PATH="$HOME/.logs"
 # export HOMEBREW_NO_ENV_HINTS=1 
 
 ## preferred editor for local and remote sessions
@@ -234,6 +234,15 @@ if [ -d "$GNU_GREP" ]; then export PATH="$GNU_GREP:$PATH"; fi
 if [ -d "$GNU_AWK" ]; then export PATH="$GNU_AWK:$PATH"; fi
 if [ -d "$GNU_FILE" ]; then export PATH="$GNU_FILE:$PATH"; fi
 if [ -d "$GNU_FIND" ]; then export PATH="$GNU_FIND:$PATH"; fi
+
+if [ -d "$LOGS_PATH" ]; then
+  preexec () {
+    local fmt_date="$(date +'%Y-%m-%d.%H:%M:%S')" >& /dev/null
+    echo "${fmt_date} \"${PWD}\" $1" >> $LOGS_PATH/zsh-history-$(date "+%Y-%m-%d").log
+  }
+else
+  echo "Logs path $LOGS_PATH does not exist. Please create it to enable logging."
+fi
 
 # Standard Applications                                                       #
 #.............................................................................#
