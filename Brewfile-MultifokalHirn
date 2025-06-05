@@ -106,6 +106,7 @@ brew "zsh"                          # Zsh shell
 
 # cask "anki"                 # Memory training application
 cask "finicky"                # app for customizing which browser to start
+cask "browserosaurus"         # macOS browser chooser
 cask "ngrok"                  # Secure introspectable tunnels to localhost
 cask "git-credential-manager" # Git Credential Manager for macOS
 cask "alt-tab"                # window switching with previews
