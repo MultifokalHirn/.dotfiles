@@ -104,8 +104,9 @@ brew "zsh"                          # Zsh shell
 # CASKS                                                                       #
 # -----                                                                       #
 
-# cask "anki"               # Memory training application
-cask "ngrok"              # Secure introspectable tunnels to localhost
+# cask "anki"                 # Memory training application
+cask "finicky"                # app for customizing which browser to start
+cask "ngrok"                  # Secure introspectable tunnels to localhost
 cask "git-credential-manager" # Git Credential Manager for macOS
 cask "alt-tab"                # window switching with previews
 cask "basictex"               # Minimal TeX Live distribution for macOS (for pandoc)
@@ -117,11 +118,12 @@ cask "iterm2"                 # Terminal emulator for macOS
 cask "jordanbaird-ice"        # Hide menu bar icons on macOS; replaced dozer
 cask "maccy"                  # clipboard manager
 cask "macfuse"                # File system integration for macOS (formely 'osxfuse')
-cask "postman"                # Postman
+# cask "postman"                # Postman
 cask "obsidian"               # obsidian
-cask "telegram"               # Messaging app
-cask "plugdata"               # music synthesis software
+# cask "telegram"               # Messaging app
+# cask "plugdata"               # music synthesis software
 cask "raycast"               # shortcuts etc
+cask "calibre"               # E-book management software
 
 cask "font-martian-mono"
 cask "font-monaspace"
