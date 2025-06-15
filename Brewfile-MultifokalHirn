@@ -11,138 +11,137 @@
 #                                                                             #
 # Packages I want to check out                                                #
 # ----------------------------                                               #
-tap "charmbracelet/tap"
-# brew "nushell"
-brew "charmbracelet/tap/freeze" # screenshot a command https://github.com/charmbracelet/freeze
-# brew "zsh-async"          # https://github.com/mafredri/zsh-async
-# brew "zsh-abbr"           # https://github.com/olets/zsh-abbr
-brew "midnight-commander" # visual file manager https://midnight-commander.org
-brew "ripgrep-all"        # Wrapper around ripgrep that adds multiple rich file types
-brew "fd"                 # Simple, fast and user-friendly alternative to find. https://github.com/sharkdp/fd
-# cask "stats"              # macOS system monitor in your menu bar (like iStat menus) https://github.com/exelban/stats
-# brew "presenterm"
-# brew "starship.rs"
 # brew "dui"
-brew "yazi"
-# brew "tabby-agent"
+# brew "nushell"
+# brew "presenterm"
 # brew "shellcheck"                         # Static analysis and lint tool, for (ba)sh scripts
+# brew "starship.rs"
+# brew "tabby-agent"
 # brew "tig"                                # Text interface for Git repositories  https://jonas.github.io/tig/
 # brew "zplug"                              # plugin manager for zsh
+# brew "zsh-abbr"           # https://github.com/olets/zsh-abbr
+# brew "zsh-async"                  # https://github.com/mafredri/zsh-async
 # cask "karabiner-elements"                 # Keyboard customizer
-# cask "syntax-highlight"                   # Quicklook extension for source files
+# cask "stats"                   # macOS system monitor in your menu bar (like iStat menus) https://github.com/exelban/stats
+# cask "syntax-highlight"                    # Quicklook extension for source files
+brew "charmbracelet/tap/freeze" # screenshot a command https://github.com/charmbracelet/freeze
+brew "fd"                       # Simple, fast and user-friendly alternative to find. https://github.com/sharkdp/fd
+brew "midnight-commander"       # visual file manager https://midnight-commander.org
+brew "ripgrep-all"              # Wrapper around ripgrep that adds multiple rich file types
+brew "yazi"
+tap "charmbracelet/tap"
 
 #                                                                             #
 # PACKAGES
 # ----------------------------                                                #
 
-brew "asciinema"          # Terminal session recorder
-brew "bash-completion2"   # Bash completion
-brew "bash"               # Bash shell
-brew "bat"                # Cat clone with syntax highlighting
-brew "bottom"             # Cross-platform graphical process/system monitor
-brew "broot"              # File manager and launcher for the command-line
-brew "chafa"              # Image-to-text converter
-brew "dust"               # alternative to du (disk utility)
-brew "eza"                # maintained modern replacement for 'ls' (predecessor exa is not maintained)
-brew "fortune"            # Display random quotes
-brew "fzf"                # Command-line fuzzy finder
-brew "gh"                 # GitHub CLI tool
-brew "git-delta"          # Syntax-highlighting pager for Git
-brew "git-extras"         # Additional Git commands
-brew "git"                # Distributed version control system
-brew "gnupg"              # GNU Privacy Guard
-brew "grep"               # Text search tool
-brew "hr"                 # Horizontal rule for terminal output
-brew "htop"               # Interactive process viewer
-brew "jq"                 # Lightweight and flexible command-line JSON processor
-brew "lazydocker"         # Terminal UI for Docker and Docker Compose
-brew "less"               # Pager program similar to more
-brew "lesspipe"           # Preprocessor for less
-brew "mkcert"             # Simple tool to make locally trusted development certificates
-brew "nano"               # Text editor
-brew "nanorc"             # Syntax highlighting for nano
-brew "nmap"               # Network exploration tool and security scanner
-brew "nvm"                # Manage multiple Node.js versions
-brew "pandoc"             # Universal document converter
-brew "pipx"               # Python package executer
-brew "pre-commit"         # Framework for managing and maintaining multi-language pre-commit hooks
-brew "pyenv"              # Python version management
-brew "python-argcomplete" # Python package 'argcomplete'
-brew "rclone"             # Command-line program to sync files and directories to and from cloud storage
-brew "rg"                 # ripgrep, a faster grep
-brew "rsync"              # Fast and versatile file copying/syncing program
-brew "selecta"            # Fuzzy text selector for files and anything else you need to select
-brew "sqlite"             # Command-line interface for SQLite
-brew "squashfs"           # Compressed read-only file system
-brew "tldr"               # Simplified and community-driven man pages
-brew "tailscale"          # Tailscale VPN
-brew "tmux"               # Terminal multiplexer
-brew "trash"              # (?)
-brew "tree"               # Display directories as trees
-brew "wget"               # Internet file retriever
-brew "xh"                 # Friendly and fast tool for sending HTTP requests. https://github.com/ducaale/xh
-brew "zoxide"             # Shell extension to navigate your filesystem faster
-# brew "olets/tap/zsh-window-title" # DEPRECATED ?
-brew "zsh-autosuggestions"          #
-brew "zsh-you-should-use"           # ZSH plugin that reminds you to use existing aliases for commands you just typed
-brew "zsh-git-prompt"               # Informative git prompt for zsh https://github.com/olivierverdier/zsh-git-prompt
-brew "zsh-autocomplete"             # Additional completion definitions for Zsh
-brew "zsh-completions"              # Additional completion definitions for Zsh
-brew "zsh-fast-syntax-highlighting" #
-brew "zsh-history-substring-search" # Zsh port of Fish shell's history search
-brew "zsh-autopair"                 # Auto-close and delete matching delimiters in zsh
-brew "zsh"                          # Zsh shell
 # brew "clx"                                # Hacker News browser in the terminal [DEPRECATED]
 # brew "glances"                            # System monitoring tool
 # brew "helix"                              # code editor
 # brew "muesli/homebrew-tap/duf"            # Disk Usage/Free Utility
 # brew "nvm"                                # Node Version Manager
+# brew "olets/tap/zsh-window-title" # DEPRECATED ?
 # brew "openssh"                            # OpenSSH client and server
 # brew "screen"
+brew "asciinema"                    # Terminal session recorder
+brew "bash-completion2"             # Bash completion
+brew "bash"                         # Bash shell
+brew "bat"                          # Cat clone with syntax highlighting
+brew "bottom"                       # Cross-platform graphical process/system monitor
+brew "broot"                        # File manager and launcher for the command-line
+brew "chafa"                        # Image-to-text converter
+brew "dust"                         # alternative to du (disk utility)
+brew "eza"                          # maintained modern replacement for 'ls' (predecessor exa is not maintained)
+brew "fortune"                      # Display random quotes
+brew "fzf"                          # Command-line fuzzy finder
+brew "gh"                           # GitHub CLI tool
+brew "git-delta"                    # Syntax-highlighting pager for Git
+brew "git-extras"                   # Additional Git commands
+brew "git"                          # Distributed version control system
+brew "gnupg"                        # GNU Privacy Guard
+brew "grep"                         # Text search tool
+brew "hr"                           # Horizontal rule for terminal output
+brew "htop"                         # Interactive process viewer
+brew "jq"                           # Lightweight and flexible command-line JSON processor
+brew "lazydocker"                   # Terminal UI for Docker and Docker Compose
+brew "less"                         # Pager program similar to more
+brew "lesspipe"                     # Preprocessor for less
+brew "mkcert"                       # Simple tool to make locally trusted development certificates
+brew "nano"                         # Text editor
+brew "nanorc"                       # Syntax highlighting for nano
+brew "nmap"                         # Network exploration tool and security scanner
+brew "nvm"                          # Manage multiple Node.js versions
+brew "pandoc"                       # Universal document converter
+brew "pipx"                         # Python package executer
+brew "pre-commit"                   # Framework for managing and maintaining multi-language pre-commit hooks
+brew "pyenv"                        # Python version management
+brew "python-argcomplete"           # Python package 'argcomplete'
+brew "rclone"                       # Command-line program to sync files and directories to and from cloud storage
+brew "rg"                           # ripgrep, a faster grep
+brew "rsync"                        # Fast and versatile file copying/syncing program
+brew "selecta"                      # Fuzzy text selector for files and anything else you need to select
+brew "sqlite"                       # Command-line interface for SQLite
+brew "squashfs"                     # Compressed read-only file system
+brew "tailscale"                    # Tailscale VPN
+brew "tldr"                         # Simplified and community-driven man pages
+brew "tmux"                         # Terminal multiplexer
+brew "trash"                        # (?)
+brew "tree"                         # Display directories as trees
+brew "wget"                         # Internet file retriever
+brew "xh"                           # Friendly and fast tool for sending HTTP requests. https://github.com/ducaale/xh
+brew "zoxide"                       # Shell extension to navigate your filesystem faster
+brew "zsh-autocomplete"             # Additional completion definitions for zsh
+brew "zsh-autopair"                 # Auto-close and delete matching delimiters in zsh
+brew "zsh-autosuggestions"          # zsh plugin that suggests commands as you type
+brew "zsh-completions"              # Additional completion definitions for zsh
+brew "zsh-fast-syntax-highlighting" # syntax highlighting for zsh
+brew "zsh-git-prompt"               # Informative git prompt for zsh https://github.com/olivierverdier/zsh-git-prompt
+brew "zsh-history-substring-search" # zsh port of Fish shell's history search
+brew "zsh-you-should-use"           # zsh plugin that reminds you to use existing aliases for commands you just typed
+brew "zsh"                          # zsh shell
 
 #                                                                             #
 # CASKS                                                                       #
 # -----                                                                       #
 
-# cask "anki"                 # Memory training application
-cask "finicky"                # app for customizing which browser to start
-cask "ngrok"                  # Secure introspectable tunnels to localhost
-cask "git-credential-manager" # Git Credential Manager for macOS
-cask "alt-tab"                # window switching with previews
-cask "basictex"               # Minimal TeX Live distribution for macOS (for pandoc)
-cask "ghostty"                # Terminal emulator
-cask "karabiner-elements"     # Keyboard customiser
-cask "hammerspoon"            # interact with macOS API in Lua
-cask "handbrake"              # Open-source video transcoder
-cask "iterm2"                 # Terminal emulator for macOS
-cask "jordanbaird-ice"        # Hide menu bar icons on macOS; replaced dozer
-cask "maccy"                  # clipboard manager
-cask "macfuse"                # File system integration for macOS (formely 'osxfuse')
-# cask "postman"                # Postman
-cask "obsidian"               # obsidian
-# cask "telegram"               # Messaging app
+# cask "anki"                   # Memory training application
+# cask "calibre"                # E-book management software
+# cask "firefox"                # Web browser
+# cask "git-credential-manager" # Git Credential Manager for macOS
+# cask "github"                 # GitHub Desktop client
+# cask "google-chrome"          # Web browser
+# cask "kitty"                  # Terminal emulator
 # cask "plugdata"               # music synthesis software
-cask "raycast"               # shortcuts etc
-cask "calibre"               # E-book management software
-
-cask "font-martian-mono"
-cask "font-monaspace"
-cask "font-sf-mono-nerd-font-ligaturized"
+# cask "plugdata"               # music synthesis software
+# cask "postman"                # Postman
+# cask "raycast"                # shortcuts etc
+# cask "telegram"               # Messaging app
+# cask "visual-studio-code"     # Source code editor
+# cask "vlc"                    # Media player
+cask "alt-tab"                      # window switching with previews
+cask "basictex"                     # Minimal TeX Live distribution for macOS (for pandoc)
+cask "chaychoong/tap/font-opus-one" # Opus One font
+cask "finicky"                      # app for customizing which browser to start
 cask "font-0xproto-nerd-font"
 cask "font-arimo-nerd-font"
 cask "font-departure-mono-nerd-font"
 cask "font-geist-mono-nerd-font"
-cask "chaychoong/tap/font-opus-one" #
-cask "font-hack-nerd-font"          # Nerd Font patched version of Hack font
+cask "font-hack-nerd-font" # Nerd Font patched version of Hack font
 cask "font-martian-mono-nerd-font"
+cask "font-martian-mono"
+cask "font-monaspace"
 cask "font-proggy-clean-tt-nerd-font"
-# cask "firefox"                             # Web browser
-# cask "github"                             # GitHub Desktop client
-# cask "google-chrome"                      # Web browser
-# cask "kitty"
-# cask "plugdata"                           # music synthesis software
-# cask "visual-studio-code"                 # Source code editor
-# cask "vlc"                                # Media player
+cask "font-sf-mono-nerd-font-ligaturized"
+cask "ghostty"            # Terminal emulator
+cask "hammerspoon"        # interact with macOS API in Lua
+cask "handbrake"          # Open-source video transcoder
+cask "iterm2"             # Terminal emulator for macOS
+cask "jordanbaird-ice"    # Hide menu bar icons on macOS; replaced dozer
+cask "karabiner-elements" # Keyboard customiser
+cask "maccy"              # clipboard manager
+cask "macfuse"            # File system integration for macOS (formely 'osxfuse')
+cask "ngrok"              # Secure introspectable tunnels to localhost
+cask "obsidian"           # obsidian
 
 #                                                                             #
 # QUICKLOOK PLUGINS (macOS)                                                   #
@@ -158,137 +157,3 @@ cask "suspicious-package" # for inspecting macOS installer packages
 # brew "quicklook-json"                     # for JSON files [status-unknown]
 # brew "quicklookase"                       # for Adobe Swatch Exchange files
 # cask "qlimagesize"                        # for image size and resolution
-
-#                                                                             #
-# VS Code extensions                                                          #
-# ------------------                                                          #
-
-# vscode "2gua.rainbow-brackets"
-# vscode "aaron-bond.better-comments"
-# vscode "aeschli.vscode-css-formatter"
-# vscode "alexcvzz.vscode-sqlite"
-# vscode "analytic-signal.preview-html"
-# vscode "be5invis.toml"
-# vscode "betterthantomorrow.calva"
-# vscode "betterthantomorrow.calva-spritz"
-# vscode "bierner.emojisense"
-# vscode "bierner.github-markdown-preview"
-# vscode "bierner.markdown-checkbox"
-# vscode "bierner.markdown-emoji"
-# vscode "bierner.markdown-footnotes"
-# vscode "bierner.markdown-mermaid"
-# vscode "bierner.markdown-preview-github-styles"
-# vscode "bierner.markdown-yaml-preamble"
-# vscode "blanu.vscode-styled-jsx"
-# vscode "bradlc.vscode-tailwindcss"
-# vscode "charliermarsh.ruff"
-# vscode "christian-kohler.npm-intellisense"
-# vscode "csstools.postcss"
-# vscode "CT6502.idl"
-# vscode "DavidAnson.vscode-markdownlint"
-# vscode "dbaeumer.vscode-eslint"
-# vscode "DigitalAssetHoldingsLLC.ghcide"
-# vscode "docsmsft.docs-yaml"
-# vscode "donjayamanne.githistory"
-# vscode "donjayamanne.python-environment-manager"
-# vscode "dsznajder.es7-react-js-snippets"
-# vscode "eamodio.gitlens"
-# vscode "ecmel.vscode-html-css"
-# vscode "emmanuelbeziat.vscode-great-icons"
-# vscode "esbenp.prettier-vscode"
-# vscode "foam.foam-vscode"
-# vscode "formulahendry.auto-rename-tag"
-# vscode "formulahendry.docker-explorer"
-# vscode "foxundermoon.shell-format"
-# vscode "frhtylcn.pythonsnippets"
-# vscode "garreh.sublime-search-vscode"
-# vscode "gencer.html-slim-scss-css-class-completion"
-# vscode "ginfuru.ginfuru-vscode-jekyll-syntax"
-# vscode "ginfuru.vscode-jekyll-snippets"
-# vscode "GitHub.codespaces"
-# vscode "GitHub.copilot"
-# vscode "GitHub.copilot-chat"
-# vscode "github.vscode-github-actions"
-# vscode "GitHub.vscode-pull-request-github"
-# vscode "golang.go"
-# # vscode "Gruntfuggly.todo-tree"
-# vscode "hbenl.vscode-test-explorer"
-# vscode "hediet.vscode-drawio"
-# vscode "hoovercj.haskell-linter"
-# vscode "hoovercj.ruby-linter"
-# vscode "houssaineamzil.next-js-snippets"
-# vscode "huizhou.githd"
-# # vscode "James-Yu.latex-workshop"
-# vscode "jamesohortle.unicodehover"
-# vscode "jeff-hykin.better-dockerfile-syntax"
-# vscode "justusadam.language-haskell"
-# vscode "kargware.vscode-extension-jekyll-kw"
-# vscode "KevinRose.vsc-python-indent"
-# vscode "kortina.vscode-markdown-notes"
-# vscode "lacroixdavid1.vscode-format-context-menu"
-# vscode "lextudio.restructuredtext"
-# vscode "littlefoxteam.vscode-python-test-adapter"
-# vscode "mads-hartmann.bash-ide-vscode"
-# vscode "mathematic.vscode-latex"
-# vscode "mattn.Lisp"
-# vscode "MaxGabriel.brittany"
-# vscode "miguelsolorio.fluent-icons"
-# vscode "mrmlnc.vscode-scss"
-# vscode "ms-azuretools.vscode-docker"
-# vscode "ms-python.mypy-type-checker"
-# vscode "ms-python.python"
-# vscode "ms-python.vscode-pylance"
-# # vscode "ms-toolsai.jupyter"
-# # vscode "ms-toolsai.jupyter-keymap"
-# # vscode "ms-toolsai.jupyter-renderers"
-# # vscode "ms-toolsai.vscode-jupyter-cell-tags"
-# # vscode "ms-toolsai.vscode-jupyter-slideshow"
-# vscode "ms-vscode-remote.remote-containers"
-# vscode "ms-vscode.cpptools-themes"
-# vscode "ms-vscode.makefile-tools"
-# vscode "ms-vscode.sublime-keybindings"
-# vscode "ms-vscode.test-adapter-converter"
-# vscode "ms-vscode.Theme-TomorrowKit"
-# vscode "ms-vscode.vscode-typescript-next"
-# vscode "ms-vsliveshare.vsliveshare"
-# vscode "msyrus.go-doc"
-# vscode "naumovs.color-highlight"
-# vscode "ndmitchell.haskell-ghcid"
-# vscode "nickfode.latex-formatter"
-# vscode "njpwerner.autodocstring"
-# vscode "njqdev.vscode-python-typehint"
-# vscode "NuclleaR.vscode-extension-auto-import"
-# vscode "oderwat.indent-rainbow"
-# vscode "oven.bun-vscode"
-# vscode "PascalReitermann93.vscode-yaml-sort"
-# vscode "philipbe.theme-gray-matter"
-# vscode "pomdtr.excalidraw-editor"
-# vscode "pranaygp.vscode-css-peek"
-# vscode "qingpeng.common-lisp"
-# vscode "qwtel.sqlite-viewer"
-# vscode "redhat.ansible"
-# vscode "redhat.vscode-commons"
-# vscode "redhat.vscode-yaml"
-# vscode "rvest.vs-code-prettier-eslint"
-# vscode "samuelcolvin.jinjahtml"
-# vscode "sibiraj-s.vscode-scss-formatter"
-# vscode "SirTori.indenticator"
-# vscode "sissel.shopify-liquid"
-# vscode "sozercan.slack"
-# vscode "streetsidesoftware.code-spell-checker"
-# vscode "streetsidesoftware.code-spell-checker-german"
-# vscode "stylelint.vscode-stylelint"
-# vscode "syler.sass-indented"
-# vscode "tamasfe.even-better-toml"
-# vscode "tchayen.markdown-links"
-# vscode "trond-snekvik.simple-rst"
-# vscode "tushortz.python-extended-snippets"
-# vscode "VisualStudioExptTeam.intellicode-api-usage-examples"
-# vscode "VisualStudioExptTeam.vscodeintellicode"
-# vscode "waderyan.gitblame"
-# # vscode "WakaTime.vscode-wakatime"
-# vscode "WallabyJs.console-ninja"
-# vscode "yidash.outline-plus"
-# vscode "yzhang.markdown-all-in-one"
-# vscode "ZainChen.json"
-# vscode "Zignd.html-css-class-completion"
