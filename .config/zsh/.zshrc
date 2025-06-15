@@ -11,9 +11,7 @@ DISABLE_AUTO_UPDATE="true"
 DISABLE_MAGIC_FUNCTIONS="true"
 DISABLE_COMPFIX="true"
 export HOMEBREW_PREFIX="$(brew --prefix)"
-# Init completions with cache (faster startup)
-autoload -Uz compinit
-compinit -C
+
 
 # ANSI Colors for reference
 # Black        0;30     Dark Gray     1;30
@@ -117,18 +115,18 @@ HIST_IGNORE_SPACE="true"
 # ATTENTION: plugins are loaded in the order they are listed here. Be careful 
 # when changing the order of plugins, as they may depend on each other (e.g.  
 # the completion system).   
-  if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-  fi                                                  
-autoload -Uz compinit && compinit # initialize zsh completion system
+if type brew &>/dev/null; then
+  FPATH=$HOMEBREW_PREFIX/share/zsh-completions:$FPATH
+fi                                                  
+autoload -Uz compinit && compinit -u # initialize zsh completion system
 
 # TODO: try out antidote
 # source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 # source ~/.zsh_plugins.zsh
 
-source $HOMEBREW_PREFIX/Cellar/zsh-fast-syntax-highlighting/1.55/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $HOMEBREW_PREFIX/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source $HOMEBREW_PREFIX/opt/zsh-git-prompt/zshrc.sh
-source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 source $HOMEBREW_PREFIX/share/zsh-autopair/autopair.zsh
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
@@ -151,7 +149,7 @@ plugins=(
   # docker-compose
   # github
   # pyenv
-  # ssh-agent
+  ssh-agent
   # tmux
   # wakatime
   # zsh-interactive-cd
@@ -415,9 +413,9 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # source ~/auto-sized-fzf.sh
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#663399,standout"
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
-ZSH_AUTOSUGGEST_USE_ASYNC=1
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#663399,standout"
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 ## ENV VARS
 
@@ -473,17 +471,17 @@ eval "$(register-python-argcomplete pipx)"
 #.........................................................
 ### nvm (Node Version Manager)
 NVM_DIR="$HOME/.nvm"
-if [ -d $NVM_DIR ]; then
+if [ -d "$NVM_DIR" ]; then
   export NVM_DIR=$NVM_DIR
   export NVM_LAZY_LOAD=true
   export NVM_COMPLETION=true
 fi
 
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh" || echo "could not init nvm" # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  || echo could not init nvm bash_completion  # This loads nvm bash_completion
+[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && source "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" || echo "could not init nvm" # This loads nvm
+[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && source "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"  || echo could not init nvm bash_completion  # This loads nvm bash_completion
 
-CONSOLE_NINJA_BIN="$HOME/.console-ninja/.bin"
-[[ -d $CONSOLE_NINJA_BIN ]] && PATH="$CONSOLE_NINJA_BIN:$PATH" || echo "could not find console-ninja bin directory"
+# CONSOLE_NINJA_BIN="$HOME/.console-ninja/.bin"
+# [[ -d $CONSOLE_NINJA_BIN ]] && PATH="$CONSOLE_NINJA_BIN:$PATH" || echo "could not find console-ninja bin directory"
 
 ## RUBY
 #.........................................................
@@ -537,18 +535,20 @@ has_cmd zoxide && eval "$(zoxide init zsh)"
 # if [ -f "$KUBECTL_PATH" ]; then alias kubectl="$KUBECTL_PATH"; fi
 
 ### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
+# if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+#     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+#     command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+#     command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+#         print -P "%F{33} %F{34}Installation successful.%f%b" || \
+#         print -P "%F{160} The clone has failed.%f%b"
+# fi
 
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
+# source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+# autoload -Uz _zinit
+# (( ${+_comps} )) && _comps[zinit]=_zinit
+# Init completions with cache (faster startup)
+# autoload -Uz compinit
+# compinit -C
 # if command -v ngrok &>/dev/null; then
 #   eval "$(ngrok completion)"
 # fi
