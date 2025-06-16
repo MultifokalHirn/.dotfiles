@@ -67,7 +67,8 @@ fbat() {
 }
 # Sorts directories in top, colors, and prints `/` at directories:
 # alias ls="gls --color -h --group-directories-first -F"
-alias grep='grep --color=auto' # colors grep results
+can-use-for-aliasing '/usr/local/bin/brew' && alias ibrew='/usr/local/bin/brew' # Rosetta 2 brew
+alias grep='grep --color=auto'                                                  # colors grep results
 alias todo="nano ~/todo.txt"
 alias hint="printf '${BLUE}Cool commands and aliases:\n\n${GREEN}hn\ncdd\nstats\nfortune\ntrash\n'"
 alias reload="printf 'Running ${BLUE}_omz::reload${NC}! ${GRAY}(consider compiling zsh stuff using ${GREEN}zcompile ~/.zshrc ~/.zsh_aliases${GRAY}).\n'; _omz::reload"

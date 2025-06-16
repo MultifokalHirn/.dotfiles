@@ -218,7 +218,8 @@ bindkey "^[[B" history-beginning-search-forward
 
 
 ## PATH
-export PATH="$PATH:~/.local/bin"
+if [ -d "$HOME/.local/bin" ]; then export PATH="$PATH:$HOME/.local/bin"; fi
+export PATH="/opt/homebrew/bin:$PATH"
 
 ### GNU coreutils
 GNU_BIN="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin"
@@ -502,7 +503,8 @@ fi
 
 ## GO
 #.........................................................
-export PATH="$HOME/go/bin:$PATH"
+GO_BINARIES="$HOME/go/bin"
+if [ -d "$GO_BINARIES" ]; then export PATH="$GO_BINARIES:$PATH"; fi
 
 #  Misc                                                                       #
 #-----------------------------------------------------------------------------#
