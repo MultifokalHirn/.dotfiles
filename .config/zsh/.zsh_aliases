@@ -67,8 +67,8 @@ fbat() {
 }
 # Sorts directories in top, colors, and prints `/` at directories:
 # alias ls="gls --color -h --group-directories-first -F"
-can-use-for-aliasing '/usr/local/bin/brew' && alias ibrew='/usr/local/bin/brew' # Rosetta 2 brew
-alias grep='grep --color=auto'                                                  # colors grep results
+ls '/usr/local/bin/brew' && alias ibrew='/usr/local/bin/brew' # Rosetta 2 brew
+alias grep='grep --color=auto'                                # colors grep results
 alias todo="nano ~/todo.txt"
 alias hint="printf '${BLUE}Cool commands and aliases:\n\n${GREEN}hn\ncdd\nstats\nfortune\ntrash\n'"
 alias reload="printf 'Running ${BLUE}_omz::reload${NC}! ${GRAY}(consider compiling zsh stuff using ${GREEN}zcompile ~/.zshrc ~/.zsh_aliases${GRAY}).\n'; _omz::reload"
@@ -120,6 +120,6 @@ alias stats='printf "${BLUE}Your most used commands:${NC}\n"; \history 0 | awk "
 remove-file() {
   \trash $@ && printf "${RED}$@${NC} was moved into the Trash\n${GRAY}(Hint: Run ${BLUE}trash${GRAY} to list all items currently in the Trash)${NC}\n"
 }
-
+[[ -z "fork" ]] || alias fork='/Applications/Fork.app/Contents/MacOS/Fork'
 [[ -z "$commands[trash]" ]] || alias rm='remove-file'  # 2>&1 > /dev/null
 [[ -z "$commands[trash]" ]] || alias trash='\trash -l' # lists all items currently in the Trash

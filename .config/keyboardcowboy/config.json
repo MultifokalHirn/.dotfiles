@@ -687,6 +687,21 @@
                 ]
               }
             }
+          },
+          {
+            "execution" : "serial",
+            "id" : "AE287FC4-A099-4735-9786-002D168F0348",
+            "name" : "right cmd to ctrl",
+            "trigger" : {
+              "keyboardShortcuts" : {
+                "shortcuts" : [
+                  {
+                    "id" : "B40B671E-718D-45B8-8D7D-BA78CCBD981F",
+                    "key" : "⎋"
+                  }
+                ]
+              }
+            }
           }
         ]
       },
@@ -779,12 +794,27 @@
               "keyboardShortcuts" : {
                 "shortcuts" : [
                   {
-                    "id" : "00B2F2D8-6422-4003-925D-F0E323797A2C",
+                    "id" : "6E003472-1026-404C-96FF-D8F997B4CE5C",
                     "key" : "g",
                     "modifiers" : [
-                      "$",
-                      "^"
+                      "r~"
                     ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "execution" : "concurrent",
+            "id" : "D2B1E8E9-0E0C-4E7C-99E1-D2DB50BC3E1C",
+            "name" : "<-",
+            "trigger" : {
+              "keyboardShortcuts" : {
+                "passthrough" : true,
+                "shortcuts" : [
+                  {
+                    "id" : "57F1AC1B-E69B-429B-B629-862350C0C074",
+                    "key" : "←"
                   }
                 ]
               }

@@ -124,7 +124,7 @@
 	excludesfile = ~/.gitignore_global
 
 [init]
-	defaultBranch = MultifokalHirn
+	defaultBranch = main
 
 # URL shorthands
 

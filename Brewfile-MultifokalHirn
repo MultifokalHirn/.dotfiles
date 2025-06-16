@@ -114,6 +114,7 @@ cask "firefox"                # Web browser
 # cask "kitty"                  # Terminal emulator
 # cask "plugdata"               # music synthesis software
 # cask "plugdata"               # music synthesis software
+cask "keyboard-cowboy"        # Keyboard shortcut utility
 # cask "postman"                # Postman
 # cask "raycast"                # shortcuts etc
 # cask "telegram"               # Messaging app
