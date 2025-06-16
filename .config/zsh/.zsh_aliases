@@ -94,8 +94,8 @@ alias -s {js,json,env,md,html,css,toml}=cat
 
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
-alias ports='lsof -i -P -n | grep LISTEN' # View port usage
-
+alias ports='lsof -i -P -n | grep LISTEN'                                                       # View port usage
+command -v "fork" >/dev/null || alias fork='open -a /Applications/Fork.app/Contents/MacOS/Fork' # Open Fork app
 can-use-for-aliasing bat && alias cat='bat --theme=GitHub -P --style "plain,changes" --color=always'
 can-use-for-aliasing brew && alias update="printf 'Running ${BLUE}brew update${NC}...\n'; brew update && printf 'Running ${BLUE}brew upgrade${NC}...\n'; brew upgrade"
 can-use-for-aliasing broot && alias cdd='broot -s'

@@ -36,6 +36,10 @@ export default {
       browser: "Google Chrome",
     },
     {
+      match: "localhost:*/*",
+      browser: "com.browserosaurus",
+    },
+    {
       // Open Apple Music links directly in Music.app
       match: ["music.apple.com*", "geo.music.apple.com*"],
       url: {
