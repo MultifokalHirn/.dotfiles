@@ -83,7 +83,7 @@ brew "selecta"                      # Fuzzy text selector for files and anything
 brew "sqlite"                       # Command-line interface for SQLite
 brew "squashfs"                     # Compressed read-only file system
 brew "tailscale"                    # Tailscale VPN
-brew "tldr"                         # Simplified and community-driven man pages
+brew "tlrc"                         # Simplified and community-driven man pages
 brew "tmux"                         # Terminal multiplexer
 brew "trash"                        # (?)
 brew "tree"                         # Display directories as trees
